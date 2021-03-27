@@ -1,0 +1,15 @@
+{
+  "Server":"polyswap",
+  "DBConfig":{
+    "URL":"10.203.0.11:3306",
+    "User":"root",
+    "Password":"PAIGWICQFKDNzdL5aTw0pIPrBeoYinXu4A==",
+    "Scheme":"polyswap",
+    "Debug": true
+  },
+  "SrcTransactions": [],
+  "WrapperTransactions": [],
+  "PolyTransactions": [],
+  "DstTransactions": [{"Hash":"adcb76a684c84b39acba82b0e6467763d1ddbd49650df8128c0af225d3df0ac7","ChainId":7,"State":1,"Time":1615909941,"Fee":172664000000000,"Height":3005447,"SrcChainId":4,"Contract":"020c15e7d08a8ec7d35bcf3ac3ccbf0bbf2704e6","PolyHash":"d677068c92ffe26b74092a9da6807f9b3a29b08f2ba9c082f73237b6edb282c5","DstTransfer":{"TxHash":"adcb76a684c84b39acba82b0e6467763d1ddbd49650df8128c0af225d3df0ac7","ChainId":7,"Time":1615909941,"Asset":"14127c943752d265b21d6963f8576a05c5c8e59c","From":"020c15e7d08a8ec7d35bcf3ac3ccbf0bbf2704e6","To":"d5dbafdb1f41faf903642994d6a44c87b69a1f91","Amount":96999991729510}}],
+  "RemoveTransactions": []
+}
