@@ -21,7 +21,7 @@ import (
 	"encoding/json"
 
 	"github.com/astaxie/beego"
-	"github.com/polynetwork/poly-bridge/dao/models"
+	"github.com/polynetwork/poly-nft-bridge/dao/models"
 )
 
 type AddressController struct {

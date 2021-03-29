@@ -21,8 +21,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	basedef "github.com/polynetwork/poly-bridge/const"
-	"github.com/polynetwork/poly-bridge/dao/models"
+	basedef "github.com/polynetwork/poly-nft-bridge/const"
+	"github.com/polynetwork/poly-nft-bridge/dao/models"
 )
 
 type StakeDao struct {

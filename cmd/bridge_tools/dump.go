@@ -20,8 +20,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/polynetwork/poly-bridge/conf"
-	"github.com/polynetwork/poly-bridge/dao/models"
+	"github.com/polynetwork/poly-nft-bridge/conf"
+	"github.com/polynetwork/poly-nft-bridge/dao/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"

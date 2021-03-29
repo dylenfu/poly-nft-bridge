@@ -20,9 +20,9 @@ package main
 import (
 	"strings"
 
-	"github.com/polynetwork/poly-bridge/cmd/bridge_tools/conf"
-	"github.com/polynetwork/poly-bridge/dao/crosschaindao"
-	"github.com/polynetwork/poly-bridge/dao/models"
+	"github.com/polynetwork/poly-nft-bridge/cmd/bridge_tools/conf"
+	"github.com/polynetwork/poly-nft-bridge/dao/crosschaindao"
+	"github.com/polynetwork/poly-nft-bridge/dao/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"

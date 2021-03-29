@@ -21,9 +21,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/polynetwork/poly-bridge/conf"
-	basedef "github.com/polynetwork/poly-bridge/const"
-	"github.com/polynetwork/poly-bridge/dao/models"
+	"github.com/polynetwork/poly-nft-bridge/conf"
+	basedef "github.com/polynetwork/poly-nft-bridge/const"
+	"github.com/polynetwork/poly-nft-bridge/dao/models"
 )
 
 type DeployConfig struct {

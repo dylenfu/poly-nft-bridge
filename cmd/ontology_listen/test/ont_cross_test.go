@@ -25,9 +25,9 @@ import (
 	ontology_go_sdk "github.com/ontio/ontology-go-sdk"
 	"github.com/ontio/ontology/common"
 	"github.com/ontio/ontology/core/types"
-	"github.com/polynetwork/poly-bridge/conf"
-	basedef "github.com/polynetwork/poly-bridge/const"
-	"github.com/polynetwork/poly-bridge/lib/sdk/chainsdk"
+	"github.com/polynetwork/poly-nft-bridge/conf"
+	basedef "github.com/polynetwork/poly-nft-bridge/const"
+	"github.com/polynetwork/poly-nft-bridge/sdk/chainsdk"
 )
 
 func TestOntCross(t *testing.T) {

@@ -1,4 +1,4 @@
-module github.com/polynetwork/poly-bridge
+module github.com/polynetwork/poly-nft-bridge
 
 go 1.14
 

@@ -21,7 +21,7 @@ import (
 	"encoding/json"
 
 	"github.com/astaxie/beego/logs"
-	basedef "github.com/polynetwork/poly-bridge/const"
+	basedef "github.com/polynetwork/poly-nft-bridge/const"
 )
 
 type DBConfig struct {

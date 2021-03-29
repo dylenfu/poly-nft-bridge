@@ -24,8 +24,8 @@ import (
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
-	basedef "github.com/polynetwork/poly-bridge/const"
-	"github.com/polynetwork/poly-bridge/dao/models"
+	basedef "github.com/polynetwork/poly-nft-bridge/const"
+	"github.com/polynetwork/poly-nft-bridge/dao/models"
 )
 
 type FeeController struct {

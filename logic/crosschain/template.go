@@ -19,16 +19,19 @@ package crosschain
 
 import (
 	"fmt"
-	"github.com/polynetwork/poly-bridge/logic/crosschain/eth"
 	"math"
 	"runtime/debug"
 	"time"
 
 	"github.com/astaxie/beego/logs"
-	"github.com/polynetwork/poly-bridge/conf"
-	basedef "github.com/polynetwork/poly-bridge/const"
-	"github.com/polynetwork/poly-bridge/dao/crosschaindao"
-	"github.com/polynetwork/poly-bridge/dao/models"
+	"github.com/polynetwork/poly-nft-bridge/conf"
+	basedef "github.com/polynetwork/poly-nft-bridge/const"
+	"github.com/polynetwork/poly-nft-bridge/dao/crosschaindao"
+	"github.com/polynetwork/poly-nft-bridge/dao/models"
+	"github.com/polynetwork/poly-nft-bridge/logic/crosschain/eth"
+	"github.com/polynetwork/poly-nft-bridge/logic/crosschain/neo"
+	"github.com/polynetwork/poly-nft-bridge/logic/crosschain/ontology"
+	"github.com/polynetwork/poly-nft-bridge/logic/crosschain/poly"
 )
 
 var chainListens [10]*CrossChainListen
@@ -71,15 +74,15 @@ func NewChainHandle(chainListenConfig *conf.ChainListenConfig) ChainHandle {
 	if chainListenConfig.ChainId == basedef.ETHEREUM_CROSSCHAIN_ID {
 		return eth.NewEthereumChainListen(chainListenConfig)
 	} else if chainListenConfig.ChainId == basedef.POLY_CROSSCHAIN_ID {
-		return NewPolyChainListen(chainListenConfig)
+		return poly.NewPolyChainListen(chainListenConfig)
 	} else if chainListenConfig.ChainId == basedef.NEO_CROSSCHAIN_ID {
-		return NewNeoChainListen(chainListenConfig)
+		return neo.NewNeoChainListen(chainListenConfig)
 	} else if chainListenConfig.ChainId == basedef.BSC_CROSSCHAIN_ID {
 		return eth.NewEthereumChainListen(chainListenConfig)
 	} else if chainListenConfig.ChainId == basedef.HECO_CROSSCHAIN_ID {
 		return eth.NewEthereumChainListen(chainListenConfig)
 	} else if chainListenConfig.ChainId == basedef.ONT_CROSSCHAIN_ID {
-		return NewOntologyChainListen(chainListenConfig)
+		return ontology.NewOntologyChainListen(chainListenConfig)
 	} else {
 		return nil
 	}

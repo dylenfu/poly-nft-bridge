@@ -24,7 +24,7 @@ import (
 	"github.com/astaxie/beego/context"
 	"github.com/astaxie/beego/logs"
 	"github.com/astaxie/beego/plugins/cors"
-	_ "github.com/polynetwork/poly-bridge/logic/bridge_http"
+	_ "github.com/polynetwork/poly-nft-bridge/logic/bridge_http"
 )
 
 func main() {

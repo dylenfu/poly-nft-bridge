@@ -24,12 +24,12 @@ import (
 	"time"
 
 	"github.com/astaxie/beego/logs"
-	"github.com/polynetwork/poly-bridge/conf"
-	basedef "github.com/polynetwork/poly-bridge/const"
-	"github.com/polynetwork/poly-bridge/dao/coinpricedao"
-	"github.com/polynetwork/poly-bridge/dao/models"
-	"github.com/polynetwork/poly-bridge/logic/price/binance"
-	"github.com/polynetwork/poly-bridge/logic/price/coinmarketcap"
+	"github.com/polynetwork/poly-nft-bridge/conf"
+	basedef "github.com/polynetwork/poly-nft-bridge/const"
+	"github.com/polynetwork/poly-nft-bridge/dao/coinpricedao"
+	"github.com/polynetwork/poly-nft-bridge/dao/models"
+	"github.com/polynetwork/poly-nft-bridge/logic/price/binance"
+	"github.com/polynetwork/poly-nft-bridge/logic/price/coinmarketcap"
 )
 
 var cpListen *CoinPriceListen

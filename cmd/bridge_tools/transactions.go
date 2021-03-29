@@ -18,8 +18,8 @@
 package main
 
 import (
-	"github.com/polynetwork/poly-bridge/cmd/bridge_tools/conf"
-	"github.com/polynetwork/poly-bridge/dao/crosschaindao"
+	"github.com/polynetwork/poly-nft-bridge/cmd/bridge_tools/conf"
+	"github.com/polynetwork/poly-nft-bridge/dao/crosschaindao"
 )
 
 func startTransactions(cfg *conf.TransactionsConfig) {

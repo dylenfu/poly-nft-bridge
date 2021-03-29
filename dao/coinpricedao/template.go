@@ -18,11 +18,11 @@
 package coinpricedao
 
 import (
-	"github.com/polynetwork/poly-bridge/conf"
-	basedef "github.com/polynetwork/poly-bridge/const"
-	"github.com/polynetwork/poly-bridge/dao/coinpricedao/stakedao"
-	"github.com/polynetwork/poly-bridge/dao/coinpricedao/swapdao"
-	"github.com/polynetwork/poly-bridge/dao/models"
+	"github.com/polynetwork/poly-nft-bridge/conf"
+	basedef "github.com/polynetwork/poly-nft-bridge/const"
+	"github.com/polynetwork/poly-nft-bridge/dao/coinpricedao/stakedao"
+	"github.com/polynetwork/poly-nft-bridge/dao/coinpricedao/swapdao"
+	"github.com/polynetwork/poly-nft-bridge/dao/models"
 )
 
 type CoinPriceDao interface {

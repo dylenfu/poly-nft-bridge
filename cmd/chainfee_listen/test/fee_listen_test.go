@@ -5,10 +5,10 @@ import (
 	"os"
 	"testing"
 
-	"github.com/polynetwork/poly-bridge/conf"
-	basedef "github.com/polynetwork/poly-bridge/const"
-	"github.com/polynetwork/poly-bridge/dao/chainfeedao"
-	"github.com/polynetwork/poly-bridge/logic/fee"
+	"github.com/polynetwork/poly-nft-bridge/conf"
+	basedef "github.com/polynetwork/poly-nft-bridge/const"
+	"github.com/polynetwork/poly-nft-bridge/dao/chainfeedao"
+	"github.com/polynetwork/poly-nft-bridge/logic/fee"
 )
 
 func TestListenFee(t *testing.T) {

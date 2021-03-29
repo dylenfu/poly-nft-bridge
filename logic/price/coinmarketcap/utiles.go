@@ -26,8 +26,8 @@ import (
 	"strings"
 
 	"github.com/astaxie/beego/logs"
-	"github.com/polynetwork/poly-bridge/conf"
-	basedef "github.com/polynetwork/poly-bridge/const"
+	"github.com/polynetwork/poly-nft-bridge/conf"
+	basedef "github.com/polynetwork/poly-nft-bridge/const"
 )
 
 type CoinMarketCapSdk struct {

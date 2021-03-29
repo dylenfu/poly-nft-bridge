@@ -5,10 +5,10 @@ import (
 	"os"
 	"testing"
 
-	"github.com/polynetwork/poly-bridge/conf"
-	basedef "github.com/polynetwork/poly-bridge/const"
-	"github.com/polynetwork/poly-bridge/dao/coinpricedao"
-	priceListen "github.com/polynetwork/poly-bridge/logic/price"
+	"github.com/polynetwork/poly-nft-bridge/conf"
+	basedef "github.com/polynetwork/poly-nft-bridge/const"
+	"github.com/polynetwork/poly-nft-bridge/dao/coinpricedao"
+	priceListen "github.com/polynetwork/poly-nft-bridge/logic/price"
 )
 
 func TestListenCoinPrice(t *testing.T) {

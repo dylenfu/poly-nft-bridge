@@ -18,12 +18,12 @@
 package crosschaindao
 
 import (
-	"github.com/polynetwork/poly-bridge/conf"
-	basedef "github.com/polynetwork/poly-bridge/const"
-	explorerdao2 "github.com/polynetwork/poly-bridge/dao/crosschaindao/explorerdao"
-	stakedao2 "github.com/polynetwork/poly-bridge/dao/crosschaindao/stakedao"
-	swapdao2 "github.com/polynetwork/poly-bridge/dao/crosschaindao/swapdao"
-	"github.com/polynetwork/poly-bridge/dao/models"
+	"github.com/polynetwork/poly-nft-bridge/conf"
+	basedef "github.com/polynetwork/poly-nft-bridge/const"
+	explorerdao2 "github.com/polynetwork/poly-nft-bridge/dao/crosschaindao/explorerdao"
+	stakedao2 "github.com/polynetwork/poly-nft-bridge/dao/crosschaindao/stakedao"
+	swapdao2 "github.com/polynetwork/poly-nft-bridge/dao/crosschaindao/swapdao"
+	"github.com/polynetwork/poly-nft-bridge/dao/models"
 )
 
 type CrossChainDao interface {

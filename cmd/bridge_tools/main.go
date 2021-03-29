@@ -23,7 +23,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/polynetwork/poly-bridge/cmd/bridge_tools/conf"
+	"github.com/polynetwork/poly-nft-bridge/cmd/bridge_tools/conf"
 	"github.com/urfave/cli"
 )
 
@@ -64,7 +64,7 @@ func getFlagName(flag cli.Flag) string {
 
 func setupApp() *cli.App {
 	app := cli.NewApp()
-	app.Usage = "github.com/polynetwork/poly-bridge deploy Service"
+	app.Usage = "github.com/polynetwork/poly-nft-bridge deploy Service"
 	app.Action = startServer
 	app.Version = "1.0.0"
 	app.Copyright = "Copyright in 2019 The Ontology Authors"

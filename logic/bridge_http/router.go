@@ -19,7 +19,7 @@ package bridge_http
 
 import (
 	"github.com/astaxie/beego"
-	"github.com/polynetwork/poly-bridge/logic/bridge_http/controllers"
+	"github.com/polynetwork/poly-nft-bridge/logic/bridge_http/controllers"
 )
 
 func init() {

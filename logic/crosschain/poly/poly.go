@@ -15,17 +15,17 @@
  * along with The poly network .  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package crosschain
+package poly
 
 import (
 	"fmt"
 	"math/big"
 
 	"github.com/astaxie/beego/logs"
-	"github.com/polynetwork/poly-bridge/conf"
-	basedef "github.com/polynetwork/poly-bridge/const"
-	"github.com/polynetwork/poly-bridge/dao/models"
-	"github.com/polynetwork/poly-bridge/lib/sdk/chainsdk"
+	"github.com/polynetwork/poly-nft-bridge/conf"
+	basedef "github.com/polynetwork/poly-nft-bridge/const"
+	"github.com/polynetwork/poly-nft-bridge/dao/models"
+	"github.com/polynetwork/poly-nft-bridge/sdk/chainsdk"
 )
 
 type PolyChainListen struct {

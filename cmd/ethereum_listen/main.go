@@ -27,9 +27,9 @@ import (
 	"syscall"
 
 	"github.com/astaxie/beego/logs"
-	"github.com/polynetwork/poly-bridge/conf"
-	"github.com/polynetwork/poly-bridge/dao/crosschaindao"
-	"github.com/polynetwork/poly-bridge/logic/crosschain"
+	"github.com/polynetwork/poly-nft-bridge/conf"
+	"github.com/polynetwork/poly-nft-bridge/dao/crosschaindao"
+	"github.com/polynetwork/poly-nft-bridge/logic/crosschain"
 	"github.com/urfave/cli"
 )
 

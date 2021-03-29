@@ -22,8 +22,6 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/polynetwork/poly-bridge/lib/go_abi/usdt_abi"
-
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
@@ -32,6 +30,7 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/ethereum/go-ethereum/rlp"
 	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/polynetwork/poly-nft-bridge/go_abi/usdt_abi"
 )
 
 type EthereumSdk struct {

@@ -27,10 +27,10 @@ import (
 	"syscall"
 
 	"github.com/astaxie/beego/logs"
-	"github.com/polynetwork/poly-bridge/conf"
-	basedef "github.com/polynetwork/poly-bridge/const"
-	"github.com/polynetwork/poly-bridge/dao/crosschaindao"
-	"github.com/polynetwork/poly-bridge/logic/crosschain"
+	"github.com/polynetwork/poly-nft-bridge/conf"
+	basedef "github.com/polynetwork/poly-nft-bridge/const"
+	"github.com/polynetwork/poly-nft-bridge/dao/crosschaindao"
+	"github.com/polynetwork/poly-nft-bridge/logic/crosschain"
 	"github.com/urfave/cli"
 )
 
@@ -67,7 +67,7 @@ func getFlagName(flag cli.Flag) string {
 
 func setupApp() *cli.App {
 	app := cli.NewApp()
-	app.Usage = "github.com/polynetwork/poly-bridge Service"
+	app.Usage = "github.com/polynetwork/poly-nft-bridge Service"
 	app.Action = StartServer
 	app.Version = "1.0.0"
 	app.Copyright = "Copyright in 2019 The Ontology Authors"

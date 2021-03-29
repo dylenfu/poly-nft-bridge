@@ -23,13 +23,13 @@ import (
 	"os"
 	"testing"
 
-	"github.com/polynetwork/poly-bridge/dao/crosschaindao"
-	explorerdao2 "github.com/polynetwork/poly-bridge/dao/crosschaindao/explorerdao"
+	"github.com/polynetwork/poly-nft-bridge/dao/crosschaindao"
+	explorerdao2 "github.com/polynetwork/poly-nft-bridge/dao/crosschaindao/explorerdao"
 
-	"github.com/polynetwork/poly-bridge/conf"
-	basedef "github.com/polynetwork/poly-bridge/const"
-	"github.com/polynetwork/poly-bridge/dao/models"
-	"github.com/polynetwork/poly-bridge/lib/sdk/chainsdk"
+	"github.com/polynetwork/poly-nft-bridge/conf"
+	basedef "github.com/polynetwork/poly-nft-bridge/const"
+	"github.com/polynetwork/poly-nft-bridge/dao/models"
+	"github.com/polynetwork/poly-nft-bridge/sdk/chainsdk"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )

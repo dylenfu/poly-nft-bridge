@@ -23,11 +23,11 @@ import (
 	"os"
 	"testing"
 
-	basedef "github.com/polynetwork/poly-bridge/const"
+	basedef "github.com/polynetwork/poly-nft-bridge/const"
 
-	"github.com/polynetwork/poly-bridge/conf"
-	"github.com/polynetwork/poly-bridge/dao/models"
-	crosschain_effect "github.com/polynetwork/poly-bridge/logic/effect"
+	"github.com/polynetwork/poly-nft-bridge/conf"
+	"github.com/polynetwork/poly-nft-bridge/dao/models"
+	crosschain_effect "github.com/polynetwork/poly-nft-bridge/logic/effect"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )

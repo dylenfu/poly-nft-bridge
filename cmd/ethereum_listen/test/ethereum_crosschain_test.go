@@ -30,10 +30,10 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/polynetwork/poly-bridge/conf"
-	basedef "github.com/polynetwork/poly-bridge/const"
-	"github.com/polynetwork/poly-bridge/lib/go_abi/wrapper_abi"
-	"github.com/polynetwork/poly-bridge/lib/sdk/chainsdk"
+	"github.com/polynetwork/poly-nft-bridge/conf"
+	basedef "github.com/polynetwork/poly-nft-bridge/const"
+	"github.com/polynetwork/poly-nft-bridge/lib/go_abi/wrapper_abi"
+	"github.com/polynetwork/poly-nft-bridge/sdk/chainsdk"
 )
 
 func NewPrivateKey(key string) *ecdsa.PrivateKey {

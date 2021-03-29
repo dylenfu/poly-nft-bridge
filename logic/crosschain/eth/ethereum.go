@@ -31,13 +31,13 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/polynetwork/poly-bridge/conf"
-	basedef "github.com/polynetwork/poly-bridge/const"
-	"github.com/polynetwork/poly-bridge/dao/models"
-	"github.com/polynetwork/poly-bridge/lib/go_abi/eccm_abi"
-	"github.com/polynetwork/poly-bridge/lib/go_abi/lock_proxy_abi"
-	"github.com/polynetwork/poly-bridge/lib/go_abi/wrapper_abi"
-	"github.com/polynetwork/poly-bridge/lib/sdk/chainsdk"
+	"github.com/polynetwork/poly-nft-bridge/conf"
+	basedef "github.com/polynetwork/poly-nft-bridge/const"
+	"github.com/polynetwork/poly-nft-bridge/dao/models"
+	"github.com/polynetwork/poly-nft-bridge/go_abi/eccm_abi"
+	"github.com/polynetwork/poly-nft-bridge/go_abi/lock_proxy_abi"
+	"github.com/polynetwork/poly-nft-bridge/go_abi/wrapper_abi"
+	"github.com/polynetwork/poly-nft-bridge/sdk/chainsdk"
 )
 
 const (

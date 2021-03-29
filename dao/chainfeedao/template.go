@@ -18,11 +18,11 @@
 package chainfeedao
 
 import (
-	"github.com/polynetwork/poly-bridge/conf"
-	basedef "github.com/polynetwork/poly-bridge/const"
-	stakedao2 "github.com/polynetwork/poly-bridge/dao/chainfeedao/stakedao"
-	swapdao2 "github.com/polynetwork/poly-bridge/dao/chainfeedao/swapdao"
-	"github.com/polynetwork/poly-bridge/dao/models"
+	"github.com/polynetwork/poly-nft-bridge/conf"
+	basedef "github.com/polynetwork/poly-nft-bridge/const"
+	stakedao2 "github.com/polynetwork/poly-nft-bridge/dao/chainfeedao/stakedao"
+	swapdao2 "github.com/polynetwork/poly-nft-bridge/dao/chainfeedao/swapdao"
+	"github.com/polynetwork/poly-nft-bridge/dao/models"
 )
 
 type ChainFeeDao interface {

@@ -20,7 +20,7 @@ package models
 import (
 	"math/big"
 
-	basedef "github.com/polynetwork/poly-bridge/const"
+	basedef "github.com/polynetwork/poly-nft-bridge/const"
 	"github.com/shopspring/decimal"
 )
 

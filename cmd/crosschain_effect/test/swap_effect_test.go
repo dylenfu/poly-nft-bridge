@@ -23,10 +23,10 @@ import (
 	"os"
 	"testing"
 
-	"github.com/polynetwork/poly-bridge/conf"
-	basedef "github.com/polynetwork/poly-bridge/const"
-	"github.com/polynetwork/poly-bridge/dao/crosschaindao"
-	"github.com/polynetwork/poly-bridge/dao/models"
+	"github.com/polynetwork/poly-nft-bridge/conf"
+	basedef "github.com/polynetwork/poly-nft-bridge/const"
+	"github.com/polynetwork/poly-nft-bridge/dao/crosschaindao"
+	"github.com/polynetwork/poly-nft-bridge/dao/models"
 )
 
 func TestSwapEffect_AddSrcTransaction(t *testing.T) {
