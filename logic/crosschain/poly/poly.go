@@ -19,25 +19,25 @@ package poly
 
 import (
 	"fmt"
+	"github.com/polynetwork/poly-nft-bridge/sdk/poly_sdk"
 	"math/big"
 
 	"github.com/astaxie/beego/logs"
 	"github.com/polynetwork/poly-nft-bridge/conf"
 	basedef "github.com/polynetwork/poly-nft-bridge/const"
 	"github.com/polynetwork/poly-nft-bridge/dao/models"
-	"github.com/polynetwork/poly-nft-bridge/sdk/chainsdk"
 )
 
 type PolyChainListen struct {
 	polyCfg *conf.ChainListenConfig
-	polySdk *chainsdk.PolySDKPro
+	polySdk *poly_sdk.PolySDKPro
 }
 
 func NewPolyChainListen(cfg *conf.ChainListenConfig) *PolyChainListen {
 	polyListen := &PolyChainListen{}
 	polyListen.polyCfg = cfg
 	urls := cfg.GetNodesUrl()
-	sdk := chainsdk.NewPolySDKPro(urls, cfg.ListenSlot, cfg.ChainId)
+	sdk := poly_sdk.NewPolySDKPro(urls, cfg.ListenSlot, cfg.ChainId)
 	polyListen.polySdk = sdk
 	return polyListen
 }

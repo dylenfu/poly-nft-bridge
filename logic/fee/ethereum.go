@@ -18,16 +18,16 @@
 package fee
 
 import (
+	"github.com/polynetwork/poly-nft-bridge/sdk/eth_sdk"
 	"math/big"
 
 	"github.com/polynetwork/poly-nft-bridge/conf"
 	basedef "github.com/polynetwork/poly-nft-bridge/const"
-	"github.com/polynetwork/poly-nft-bridge/sdk/chainsdk"
 )
 
 type EthereumFee struct {
 	ethCfg *conf.FeeListenConfig
-	ethSdk *chainsdk.EthereumSdkPro
+	ethSdk *eth_sdk.EthereumSdkPro
 }
 
 func NewEthereumFee(ethCfg *conf.FeeListenConfig, feeUpdateSlot int64) *EthereumFee {
@@ -35,7 +35,7 @@ func NewEthereumFee(ethCfg *conf.FeeListenConfig, feeUpdateSlot int64) *Ethereum
 	ethereumFee.ethCfg = ethCfg
 	//
 	urls := ethCfg.GetNodesUrl()
-	sdk := chainsdk.NewEthereumSdkPro(urls, uint64(feeUpdateSlot), ethCfg.ChainId)
+	sdk := eth_sdk.NewEthereumSdkPro(urls, uint64(feeUpdateSlot), ethCfg.ChainId)
 	ethereumFee.ethSdk = sdk
 	return ethereumFee
 }

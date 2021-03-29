@@ -15,7 +15,7 @@
  * along with The poly network .  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package chainsdk
+package poly_sdk
 
 import (
 	poly_go_sdk "github.com/polynetwork/poly-go-sdk"

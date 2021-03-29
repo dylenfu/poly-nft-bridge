@@ -19,6 +19,7 @@ package test
 
 import (
 	"fmt"
+	"github.com/polynetwork/poly-nft-bridge/sdk/ont_sdk"
 	"testing"
 
 	"github.com/ontio/ontology-crypto/keypair"
@@ -27,7 +28,6 @@ import (
 	"github.com/ontio/ontology/core/types"
 	"github.com/polynetwork/poly-nft-bridge/conf"
 	basedef "github.com/polynetwork/poly-nft-bridge/const"
-	"github.com/polynetwork/poly-nft-bridge/sdk/chainsdk"
 )
 
 func TestOntCross(t *testing.T) {
@@ -37,7 +37,7 @@ func TestOntCross(t *testing.T) {
 	}
 	ontChainListenConfig := config.GetChainListenConfig(basedef.ONT_CROSSCHAIN_ID)
 	urls := ontChainListenConfig.GetNodesUrl()
-	ontsdk := chainsdk.NewOntologySdkPro(urls, ontChainListenConfig.ListenSlot, basedef.ONT_CROSSCHAIN_ID)
+	ontsdk := ont_sdk.NewOntologySdkPro(urls, ontChainListenConfig.ListenSlot, basedef.ONT_CROSSCHAIN_ID)
 
 	// AScExXzLbkZV32tDFdV7Uoq7ZhCT1bRCGp
 	privateKey, err := keypair.WIF2Key([]byte("KyxsqZ45MCx3t2UbuG9P8h96TzyrzTXGRQnfs9nZKFx6YkjTfHqb"))

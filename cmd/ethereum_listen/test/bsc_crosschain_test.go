@@ -20,6 +20,7 @@ package test
 import (
 	"encoding/hex"
 	"fmt"
+	"github.com/polynetwork/poly-nft-bridge/sdk/eth_sdk"
 	"math/big"
 	"strings"
 	"testing"
@@ -32,7 +33,6 @@ import (
 	"github.com/polynetwork/poly-nft-bridge/conf"
 	basedef "github.com/polynetwork/poly-nft-bridge/const"
 	"github.com/polynetwork/poly-nft-bridge/lib/go_abi/wrapper_abi"
-	"github.com/polynetwork/poly-nft-bridge/sdk/chainsdk"
 )
 
 func TestBscCross(t *testing.T) {
@@ -42,7 +42,7 @@ func TestBscCross(t *testing.T) {
 	}
 	bscChainListenConfig := config.GetChainListenConfig(basedef.BSC_CROSSCHAIN_ID)
 	urls := bscChainListenConfig.GetNodesUrl()
-	ethSdk := chainsdk.NewEthereumSdkPro(urls, bscChainListenConfig.ListenSlot, basedef.BSC_CROSSCHAIN_ID)
+	ethSdk := eth_sdk.NewEthereumSdkPro(urls, bscChainListenConfig.ListenSlot, basedef.BSC_CROSSCHAIN_ID)
 	contractabi, err := abi.JSON(strings.NewReader(wrapper_abi.IPolyWrapperABI))
 	if err != nil {
 		panic(err)

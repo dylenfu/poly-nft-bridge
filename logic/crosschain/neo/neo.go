@@ -21,6 +21,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"github.com/polynetwork/poly-nft-bridge/sdk/neo_sdk"
 	"io/ioutil"
 	"math/big"
 	"net/http"
@@ -30,7 +31,6 @@ import (
 	"github.com/polynetwork/poly-nft-bridge/conf"
 	basedef "github.com/polynetwork/poly-nft-bridge/const"
 	"github.com/polynetwork/poly-nft-bridge/dao/models"
-	"github.com/polynetwork/poly-nft-bridge/sdk/chainsdk"
 )
 
 const (
@@ -45,14 +45,14 @@ const (
 
 type NeoChainListen struct {
 	neoCfg *conf.ChainListenConfig
-	neoSdk *chainsdk.NeoSdkPro
+	neoSdk *neo_sdk.NeoSdkPro
 }
 
 func NewNeoChainListen(cfg *conf.ChainListenConfig) *NeoChainListen {
 	ethListen := &NeoChainListen{}
 	ethListen.neoCfg = cfg
 	urls := cfg.GetNodesUrl()
-	sdk := chainsdk.NewNeoSdkPro(urls, cfg.ListenSlot, cfg.ChainId)
+	sdk := neo_sdk.NewNeoSdkPro(urls, cfg.ListenSlot, cfg.ChainId)
 	ethListen.neoSdk = sdk
 	return ethListen
 }

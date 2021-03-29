@@ -18,16 +18,16 @@
 package fee
 
 import (
+	"github.com/polynetwork/poly-nft-bridge/sdk/ont_sdk"
 	"math/big"
 
 	"github.com/polynetwork/poly-nft-bridge/conf"
 	basedef "github.com/polynetwork/poly-nft-bridge/const"
-	"github.com/polynetwork/poly-nft-bridge/sdk/chainsdk"
 )
 
 type OntologyFee struct {
 	ontologyCfg *conf.FeeListenConfig
-	ontologySdk *chainsdk.OntologySdkPro
+	ontologySdk *ont_sdk.OntologySdkPro
 }
 
 func NewOntologyFee(ontologyCfg *conf.FeeListenConfig, feeUpdateSlot int64) *OntologyFee {
@@ -35,7 +35,7 @@ func NewOntologyFee(ontologyCfg *conf.FeeListenConfig, feeUpdateSlot int64) *Ont
 	ontologyFee.ontologyCfg = ontologyCfg
 	//
 	urls := ontologyCfg.GetNodesUrl()
-	sdk := chainsdk.NewOntologySdkPro(urls, uint64(feeUpdateSlot), ontologyCfg.ChainId)
+	sdk := ont_sdk.NewOntologySdkPro(urls, uint64(feeUpdateSlot), ontologyCfg.ChainId)
 	ontologyFee.ontologySdk = sdk
 	return ontologyFee
 }

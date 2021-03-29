@@ -18,16 +18,16 @@
 package fee
 
 import (
+	"github.com/polynetwork/poly-nft-bridge/sdk/neo_sdk"
 	"math/big"
 
 	"github.com/polynetwork/poly-nft-bridge/conf"
 	basedef "github.com/polynetwork/poly-nft-bridge/const"
-	"github.com/polynetwork/poly-nft-bridge/sdk/chainsdk"
 )
 
 type NeoFee struct {
 	neoCfg *conf.FeeListenConfig
-	neoSdk *chainsdk.NeoSdkPro
+	neoSdk *neo_sdk.NeoSdkPro
 }
 
 func NewNeoFee(neoCfg *conf.FeeListenConfig, feeUpdateSlot int64) *NeoFee {
@@ -35,7 +35,7 @@ func NewNeoFee(neoCfg *conf.FeeListenConfig, feeUpdateSlot int64) *NeoFee {
 	neoFee.neoCfg = neoCfg
 	//
 	urls := neoCfg.GetNodesUrl()
-	sdk := chainsdk.NewNeoSdkPro(urls, uint64(feeUpdateSlot), neoCfg.ChainId)
+	sdk := neo_sdk.NewNeoSdkPro(urls, uint64(feeUpdateSlot), neoCfg.ChainId)
 	neoFee.neoSdk = sdk
 	return neoFee
 }

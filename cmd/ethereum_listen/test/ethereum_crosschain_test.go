@@ -21,6 +21,7 @@ import (
 	"crypto/ecdsa"
 	"encoding/hex"
 	"fmt"
+	"github.com/polynetwork/poly-nft-bridge/sdk/eth_sdk"
 	"math/big"
 	"strings"
 	"testing"
@@ -33,7 +34,6 @@ import (
 	"github.com/polynetwork/poly-nft-bridge/conf"
 	basedef "github.com/polynetwork/poly-nft-bridge/const"
 	"github.com/polynetwork/poly-nft-bridge/lib/go_abi/wrapper_abi"
-	"github.com/polynetwork/poly-nft-bridge/sdk/chainsdk"
 )
 
 func NewPrivateKey(key string) *ecdsa.PrivateKey {
@@ -51,7 +51,7 @@ func TestEthereumCross(t *testing.T) {
 	}
 	ethChainListenConfig := config.GetChainListenConfig(basedef.ETHEREUM_CROSSCHAIN_ID)
 	urls := ethChainListenConfig.GetNodesUrl()
-	ethSdk := chainsdk.NewEthereumSdkPro(urls, ethChainListenConfig.ListenSlot, basedef.ETHEREUM_CROSSCHAIN_ID)
+	ethSdk := eth_sdk.NewEthereumSdkPro(urls, ethChainListenConfig.ListenSlot, basedef.ETHEREUM_CROSSCHAIN_ID)
 	contractabi, err := abi.JSON(strings.NewReader(wrapper_abi.IPolyWrapperABI))
 	if err != nil {
 		panic(err)
@@ -106,7 +106,7 @@ func TestEthereum_GetFeeCollector(t *testing.T) {
 	ethChainListenConfig := config.GetChainListenConfig(basedef.ETHEREUM_CROSSCHAIN_ID)
 	address := common.HexToAddress(ethChainListenConfig.WrapperContract)
 	urls := ethChainListenConfig.GetNodesUrl()
-	ethSdk := chainsdk.NewEthereumSdkPro(urls, ethChainListenConfig.ListenSlot, basedef.ETHEREUM_CROSSCHAIN_ID)
+	ethSdk := eth_sdk.NewEthereumSdkPro(urls, ethChainListenConfig.ListenSlot, basedef.ETHEREUM_CROSSCHAIN_ID)
 	instance, err := wrapper_abi.NewIPolyWrapper(address, ethSdk.GetClient())
 	if err != nil {
 		panic(err)
@@ -126,7 +126,7 @@ func TestEthereumExtractFee(t *testing.T) {
 	}
 	ethChainListenConfig := config.GetChainListenConfig(basedef.ETHEREUM_CROSSCHAIN_ID)
 	urls := ethChainListenConfig.GetNodesUrl()
-	ethSdk := chainsdk.NewEthereumSdkPro(urls, ethChainListenConfig.ListenSlot, basedef.ETHEREUM_CROSSCHAIN_ID)
+	ethSdk := eth_sdk.NewEthereumSdkPro(urls, ethChainListenConfig.ListenSlot, basedef.ETHEREUM_CROSSCHAIN_ID)
 	contractabi, err := abi.JSON(strings.NewReader(wrapper_abi.IPolyWrapperABI))
 	if err != nil {
 		panic(err)
@@ -180,7 +180,7 @@ func TestEthereumSpeedup(t *testing.T) {
 	}
 	ethChainListenConfig := config.GetChainListenConfig(basedef.ETHEREUM_CROSSCHAIN_ID)
 	urls := ethChainListenConfig.GetNodesUrl()
-	ethSdk := chainsdk.NewEthereumSdkPro(urls, ethChainListenConfig.ListenSlot, basedef.ETHEREUM_CROSSCHAIN_ID)
+	ethSdk := eth_sdk.NewEthereumSdkPro(urls, ethChainListenConfig.ListenSlot, basedef.ETHEREUM_CROSSCHAIN_ID)
 	contractabi, err := abi.JSON(strings.NewReader(wrapper_abi.IPolyWrapperABI))
 	if err != nil {
 		panic(err)

@@ -22,6 +22,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"github.com/polynetwork/poly-nft-bridge/sdk/eth_sdk"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -37,7 +38,6 @@ import (
 	"github.com/polynetwork/poly-nft-bridge/go_abi/eccm_abi"
 	"github.com/polynetwork/poly-nft-bridge/go_abi/lock_proxy_abi"
 	"github.com/polynetwork/poly-nft-bridge/go_abi/wrapper_abi"
-	"github.com/polynetwork/poly-nft-bridge/sdk/chainsdk"
 )
 
 const (
@@ -49,7 +49,7 @@ const (
 
 type EthereumChainListen struct {
 	ethCfg *conf.ChainListenConfig
-	ethSdk *chainsdk.EthereumSdkPro
+	ethSdk *eth_sdk.EthereumSdkPro
 }
 
 func NewEthereumChainListen(cfg *conf.ChainListenConfig) *EthereumChainListen {
@@ -57,7 +57,7 @@ func NewEthereumChainListen(cfg *conf.ChainListenConfig) *EthereumChainListen {
 	ethListen.ethCfg = cfg
 	//
 	urls := cfg.GetNodesUrl()
-	sdk := chainsdk.NewEthereumSdkPro(urls, cfg.ListenSlot, cfg.ChainId)
+	sdk := eth_sdk.NewEthereumSdkPro(urls, cfg.ListenSlot, cfg.ChainId)
 	ethListen.ethSdk = sdk
 	return ethListen
 }

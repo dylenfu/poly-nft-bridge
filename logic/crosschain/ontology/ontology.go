@@ -19,13 +19,13 @@ package ontology
 
 import (
 	"encoding/hex"
+	"github.com/polynetwork/poly-nft-bridge/sdk/ont_sdk"
 	"math/big"
 
 	"github.com/astaxie/beego/logs"
 	"github.com/polynetwork/poly-nft-bridge/conf"
 	basedef "github.com/polynetwork/poly-nft-bridge/const"
 	"github.com/polynetwork/poly-nft-bridge/dao/models"
-	"github.com/polynetwork/poly-nft-bridge/sdk/chainsdk"
 )
 
 const (
@@ -38,14 +38,14 @@ const (
 
 type OntologyChainListen struct {
 	ontCfg *conf.ChainListenConfig
-	ontSdk *chainsdk.OntologySdkPro
+	ontSdk *ont_sdk.OntologySdkPro
 }
 
 func NewOntologyChainListen(cfg *conf.ChainListenConfig) *OntologyChainListen {
 	ontListen := &OntologyChainListen{}
 	ontListen.ontCfg = cfg
 	urls := cfg.GetNodesUrl()
-	sdk := chainsdk.NewOntologySdkPro(urls, cfg.ListenSlot, cfg.ChainId)
+	sdk := ont_sdk.NewOntologySdkPro(urls, cfg.ListenSlot, cfg.ChainId)
 	ontListen.ontSdk = sdk
 	return ontListen
 }

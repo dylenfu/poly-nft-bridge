@@ -19,6 +19,7 @@ package test
 
 import (
 	"fmt"
+	"github.com/polynetwork/poly-nft-bridge/sdk/neo_sdk"
 	"testing"
 
 	"github.com/joeqian10/neo-gogogo/helper"
@@ -27,7 +28,6 @@ import (
 	"github.com/joeqian10/neo-gogogo/wallet"
 	"github.com/polynetwork/poly-nft-bridge/conf"
 	basedef "github.com/polynetwork/poly-nft-bridge/const"
-	"github.com/polynetwork/poly-nft-bridge/sdk/chainsdk"
 )
 
 func TestNeoCross(t *testing.T) {
@@ -37,7 +37,7 @@ func TestNeoCross(t *testing.T) {
 	}
 	neoChainListenConfig := config.GetChainListenConfig(basedef.NEO_CROSSCHAIN_ID)
 	urls := neoChainListenConfig.GetNodesUrl()
-	neoSdk := chainsdk.NewNeoSdkPro(urls, neoChainListenConfig.ListenSlot, basedef.NEO_CROSSCHAIN_ID)
+	neoSdk := neo_sdk.NewNeoSdkPro(urls, neoChainListenConfig.ListenSlot, basedef.NEO_CROSSCHAIN_ID)
 
 	w, err := wallet.NewWalletFromFile("")
 	if err != nil {

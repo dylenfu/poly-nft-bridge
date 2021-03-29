@@ -20,6 +20,8 @@ package test
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/polynetwork/poly-nft-bridge/sdk/eth_sdk"
+	"github.com/polynetwork/poly-nft-bridge/sdk/neo_sdk"
 	"os"
 	"testing"
 
@@ -29,7 +31,6 @@ import (
 	"github.com/polynetwork/poly-nft-bridge/conf"
 	basedef "github.com/polynetwork/poly-nft-bridge/const"
 	"github.com/polynetwork/poly-nft-bridge/dao/models"
-	"github.com/polynetwork/poly-nft-bridge/sdk/chainsdk"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -177,20 +178,20 @@ func TestUpdateTokenInfo_ExplorerDao(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	var ethSdk *chainsdk.EthereumSdkPro
-	var bscSdk *chainsdk.EthereumSdkPro
-	var hecoSdk *chainsdk.EthereumSdkPro
-	var neoSdk *chainsdk.NeoSdkPro
+	var ethSdk *eth_sdk.EthereumSdkPro
+	var bscSdk *eth_sdk.EthereumSdkPro
+	var hecoSdk *eth_sdk.EthereumSdkPro
+	var neoSdk *neo_sdk.NeoSdkPro
 	for _, listenConfig := range config.ChainListenConfig {
 		urls := listenConfig.GetNodesUrl()
 		if listenConfig.ChainId == basedef.ETHEREUM_CROSSCHAIN_ID {
-			ethSdk = chainsdk.NewEthereumSdkPro(urls, listenConfig.ListenSlot, listenConfig.ChainId)
+			ethSdk = eth_sdk.NewEthereumSdkPro(urls, listenConfig.ListenSlot, listenConfig.ChainId)
 		} else if listenConfig.ChainId == basedef.BSC_CROSSCHAIN_ID {
-			bscSdk = chainsdk.NewEthereumSdkPro(urls, listenConfig.ListenSlot, listenConfig.ChainId)
+			bscSdk = eth_sdk.NewEthereumSdkPro(urls, listenConfig.ListenSlot, listenConfig.ChainId)
 		} else if listenConfig.ChainId == basedef.HECO_CROSSCHAIN_ID {
-			hecoSdk = chainsdk.NewEthereumSdkPro(urls, listenConfig.ListenSlot, listenConfig.ChainId)
+			hecoSdk = eth_sdk.NewEthereumSdkPro(urls, listenConfig.ListenSlot, listenConfig.ChainId)
 		} else if listenConfig.ChainId == basedef.NEO_CROSSCHAIN_ID {
-			neoSdk = chainsdk.NewNeoSdkPro(urls, listenConfig.ListenSlot, listenConfig.ChainId)
+			neoSdk = neo_sdk.NewNeoSdkPro(urls, listenConfig.ListenSlot, listenConfig.ChainId)
 		}
 	}
 	{

@@ -15,7 +15,7 @@
  * along with The poly network .  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package chainsdk
+package ont_sdk
 
 import (
 	"fmt"
@@ -24,48 +24,50 @@ import (
 	"time"
 
 	"github.com/astaxie/beego/logs"
-	"github.com/polynetwork/poly-go-sdk/common"
-	"github.com/polynetwork/poly/core/types"
+	ontology_go_sdk "github.com/ontio/ontology-go-sdk"
+	"github.com/ontio/ontology-go-sdk/common"
+	"github.com/ontio/ontology/core/types"
 )
 
-type PolyInfo struct {
-	sdk          *PolySDK
+type OntologyInfo struct {
+	sdk          *ontology_go_sdk.OntologySdk
 	latestHeight uint64
 }
 
-func NewPolyInfo(url string) *PolyInfo {
-	sdk := NewPolySDK(url)
-	return &PolyInfo{
+func NewOntologyInfo(url string) *OntologyInfo {
+	sdk := ontology_go_sdk.NewOntologySdk()
+	sdk.NewRpcClient().SetAddress(url)
+	return &OntologyInfo{
 		sdk:          sdk,
 		latestHeight: 0,
 	}
 }
 
-type PolySDKPro struct {
-	infos         map[string]*PolyInfo
+type OntologySdkPro struct {
+	infos         map[string]*OntologyInfo
 	selectionSlot uint64
 	id            uint64
 	mutex         sync.Mutex
 }
 
-func NewPolySDKPro(urls []string, slot uint64, id uint64) *PolySDKPro {
-	infos := make(map[string]*PolyInfo, len(urls))
+func NewOntologySdkPro(urls []string, slot uint64, id uint64) *OntologySdkPro {
+	infos := make(map[string]*OntologyInfo, len(urls))
 	for _, url := range urls {
-		infos[url] = NewPolyInfo(url)
+		infos[url] = NewOntologyInfo(url)
 	}
-	pro := &PolySDKPro{infos: infos, selectionSlot: slot, id: id}
+	pro := &OntologySdkPro{infos: infos, selectionSlot: slot, id: id}
 	pro.selection()
 	go pro.NodeSelection()
 	return pro
 }
 
-func (pro *PolySDKPro) NodeSelection() {
+func (pro *OntologySdkPro) NodeSelection() {
 	for {
 		pro.nodeSelection()
 	}
 }
 
-func (pro *PolySDKPro) nodeSelection() {
+func (pro *OntologySdkPro) nodeSelection() {
 	defer func() {
 		if r := recover(); r != nil {
 			logs.Error("node selection, recover info: %s", string(debug.Stack()))
@@ -81,25 +83,25 @@ func (pro *PolySDKPro) nodeSelection() {
 	}
 }
 
-func (pro *PolySDKPro) selection() {
+func (pro *OntologySdkPro) selection() {
 	for url, info := range pro.infos {
 		height, err := info.sdk.GetCurrentBlockHeight()
 		if err != nil {
 			logs.Error("get current block height err: %v, url: %s", err, url)
 		}
 		pro.mutex.Lock()
-		info.latestHeight = height
+		info.latestHeight = uint64(height)
 		pro.mutex.Unlock()
 	}
 }
 
-func (pro *PolySDKPro) GetLatest() *PolyInfo {
+func (pro *OntologySdkPro) GetLatest() *OntologyInfo {
 	pro.mutex.Lock()
 	defer func() {
 		pro.mutex.Unlock()
 	}()
 	height := uint64(0)
-	var latestInfo *PolyInfo = nil
+	var latestInfo *OntologyInfo = nil
 	for _, info := range pro.infos {
 		if info != nil && info.latestHeight > height {
 			height = info.latestHeight
@@ -109,7 +111,7 @@ func (pro *PolySDKPro) GetLatest() *PolyInfo {
 	return latestInfo
 }
 
-func (pro *PolySDKPro) GetCurrentBlockHeight() (uint64, error) {
+func (pro *OntologySdkPro) GetCurrentBlockHeight() (uint64, error) {
 	info := pro.GetLatest()
 	if info == nil {
 		return 0, fmt.Errorf("all node is not working")
@@ -117,36 +119,26 @@ func (pro *PolySDKPro) GetCurrentBlockHeight() (uint64, error) {
 	return info.latestHeight, nil
 }
 
-func (pro *PolySDKPro) GetBlockByHeight(height uint64) (*types.Block, error) {
+func (pro *OntologySdkPro) GetBlockByHeight(height uint32) (*types.Block, error) {
 	info := pro.GetLatest()
 	if info == nil {
 		return nil, fmt.Errorf("all node is not working")
 	}
-	for info != nil {
-		block, err := info.sdk.GetBlockByHeight(height)
-		if err != nil {
-			info.latestHeight = 0
-			info = pro.GetLatest()
-		} else {
-			return block, nil
-		}
-	}
-	return nil, fmt.Errorf("all node is not working")
+	return info.sdk.GetBlockByHeight(height)
 }
 
-func (pro *PolySDKPro) GetSmartContractEventByBlock(height uint64) ([]*common.SmartContactEvent, error) {
+func (pro *OntologySdkPro) GetSmartContractEventByBlock(height uint32) ([]*common.SmartContactEvent, error) {
 	info := pro.GetLatest()
 	if info == nil {
 		return nil, fmt.Errorf("all node is not working")
 	}
-	for info != nil {
-		event, err := info.sdk.GetSmartContractEventByBlock(height)
-		if err != nil {
-			info.latestHeight = 0
-			info = pro.GetLatest()
-		} else {
-			return event, nil
-		}
+	return info.sdk.GetSmartContractEventByBlock(height)
+}
+
+func (pro *OntologySdkPro) GetSdk() (*ontology_go_sdk.OntologySdk, error) {
+	info := pro.GetLatest()
+	if info == nil {
+		return nil, fmt.Errorf("all node is not working")
 	}
-	return nil, fmt.Errorf("all node is not working")
+	return info.sdk, nil
 }
