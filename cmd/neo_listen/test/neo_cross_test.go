@@ -19,8 +19,9 @@ package test
 
 import (
 	"fmt"
-	"github.com/polynetwork/poly-nft-bridge/sdk/neo_sdk"
 	"testing"
+
+	"github.com/polynetwork/poly-nft-bridge/sdk/neo_sdk"
 
 	"github.com/joeqian10/neo-gogogo/helper"
 	"github.com/joeqian10/neo-gogogo/sc"

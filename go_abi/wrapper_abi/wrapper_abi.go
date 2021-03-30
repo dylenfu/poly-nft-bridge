@@ -239,7 +239,7 @@ func (_IPolyWrapper *IPolyWrapperCallerSession) FeeCollector() (common.Address, 
 	return _IPolyWrapper.Contract.FeeCollector(&_IPolyWrapper.CallOpts)
 }
 
-// LockProxy is a free data retrieval call binding the contract method 0x9d4dc021.
+// NFTLockProxy is a free data retrieval call binding the contract method 0x9d4dc021.
 //
 // Solidity: function lockProxy() view returns(address)
 func (_IPolyWrapper *IPolyWrapperCaller) LockProxy(opts *bind.CallOpts) (common.Address, error) {
@@ -251,14 +251,14 @@ func (_IPolyWrapper *IPolyWrapperCaller) LockProxy(opts *bind.CallOpts) (common.
 	return *ret0, err
 }
 
-// LockProxy is a free data retrieval call binding the contract method 0x9d4dc021.
+// NFTLockProxy is a free data retrieval call binding the contract method 0x9d4dc021.
 //
 // Solidity: function lockProxy() view returns(address)
 func (_IPolyWrapper *IPolyWrapperSession) LockProxy() (common.Address, error) {
 	return _IPolyWrapper.Contract.LockProxy(&_IPolyWrapper.CallOpts)
 }
 
-// LockProxy is a free data retrieval call binding the contract method 0x9d4dc021.
+// NFTLockProxy is a free data retrieval call binding the contract method 0x9d4dc021.
 //
 // Solidity: function lockProxy() view returns(address)
 func (_IPolyWrapper *IPolyWrapperCallerSession) LockProxy() (common.Address, error) {

@@ -21,11 +21,12 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"github.com/polynetwork/poly-nft-bridge/sdk/neo_sdk"
 	"io/ioutil"
 	"math/big"
 	"net/http"
 	"strings"
+
+	"github.com/polynetwork/poly-nft-bridge/sdk/neo_sdk"
 
 	"github.com/astaxie/beego/logs"
 	"github.com/polynetwork/poly-nft-bridge/conf"

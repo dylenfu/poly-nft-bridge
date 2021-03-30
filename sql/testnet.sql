@@ -19,7 +19,7 @@ use polyswap;
 -- where srctran.from=@user
 -- and tks.property=@property;
 
-select * from token_maps where src_token_hash='e8e95fAD91EE6cE15bC5F6B4383D92376D9e5fE3';
+select * from token_maps where src_token_hash='49a98BBb058b666886F661dDeE6B431C5Df9d9Fd';
 
 
 

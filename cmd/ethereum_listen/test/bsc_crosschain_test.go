@@ -20,10 +20,11 @@ package test
 import (
 	"encoding/hex"
 	"fmt"
-	"github.com/polynetwork/poly-nft-bridge/sdk/eth_sdk"
 	"math/big"
 	"strings"
 	"testing"
+
+	"github.com/polynetwork/poly-nft-bridge/sdk/eth_sdk"
 
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi"
@@ -32,7 +33,7 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/polynetwork/poly-nft-bridge/conf"
 	basedef "github.com/polynetwork/poly-nft-bridge/const"
-	"github.com/polynetwork/poly-nft-bridge/lib/go_abi/wrapper_abi"
+	"github.com/polynetwork/poly-nft-bridge/go_abi/wrapper_abi"
 )
 
 func TestBscCross(t *testing.T) {

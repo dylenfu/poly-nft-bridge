@@ -19,8 +19,9 @@ package ontology
 
 import (
 	"encoding/hex"
-	"github.com/polynetwork/poly-nft-bridge/sdk/ont_sdk"
 	"math/big"
+
+	"github.com/polynetwork/poly-nft-bridge/sdk/ont_sdk"
 
 	"github.com/astaxie/beego/logs"
 	"github.com/polynetwork/poly-nft-bridge/conf"

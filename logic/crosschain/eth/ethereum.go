@@ -22,11 +22,12 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"github.com/polynetwork/poly-nft-bridge/sdk/eth_sdk"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/polynetwork/poly-nft-bridge/sdk/eth_sdk"
 
 	"github.com/astaxie/beego/logs"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"

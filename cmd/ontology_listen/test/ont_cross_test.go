@@ -19,8 +19,9 @@ package test
 
 import (
 	"fmt"
-	"github.com/polynetwork/poly-nft-bridge/sdk/ont_sdk"
 	"testing"
+
+	"github.com/polynetwork/poly-nft-bridge/sdk/ont_sdk"
 
 	"github.com/ontio/ontology-crypto/keypair"
 	ontology_go_sdk "github.com/ontio/ontology-go-sdk"

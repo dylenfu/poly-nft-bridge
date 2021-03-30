@@ -18,8 +18,9 @@
 package fee
 
 import (
-	"github.com/polynetwork/poly-nft-bridge/sdk/ont_sdk"
 	"math/big"
+
+	"github.com/polynetwork/poly-nft-bridge/sdk/ont_sdk"
 
 	"github.com/polynetwork/poly-nft-bridge/conf"
 	basedef "github.com/polynetwork/poly-nft-bridge/const"

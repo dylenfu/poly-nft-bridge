@@ -20,10 +20,11 @@ package test
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/polynetwork/poly-nft-bridge/sdk/eth_sdk"
-	"github.com/polynetwork/poly-nft-bridge/sdk/neo_sdk"
 	"os"
 	"testing"
+
+	"github.com/polynetwork/poly-nft-bridge/sdk/eth_sdk"
+	"github.com/polynetwork/poly-nft-bridge/sdk/neo_sdk"
 
 	"github.com/polynetwork/poly-nft-bridge/dao/crosschaindao"
 	explorerdao2 "github.com/polynetwork/poly-nft-bridge/dao/crosschaindao/explorerdao"

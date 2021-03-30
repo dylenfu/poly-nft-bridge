@@ -19,8 +19,9 @@ package poly
 
 import (
 	"fmt"
-	"github.com/polynetwork/poly-nft-bridge/sdk/poly_sdk"
 	"math/big"
+
+	"github.com/polynetwork/poly-nft-bridge/sdk/poly_sdk"
 
 	"github.com/astaxie/beego/logs"
 	"github.com/polynetwork/poly-nft-bridge/conf"
