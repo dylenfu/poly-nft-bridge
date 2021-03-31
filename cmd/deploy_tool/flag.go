@@ -67,16 +67,14 @@ var (
 		Value: 0,
 	}
 
-	AssetFlag = cli.Uint64Flag{
+	AssetFlag = cli.StringFlag{
 		Name:  "asset",
 		Usage: "set asset for cross chain or mint nft",
-		Value: 0,
 	}
 
-	DstAssetFlag = cli.Uint64Flag{
+	DstAssetFlag = cli.StringFlag{
 		Name:  "dstAsset",
 		Usage: "set dest asset for cross chain",
-		Value: 0,
 	}
 
 	SrcAccountFlag = cli.StringFlag{
@@ -116,6 +114,28 @@ var (
 )
 
 var (
+	CmdSample = cli.Command{
+		Name:   "sample",
+		Usage:  "only used to debug this tool.",
+		Action: handleSample,
+		Flags: []cli.Flag{
+			LogLevelFlag,
+			ConfigPathFlag,
+			ChainIDFlag,
+			NFTNameFlag,
+			NFTSymbolFlag,
+			DstChainFlag,
+			AssetFlag,
+			DstAssetFlag,
+			SrcAccountFlag,
+			DstAccountFlag,
+			FeeTokenFlag,
+			ERC20TokenFlag,
+			AmountFlag,
+			TokenIdFlag,
+		},
+	}
+
 	CmdDeployECCDContract = cli.Command{
 		Name:   "deployECCD",
 		Usage:  "admin account deploy ethereum cross chain data contract.",
@@ -138,6 +158,10 @@ var (
 		Name:   "deployNFT",
 		Usage:  "admin account deploy new nft asset with mapping contract.",
 		Action: handleCmdDeployNFTContract,
+		Flags: []cli.Flag{
+			NFTNameFlag,
+			NFTSymbolFlag,
+		},
 	}
 
 	CmdDeployERC20Contract = cli.Command{
@@ -206,6 +230,18 @@ var (
 		Name:   "transferECCMOwnership",
 		Usage:  "admin account transfer ethereum cross chain manager contract ownership to ccmp contract.",
 		Action: handleCmdTransferECCMOwnership,
+	}
+
+	CmdRegisterSideChain = cli.Command{
+		Name:   "registerSideChain",
+		Usage:  "register side chain in poly.",
+		Action: handleCmdRegisterSideChain,
+	}
+
+	CmdApproveSideChain = cli.Command{
+		Name:   "approveSideChain",
+		Usage:  "register side chain in poly.",
+		Action: handleCmdApproveSideChain,
 	}
 
 	CmdSyncSideChainGenesis2Poly = cli.Command{

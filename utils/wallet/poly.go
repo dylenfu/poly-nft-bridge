@@ -23,18 +23,23 @@ func initPolySdk() {
 	})
 }
 
-func LoadPolyAccountList(keystore string, pwd string) []*polysdk.Account {
+func LoadPolyAccountList(keystore string, pwd string) ([]*polysdk.Account, error) {
+	fs, err := ioutil.ReadDir(keystore)
+	if err != nil {
+		return nil, err
+	}
+
 	list := make([]*polysdk.Account, 0)
-	fs, _ := ioutil.ReadDir(keystore)
 	for _, f := range fs {
 		fullPath := path.Join(keystore, f.Name())
+		fmt.Println("full path is ", fullPath)
 		acc, err := LoadPolyAccount(fullPath, pwd)
 		if err != nil {
 			panic(err)
 		}
 		list = append(list, acc)
 	}
-	return list
+	return list, nil
 }
 
 func LoadPolyAccount(path string, pwd string) (*polysdk.Account, error) {

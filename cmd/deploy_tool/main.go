@@ -23,7 +23,6 @@ import (
 	"math/big"
 	"os"
 	"runtime"
-	"sort"
 
 	log "github.com/astaxie/beego/logs"
 	"github.com/ethereum/go-ethereum/common"
@@ -72,6 +71,7 @@ func setupApp() *cli.App {
 		TokenIdFlag,
 	}
 	app.Commands = []cli.Command{
+		CmdSample,
 		CmdDeployECCDContract,
 		CmdDeployECCMContract,
 		CmdDeployCCMPContract,
@@ -85,6 +85,8 @@ func setupApp() *cli.App {
 		CmdBindNFTAsset,
 		CmdTransferECCDOwnership,
 		CmdTransferECCMOwnership,
+		CmdRegisterSideChain,
+		CmdApproveSideChain,
 		CmdSyncSideChainGenesis2Poly,
 		CmdSyncPolyGenesis2SideChain,
 		CmdNFTWrapSetFeeCollector,
@@ -94,8 +96,7 @@ func setupApp() *cli.App {
 		CmdERC20Mint,
 		CmdERC20Transfer,
 	}
-	sort.Sort(cli.FlagsByName(app.Flags))
-	sort.Sort(cli.CommandsByName(app.Commands))
+
 	app.Before = beforeCommands
 	return app
 }
@@ -146,6 +147,13 @@ func beforeCommands(ctx *cli.Context) (err error) {
 	return nil
 }
 
+func handleSample(ctx *cli.Context) error {
+	log.Info("start to debug sample...")
+	feeToken := ctx.BoolT(getFlagName(FeeTokenFlag))
+	log.Info("feeToken %v", feeToken)
+	return nil
+}
+
 func handleCmdDeployECCDContract(ctx *cli.Context) error {
 	log.Info("start to deploy eccd contract...")
 
@@ -188,8 +196,8 @@ func handleCmdDeployCCMPContract(ctx *cli.Context) error {
 func handleCmdDeployNFTContract(ctx *cli.Context) error {
 	log.Info("start to deploy nft contract...")
 
-	name := ctx.GlobalString(getFlagName(NFTNameFlag))
-	symbol := ctx.GlobalString(getFlagName(NFTSymbolFlag))
+	name := flag2string(ctx, NFTNameFlag)
+	symbol := flag2string(ctx, NFTSymbolFlag)
 	owner := xecdsa.Key2address(adm)
 	proxy := common.HexToAddress(cc.NFTLockProxy)
 	if addr, err := sdk.DeployNFT(adm, proxy, name, symbol); err != nil {
@@ -209,7 +217,7 @@ func handleCmdDeployERC20Contract(ctx *cli.Context) error {
 	}
 
 	log.Info("deploy erc20 %s success", addr.Hex())
-	isFeeToken := ctx.GlobalBool(getFlagName(FeeTokenFlag))
+	isFeeToken := ctx.BoolT(getFlagName(FeeTokenFlag))
 	if !isFeeToken {
 		return nil
 	}
@@ -259,7 +267,7 @@ func handleCmdLockProxySetCCMP(ctx *cli.Context) error {
 func handleCmdBindLockProxy(ctx *cli.Context) error {
 	log.Info("start to bind lock proxy...")
 
-	dstChainId := ctx.GlobalUint64(getFlagName(DstChainFlag))
+	dstChainId := flag2Uint64(ctx, DstChainFlag)
 	dstChainCfg := customSelectChainConfig(dstChainId)
 	proxy := common.HexToAddress(cc.NFTLockProxy)
 	dstProxy := common.HexToAddress(dstChainCfg.NFTLockProxy)
@@ -293,9 +301,9 @@ func handleCmdGetBoundLockProxy(ctx *cli.Context) error {
 func handleCmdBindNFTAsset(ctx *cli.Context) error {
 	log.Info("start to bind nft asset...")
 
-	dstChainId := ctx.GlobalUint64(getFlagName(DstChainFlag))
-	srcAsset := common.HexToAddress(ctx.GlobalString(getFlagName(AssetFlag)))
-	dstAsset := common.HexToAddress(ctx.GlobalString(getFlagName(DstAssetFlag)))
+	srcAsset := flag2address(ctx, AssetFlag)
+	dstAsset := flag2address(ctx, DstAssetFlag)
+	dstChainId := flag2Uint64(ctx, DstChainFlag)
 	dstChainCfg := customSelectChainConfig(dstChainId)
 	owner := xecdsa.Key2address(adm)
 	proxy := common.HexToAddress(cc.NFTLockProxy)
@@ -358,11 +366,56 @@ func handleCmdTransferECCMOwnership(ctx *cli.Context) error {
 	return nil
 }
 
+func handleCmdRegisterSideChain(ctx *cli.Context) error {
+	validators, err := wallet.LoadPolyAccountList(cfg.Poly.Keystore, cfg.Poly.Passphrase)
+	if err != nil {
+		return err
+	}
+	polySdk, err := poly_sdk.NewPolySdkAndSetChainID(cfg.Poly.RPC)
+	if err != nil {
+		return err
+	}
+
+	eccd := common.HexToAddress(cc.ECCD)
+	router := cc.ChainID
+	if err := polySdk.RegisterSideChain(validators[0], cc.ChainID, router, eccd, cc.ChainName); err != nil {
+		return fmt.Errorf("failed to register side chain, err: %s", err)
+	}
+
+	log.Info("register side chain %d eccd %s success", cc.ChainID, eccd.Hex())
+	return nil
+}
+
+func handleCmdApproveSideChain(ctx *cli.Context) error {
+	validators, err := wallet.LoadPolyAccountList(cfg.Poly.Keystore, cfg.Poly.Passphrase)
+	if err != nil {
+		return err
+	}
+	polySdk, err := poly_sdk.NewPolySdkAndSetChainID(cfg.Poly.RPC)
+	if err != nil {
+		return err
+	}
+
+	if err := polySdk.ApproveRegisterSideChain(cc.ChainID, validators); err != nil {
+		return fmt.Errorf("failed to approve register side chain, err: %s", err)
+	}
+
+	log.Info("approve register side chain %d success", cc.ChainID)
+	return nil
+}
+
 func handleCmdSyncSideChainGenesis2Poly(ctx *cli.Context) error {
 	log.Info("start to sync side chain genesis header to poly chain...")
 
-	polySdk := poly_sdk.NewPolySDK(cfg.Poly.RPC)
-	validators := wallet.LoadPolyAccountList(cfg.Poly.Keystore, cfg.Poly.Passphrase)
+	polySdk, err := poly_sdk.NewPolySdkAndSetChainID(cfg.Poly.RPC)
+	if err != nil {
+		return err
+	}
+	validators, err := wallet.LoadPolyAccountList(cfg.Poly.Keystore, cfg.Poly.Passphrase)
+	if err != nil {
+		return err
+	}
+
 	if err := SyncSideChainGenesisHeaderToPolyChain(
 		cc.ChainID,
 		sdk,
@@ -379,16 +432,18 @@ func handleCmdSyncSideChainGenesis2Poly(ctx *cli.Context) error {
 func handleCmdSyncPolyGenesis2SideChain(ctx *cli.Context) error {
 	log.Info("start to sync poly chain genesis header to side chain...")
 
-	polySdk := poly_sdk.NewPolySDK(cfg.Poly.RPC)
+	polySdk, err := poly_sdk.NewPolySdkAndSetChainID(cfg.Poly.RPC)
+	if err != nil {
+		return err
+	}
 	eccm := common.HexToAddress(cc.ECCM)
 
-	err := SyncPolyChainGenesisHeader2SideChain(
+	if err := SyncPolyChainGenesisHeader2SideChain(
 		polySdk,
 		adm,
 		sdk,
 		eccm,
-	)
-	if err != nil {
+	); err != nil {
 		return fmt.Errorf("sync poly chain genesis header to side chain %d failed, err: %v", cc.ChainID, err)
 	}
 	log.Info("sync poly chain genesis header to side chain %d success!", cc.ChainID)
@@ -426,9 +481,9 @@ func handleCmdNFTWrapSetLockProxy(ctx *cli.Context) error {
 func handleCmdNFTMint(ctx *cli.Context) error {
 	log.Info("start to mint nft...")
 
-	asset := common.HexToAddress(ctx.GlobalString(getFlagName(AssetFlag)))
-	to := common.HexToAddress(ctx.GlobalString(getFlagName(DstAccountFlag)))
-	tokenID := new(big.Int).SetUint64(ctx.GlobalUint64(getFlagName(TokenIdFlag)))
+	asset := flag2address(ctx, AssetFlag)
+	to := flag2address(ctx, DstAssetFlag)
+	tokenID := flag2big(ctx, TokenIdFlag)
 	uri := cfg.OSS + tokenID.String()
 	tx, err := sdk.MintNFT(adm, asset, to, tokenID, uri)
 	if err != nil {
@@ -447,12 +502,12 @@ func handleCmdNFTWrapLock(ctx *cli.Context) error {
 		return err
 	}
 
-	asset := common.HexToAddress(ctx.GlobalString(getFlagName(AssetFlag)))
-	to := common.HexToAddress(ctx.GlobalString(getFlagName(DstAccountFlag)))
-	dstChainID := ctx.GlobalUint64(getFlagName(DstChainFlag))
-	tokenID := new(big.Int).SetUint64(ctx.GlobalUint64(getFlagName(TokenIdFlag)))
-	feeAmount := math.String2BigInt(ctx.GlobalString(getFlagName(AmountFlag)))
-	id := new(big.Int).SetUint64(ctx.GlobalUint64(getFlagName(LockIdFlag)))
+	asset := flag2address(ctx, AssetFlag)
+	to := flag2address(ctx, DstAccountFlag)
+	dstChainID := flag2Uint64(ctx, DstChainFlag)
+	tokenID := flag2big(ctx, TokenIdFlag)
+	feeAmount := flag2big(ctx, AmountFlag)
+	id := new(big.Int).SetUint64(flag2Uint64(ctx, LockIdFlag))
 	wrapper := common.HexToAddress(cc.NFTWrap)
 	feeToken := common.HexToAddress(cc.FeeToken)
 
@@ -472,11 +527,12 @@ func handleCmdERC20Mint(ctx *cli.Context) error {
 	if isFeeToken {
 		asset = common.HexToAddress(cc.FeeToken)
 	} else {
-		asset = common.HexToAddress(ctx.GlobalString(getFlagName(ERC20TokenFlag)))
+		asset = flag2address(ctx, ERC20TokenFlag)
 	}
-	to := common.HexToAddress(ctx.GlobalString(getFlagName(DstAccountFlag)))
-	param := ctx.GlobalString(getFlagName(AmountFlag))
-	amount := math.String2BigInt(param)
+
+	to := flag2address(ctx, DstAccountFlag)
+	amount := flag2big(ctx, AmountFlag)
+	log.Debug("mint to %s %s", to.Hex(), amount.String())
 
 	tx, err := sdk.MintERC20Token(adm, asset, to, amount)
 	if err != nil {
@@ -524,6 +580,29 @@ func updateConfig() error {
 
 func selectChainConfig(chainID uint64) {
 	cc = customSelectChainConfig(chainID)
+}
+
+func flag2string(ctx *cli.Context, f cli.Flag) string {
+	fn := getFlagName(f)
+	data := ctx.String(fn)
+	return data
+}
+
+func flag2address(ctx *cli.Context, f cli.Flag) common.Address {
+	data := flag2string(ctx, f)
+	return common.HexToAddress(data)
+}
+
+func flag2big(ctx *cli.Context, f cli.Flag) *big.Int {
+	fn := getFlagName(f)
+	data := ctx.String(fn)
+	return math.String2BigInt(data)
+}
+
+func flag2Uint64(ctx *cli.Context, f cli.Flag) uint64 {
+	fn := getFlagName(f)
+	data := ctx.Uint64(fn)
+	return data
 }
 
 func customSelectChainConfig(chainID uint64) *ChainConfig {

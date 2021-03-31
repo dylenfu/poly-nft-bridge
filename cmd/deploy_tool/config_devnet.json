@@ -1,18 +1,20 @@
 {
   "Ethereum": {
+    "ChainName": "ethereum",
     "ChainID": 2,
     "RPC": "http://localhost:8545",
     "Admin": "0x31c0dd87B33Dcd66f9a255Cf4CF39287F8AE593C",
     "Keystore": "keystore/eth/",
-    "ECCD": "",
-    "ECCM": "",
-    "CCMP": "",
+    "ECCD": "0xa85c9FC8F2c9060d674E0CA97F703a0A30619305",
+    "ECCM": "0xF9c051FeCc0C9fDf3F95342146EF9857e755b7aC",
+    "CCMP": "0x455B51D882571E244d03668f1a458ca74E70d196",
     "NFTLockProxy": "",
     "NFTWrap": "",
-    "FeeToken": "",
-    "FeeCollector": ""
+    "FeeToken": "0x9bEF1AE7304D3d2F344ea00e796ADa18cE1beb03",
+    "FeeCollector": "0x9B5a65b6946084AFB2d7c2851318665daA0519E9"
   },
   "Bsc": {
+    "ChainName": "bsc",
     "ChainID": 6,
     "RPC": "http://localhost:8546",
     "Admin": "0x896fB9Dd4Bddd1C4ea2cab3df66C632AD736a9D1",
@@ -23,9 +25,10 @@
     "NFTLockProxy": "",
     "NFTWrap": "",
     "FeeToken": "",
-    "FeeCollector": ""
+    "FeeCollector": "0xFfE1efd5b7Ea66a201dbB823B4E422b461483a0a"
   },
   "Heco": {
+    "ChainName": "heco",
     "ChainID": 7,
     "RPC": "http://localhost:8547",
     "Admin": "0x3E47aD86f6eF5829048FFA58800D11Af3Dc7F7a5",
@@ -36,12 +39,12 @@
     "NFTLockProxy": "",
     "NFTWrap": "",
     "FeeToken": "",
-    "FeeCollector": ""
+    "FeeCollector": "0x5BEb920B629221Cd41c8dE0eF50Da0aFCa7BF594"
   },
   "Poly": {
-    "RPC": "",
-    "Keystore": "",
-    "Passphrase": ""
+    "RPC": "http://127.0.0.1:40336",
+    "Keystore": "keystore/poly",
+    "Passphrase": "4cUYqGj2yib718E7ZmGQc"
   },
   "LevelDB": "./leveldb",
   "OSS": "http://106.75.250.160:10060/minio/"

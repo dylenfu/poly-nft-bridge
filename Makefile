@@ -62,11 +62,13 @@ coinprice_listen:
 server:
 	make bridge_http bridge_tools bridge_server
 
-deploy-tool:
+prepare-deploy-tool:
 	@mkdir -p $(BaseDir)/deploy_tool/keystore
 	@mkdir -p $(BaseDir)/deploy_tool/leveldb
 	@cp cmd/deploy_tool/config_$(env).json $(BaseDir)/deploy_tool/config.json
 	@cp -R keystore/$(env)/ $(BaseDir)/deploy_tool/keystore/
+
+deploy-tool:
 	@$(GOBUILD) -o $(BaseDir)/deploy_tool/deploy_tool cmd/deploy_tool/*.go
 
 all:

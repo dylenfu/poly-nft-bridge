@@ -31,10 +31,11 @@ type Config struct {
 }
 
 type ChainConfig struct {
-	ChainID  uint64
-	RPC      string
-	Admin    string
-	Keystore string
+	ChainID   uint64
+	ChainName string
+	RPC       string
+	Admin     string
+	Keystore  string
 
 	ECCD string
 	ECCM string

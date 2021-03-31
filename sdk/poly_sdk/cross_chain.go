@@ -11,6 +11,7 @@ import (
 
 	log "github.com/astaxie/beego/logs"
 	"github.com/btcsuite/btcd/btcec"
+	ecm "github.com/ethereum/go-ethereum/common"
 	"github.com/ontio/ontology-crypto/ec"
 	"github.com/ontio/ontology-crypto/keypair"
 	"github.com/ontio/ontology-crypto/sm2"
@@ -21,6 +22,17 @@ import (
 )
 
 const sideChainBlockToWait = 1
+
+func NewPolySdkAndSetChainID(url string) (*PolySDK, error) {
+	s := NewPolySDK(url)
+	blk, err := s.GetBlockByHeight(0)
+	if err != nil {
+		return nil, err
+	}
+	hdr := blk.Header
+	s.sdk.SetChainId(hdr.ChainID)
+	return s, nil
+}
 
 // client的账户列表就是poly共识节点账户列表，可以通过注册和取消账户的方式实现bookKeeper的变更
 func (s *PolySDK) RegNode(node *polysdk.Account, signer *polysdk.Account, validators []*polysdk.Account) error {
@@ -62,13 +74,13 @@ func (s *PolySDK) SyncGenesisBlock(
 
 func (s *PolySDK) RegisterSideChain(
 	owner *polysdk.Account,
-	chainID uint64,
-	eccdAddr common.Address,
-	sideChainRouter uint64,
+	chainID,
+	router uint64,
+	eccdAddr ecm.Address,
 	sideChainName string,
 ) error {
 
-	eccd, err := hex.DecodeString(strings.Replace(eccdAddr.ToHexString(), "0x", "", 1))
+	eccd, err := hex.DecodeString(strings.Replace(eccdAddr.Hex(), "0x", "", 1))
 	if err != nil {
 		return fmt.Errorf("failed to decode eccd address, err: %s", err)
 	}
@@ -76,7 +88,7 @@ func (s *PolySDK) RegisterSideChain(
 	if txhash, err := s.sdk.Native.Scm.RegisterSideChain(
 		owner.Address,
 		chainID,
-		sideChainRouter,
+		router,
 		sideChainName,
 		sideChainBlockToWait,
 		eccd,
