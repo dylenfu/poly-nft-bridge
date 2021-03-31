@@ -95,6 +95,7 @@ func setupApp() *cli.App {
 		CmdNFTWrapLock,
 		CmdERC20Mint,
 		CmdERC20Transfer,
+		CmdGetERC20Balance,
 	}
 
 	app.Before = beforeCommands
@@ -482,7 +483,7 @@ func handleCmdNFTMint(ctx *cli.Context) error {
 	log.Info("start to mint nft...")
 
 	asset := flag2address(ctx, AssetFlag)
-	to := flag2address(ctx, DstAssetFlag)
+	to := flag2address(ctx, DstAccountFlag)
 	tokenID := flag2big(ctx, TokenIdFlag)
 	uri := cfg.OSS + tokenID.String()
 	tx, err := sdk.MintNFT(adm, asset, to, tokenID, uri)
@@ -496,7 +497,7 @@ func handleCmdNFTMint(ctx *cli.Context) error {
 func handleCmdNFTWrapLock(ctx *cli.Context) error {
 	log.Info("start to lock nft...")
 
-	from := common.HexToAddress(ctx.GlobalString(getFlagName(SrcAccountFlag)))
+	from := flag2address(ctx, SrcAccountFlag)
 	key, err := wallet.LoadEthAccount(storage, cc.Keystore, from.Hex(), defaultAccPwd)
 	if err != nil {
 		return err
@@ -506,12 +507,15 @@ func handleCmdNFTWrapLock(ctx *cli.Context) error {
 	to := flag2address(ctx, DstAccountFlag)
 	dstChainID := flag2Uint64(ctx, DstChainFlag)
 	tokenID := flag2big(ctx, TokenIdFlag)
-	feeAmount := flag2big(ctx, AmountFlag)
+	feeToken := common.HexToAddress(cc.FeeToken)
+	fee := flag2big(ctx, AmountFlag)
 	id := new(big.Int).SetUint64(flag2Uint64(ctx, LockIdFlag))
 	wrapper := common.HexToAddress(cc.NFTWrap)
-	feeToken := common.HexToAddress(cc.FeeToken)
 
-	tx, err := sdk.WrapLock(key, wrapper, asset, to, dstChainID, tokenID, feeToken, feeAmount, id)
+	fmt.Printf("-------assset:%s, to:%s, dstChainID:%d, tokenID:%s, feeToken:%s, fee:%s, id: %s",
+		asset.Hex(), to.Hex(), dstChainID, tokenID.String(), feeToken.Hex(), fee.String(), id.String())
+
+	tx, err := sdk.WrapLock(key, wrapper, asset, to, dstChainID, tokenID, feeToken, fee, id)
 	if err != nil {
 		return err
 	}
@@ -546,27 +550,46 @@ func handleCmdERC20Transfer(ctx *cli.Context) error {
 	log.Info("start to transfer erc20 token...")
 
 	var asset common.Address
-	isFeeToken := ctx.GlobalBool(getFlagName(FeeTokenFlag))
+	isFeeToken := ctx.Bool(getFlagName(FeeTokenFlag))
 	if isFeeToken {
 		asset = common.HexToAddress(cc.FeeToken)
 	} else {
-		asset = common.HexToAddress(ctx.GlobalString(getFlagName(ERC20TokenFlag)))
+		asset = flag2address(ctx, ERC20TokenFlag)
 	}
 
-	from := common.HexToAddress(ctx.GlobalString(getFlagName(SrcAccountFlag)))
+	from := flag2address(ctx, SrcAccountFlag)
 	key, err := wallet.LoadEthAccount(storage, cc.Keystore, from.Hex(), defaultAccPwd)
 	if err != nil {
 		return err
 	}
 
-	to := common.HexToAddress(ctx.GlobalString(getFlagName(DstAccountFlag)))
-	param := ctx.GlobalString(getFlagName(AmountFlag))
-	amount := math.String2BigInt(param)
+	to := flag2address(ctx, DstAccountFlag)
+	amount := flag2big(ctx, AmountFlag)
 	tx, err := sdk.TransferERC20Token(key, asset, to, amount)
 	if err != nil {
 		return err
 	}
+
 	log.Info("%s transfer %s to %s success, tx %s", from.Hex(), amount.String(), to.Hex(), tx.Hex())
+	return nil
+}
+
+func handleGetErc20Balance(ctx *cli.Context) error {
+	owner := flag2address(ctx, SrcAccountFlag)
+
+	var asset common.Address
+	isFeeToken := ctx.Bool(getFlagName(FeeTokenFlag))
+	if isFeeToken {
+		asset = common.HexToAddress(cc.FeeToken)
+	} else {
+		asset = flag2address(ctx, ERC20TokenFlag)
+	}
+
+	balance, err := sdk.GetERC20Balance(asset, owner)
+	if err != nil {
+		return fmt.Errorf("get balance failed, err: %v", err)
+	}
+	log.Info("%s balance of asset %s is %s", owner.Hex(), asset.Hex(), balance.String())
 	return nil
 }
 

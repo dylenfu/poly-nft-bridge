@@ -127,6 +127,14 @@ func (s *EthereumSdk) TransferERC20Token(
 	return tx.Hash(), nil
 }
 
+func (s *EthereumSdk) GetERC20Balance(asset, owner common.Address) (*big.Int, error) {
+	contract, err := erc20.NewERC20Mintable(asset, s.backend())
+	if err != nil {
+		return nil, err
+	}
+	return contract.BalanceOf(nil, owner)
+}
+
 func (s *EthereumSdk) MintNFT(
 	ownerKey *ecdsa.PrivateKey,
 	asset,

@@ -318,6 +318,17 @@ var (
 			AmountFlag,
 		},
 	}
+
+	CmdGetERC20Balance = cli.Command{
+		Name:   "erc20Balance",
+		Usage:  "get ERC20 balance.",
+		Action: handleGetErc20Balance,
+		Flags: []cli.Flag{
+			FeeTokenFlag,
+			ERC20TokenFlag,
+			SrcAccountFlag,
+		},
+	}
 )
 
 //getFlagName deal with short flag, and return the flag name whether flag name have short name

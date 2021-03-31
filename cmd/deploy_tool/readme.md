@@ -40,8 +40,20 @@ bsc user1 0x8cbE1493A2894e32985E45e7e3394f3FEA15Afb2 user2 0xa252dCBF98D02218b4E
 heco user1 0x95598C69B02925De711D4015F85b49527381aF6d user2 0xE4Ecc16675d1e0A587f1435003786afE23B71733
 ```
 
-```shell script
+该部分测试必须在部署完feeToken, 并mint一部分给管理员后操作.每个用户10000个feeToken
 
+```shell script
+./deploy_tool --chain=2 transferERC20 --from=0x31c0dd87B33Dcd66f9a255Cf4CF39287F8AE593C --to=0x5Fb03EB21303D39967a1a119B32DD744a0fA8986 --amount=10000000000000000000000
+./deploy_tool --chain=2 transferERC20 --from=0x31c0dd87B33Dcd66f9a255Cf4CF39287F8AE593C --to=0xB9933ff0CB5C5B42b12972C9826703E10BFDd863 --amount=10000000000000000000000
+
+./deploy_tool --chain=6 transferERC20 --from=0x896fB9Dd4Bddd1C4ea2cab3df66C632AD736a9D1 --to=0x8cbE1493A2894e32985E45e7e3394f3FEA15Afb2 --amount=10000000000000000000000
+./deploy_tool --chain=6 transferERC20 --from=0x896fB9Dd4Bddd1C4ea2cab3df66C632AD736a9D1 --to=0xa252dCBF98D02218b4E5B7B00d8FE7646592394E --amount=10000000000000000000000
+
+./deploy_tool --chain=2 erc20Balance --from=0x5Fb03EB21303D39967a1a119B32DD744a0fA8986
+./deploy_tool --chain=2 erc20Balance --from=0xB9933ff0CB5C5B42b12972C9826703E10BFDd863
+
+./deploy_tool --chain=6 erc20Balance --from=0x8cbE1493A2894e32985E45e7e3394f3FEA15Afb2
+./deploy_tool --chain=6 erc20Balance --from=0xa252dCBF98D02218b4E5B7B00d8FE7646592394E
 ```
 #### 链基础合约
 
@@ -122,19 +134,29 @@ heco user1 0x95598C69B02925De711D4015F85b49527381aF6d user2 0xE4Ecc16675d1e0A587
 ./deploy_tool --chain=7 setFeeCollector
 ```
 
-#### NFT资产合约
+#### NFT资产合约及绑定
 
 ```shell script
 
 #todo: erc721合约_safeMint已修改.在mint的时候不要进入到onReceive方法，因为现在的lock proxy的onReceive方法中只接收来自proxy的行为 
 
-./deploy_tool --chain=2 deployNFT --name=digtalCat1 --symbol=cat1
-./deploy_tool --chain=6 deployNFT --name=digtalCat1 --symbol=cat1
-./deploy_tool --chain=7 deployNFT --name=digtalCat1 --symbol=cat1
+./deploy_tool --chain=2 deployNFT --name=digtalDog1 --symbol=dog1
+./deploy_tool --chain=6 deployNFT --name=digtalDog1 --symbol=dog1
+./deploy_tool --chain=7 deployNFT --name=digtalDog1 --symbol=dog1
 
-./deploy_tool --chain=2 bindNFT --asset=0xf634B7156ba77F697c22F24BEa5294c213100fdd --dstChain=6 --dstAsset=0x09D09E61f90E69DEc2a03EC59f85E667f831f58A
-./deploy_tool --chain=6 bindNFT --asset=0x09D09E61f90E69DEc2a03EC59f85E667f831f58A --dstChain=2 --dstAsset=0xf634B7156ba77F697c22F24BEa5294c213100fdd
+./deploy_tool --chain=2 bindNFT --asset=0x4A17a58141E9D0b85B0F9186c9dfCfc0DCD4425f --dstChain=6 --dstAsset=0x19f7189e5250e3a49E7554133fd821889BecC031
+./deploy_tool --chain=6 bindNFT --asset=0x19f7189e5250e3a49E7554133fd821889BecC031 --dstChain=2 --dstAsset=0x4A17a58141E9D0b85B0F9186c9dfCfc0DCD4425f
+```
 
-./deploy_tool --chain=2 mintNFT --asset=0xf634B7156ba77F697c22F24BEa5294c213100fdd --to=0x5Fb03EB21303D39967a1a119B32DD744a0fA8986 --tokenId=1
+#### NFT跨链
 
+```shell script
+
+./deploy_tool --chain=2 mintNFT --asset=0x4A17a58141E9D0b85B0F9186c9dfCfc0DCD4425f --to=0x5Fb03EB21303D39967a1a119B32DD744a0fA8986 --tokenId=1
+
+./deploy_tool --chain=2 lockNFT --dstChain=6 \
+--asset=0x4A17a58141E9D0b85B0F9186c9dfCfc0DCD4425f \
+--from=0x5Fb03EB21303D39967a1a119B32DD744a0fA8986 \
+--to=0x8cbE1493A2894e32985E45e7e3394f3FEA15Afb2 \
+--tokenId=1 --amount=1000000000000000000 --lockId=1
 ```
