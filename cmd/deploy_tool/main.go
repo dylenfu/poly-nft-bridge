@@ -37,41 +37,6 @@ import (
 	"github.com/urfave/cli"
 )
 
-type Config struct {
-	Ethereum *ChainConfig
-	Bsc      *ChainConfig
-	Heco     *ChainConfig
-	Poly     *PolyConfig
-
-	// leveldb direction
-	LevelDB string
-
-	// oss
-	OSS string
-}
-
-type ChainConfig struct {
-	ChainID  uint64
-	RPC      string
-	Admin    string
-	Keystore string
-
-	ECCD common.Address
-	ECCM common.Address
-	CCMP common.Address
-
-	NFTLockProxy common.Address
-	NFTWrap      common.Address
-	FeeToken     common.Address
-	FeeCollector common.Address
-}
-
-type PolyConfig struct {
-	RPC        string
-	Keystore   string
-	Passphrase string
-}
-
 var (
 	cfgPath string
 	cfg     = new(Config)

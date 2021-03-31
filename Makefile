@@ -64,8 +64,8 @@ server:
 
 deploy-tool:
 	mkdir -p $(BaseDir)/deploy_tool/
-	@cp -r cmd/deploy_tool/testnet.json $(BaseDir)/deploy_tool/
-	@$(GOBUILD) -o $(BaseDir)/deploy_tool/deploy_tool cmd/deploy_tool/main.go
+	@cp cmd/deploy_tool/config_$(env).json $(BaseDir)/deploy_tool/config.json
+	@$(GOBUILD) -o $(BaseDir)/deploy_tool/deploy_tool cmd/deploy_tool/*.go
 
 all:
 	make bridge_http bridge_tools bridge_server ethereum_listen neo_listen ontology_listen poly_listen chainfee_listen crosschain_effect coinprice_listen

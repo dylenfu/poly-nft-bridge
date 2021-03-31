@@ -42,7 +42,7 @@ var ERC20FuncSigs = map[string]string{
 }
 
 // ERC20Bin is the compiled bytecode used for deploying new contracts.
-var ERC20Bin = "0x608060405234801561001057600080fd5b506104e9806100206000396000f3fe608060405234801561001057600080fd5b50600436106100885760003560e01c806370a082311161005b57806370a0823114610149578063a457c2d71461016f578063a9059cbb1461019b578063dd62ed3e146101c757610088565b8063095ea7b31461008d57806318160ddd146100cd57806323b872dd146100e7578063395093511461011d575b600080fd5b6100b9600480360360408110156100a357600080fd5b506001600160a01b0381351690602001356101f5565b604080519115158252519081900360200190f35b6100d561020b565b60408051918252519081900360200190f35b6100b9600480360360608110156100fd57600080fd5b506001600160a01b03813581169160208101359091169060400135610211565b6100b96004803603604081101561013357600080fd5b506001600160a01b038135169060200135610268565b6100d56004803603602081101561015f57600080fd5b50356001600160a01b03166102a4565b6100b96004803603604081101561018557600080fd5b506001600160a01b0381351690602001356102bf565b6100b9600480360360408110156101b157600080fd5b506001600160a01b0381351690602001356102fb565b6100d5600480360360408110156101dd57600080fd5b506001600160a01b0381358116916020013516610308565b6000610202338484610333565b50600192915050565b60025490565b600061021e8484846103bb565b6001600160a01b03841660009081526001602090815260408083203380855292529091205461025e918691610259908663ffffffff61048616565b610333565b5060019392505050565b3360008181526001602090815260408083206001600160a01b03871684529091528120549091610202918590610259908663ffffffff61049b16565b6001600160a01b031660009081526020819052604090205490565b3360008181526001602090815260408083206001600160a01b03871684529091528120549091610202918590610259908663ffffffff61048616565b60006102023384846103bb565b6001600160a01b03918216600090815260016020908152604080832093909416825291909152205490565b6001600160a01b03821661034657600080fd5b6001600160a01b03831661035957600080fd5b6001600160a01b03808416600081815260016020908152604080832094871680845294825291829020859055815185815291517f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b9259281900390910190a3505050565b6001600160a01b0382166103ce57600080fd5b6001600160a01b0383166000908152602081905260409020546103f7908263ffffffff61048616565b6001600160a01b03808516600090815260208190526040808220939093559084168152205461042c908263ffffffff61049b16565b6001600160a01b038084166000818152602081815260409182902094909455805185815290519193928716927fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef92918290030190a3505050565b60008282111561049557600080fd5b50900390565b6000828201838110156104ad57600080fd5b939250505056fea265627a7a723158208b73b8cccb333db9b47e53372572464328136ecab6cbade69e88fc274672c79664736f6c634300050f0032"
+var ERC20Bin = "0x608060405234801561001057600080fd5b506104e9806100206000396000f3fe608060405234801561001057600080fd5b50600436106100885760003560e01c806370a082311161005b57806370a0823114610149578063a457c2d71461016f578063a9059cbb1461019b578063dd62ed3e146101c757610088565b8063095ea7b31461008d57806318160ddd146100cd57806323b872dd146100e7578063395093511461011d575b600080fd5b6100b9600480360360408110156100a357600080fd5b506001600160a01b0381351690602001356101f5565b604080519115158252519081900360200190f35b6100d561020b565b60408051918252519081900360200190f35b6100b9600480360360608110156100fd57600080fd5b506001600160a01b03813581169160208101359091169060400135610211565b6100b96004803603604081101561013357600080fd5b506001600160a01b038135169060200135610268565b6100d56004803603602081101561015f57600080fd5b50356001600160a01b03166102a4565b6100b96004803603604081101561018557600080fd5b506001600160a01b0381351690602001356102bf565b6100b9600480360360408110156101b157600080fd5b506001600160a01b0381351690602001356102fb565b6100d5600480360360408110156101dd57600080fd5b506001600160a01b0381358116916020013516610308565b6000610202338484610333565b50600192915050565b60025490565b600061021e8484846103bb565b6001600160a01b03841660009081526001602090815260408083203380855292529091205461025e918691610259908663ffffffff61048616565b610333565b5060019392505050565b3360008181526001602090815260408083206001600160a01b03871684529091528120549091610202918590610259908663ffffffff61049b16565b6001600160a01b031660009081526020819052604090205490565b3360008181526001602090815260408083206001600160a01b03871684529091528120549091610202918590610259908663ffffffff61048616565b60006102023384846103bb565b6001600160a01b03918216600090815260016020908152604080832093909416825291909152205490565b6001600160a01b03821661034657600080fd5b6001600160a01b03831661035957600080fd5b6001600160a01b03808416600081815260016020908152604080832094871680845294825291829020859055815185815291517f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b9259281900390910190a3505050565b6001600160a01b0382166103ce57600080fd5b6001600160a01b0383166000908152602081905260409020546103f7908263ffffffff61048616565b6001600160a01b03808516600090815260208190526040808220939093559084168152205461042c908263ffffffff61049b16565b6001600160a01b038084166000818152602081815260409182902094909455805185815290519193928716927fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef92918290030190a3505050565b60008282111561049557600080fd5b50900390565b6000828201838110156104ad57600080fd5b939250505056fea265627a7a723158206c15c1ca62735ed39728da95f58d7e85d0bc9653259ca168e7ec557db26a368f64736f6c63430005110032"
 
 // DeployERC20 deploys a new Ethereum contract, binding an instance of ERC20 to it.
 func DeployERC20(auth *bind.TransactOpts, backend bind.ContractBackend) (common.Address, *types.Transaction, *ERC20, error) {
@@ -166,7 +166,7 @@ func bindERC20(address common.Address, caller bind.ContractCaller, transactor bi
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_ERC20 *ERC20Raw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_ERC20 *ERC20Raw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
 	return _ERC20.Contract.ERC20Caller.contract.Call(opts, result, method, params...)
 }
 
@@ -185,7 +185,7 @@ func (_ERC20 *ERC20Raw) Transact(opts *bind.TransactOpts, method string, params 
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_ERC20 *ERC20CallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_ERC20 *ERC20CallerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
 	return _ERC20.Contract.contract.Call(opts, result, method, params...)
 }
 
@@ -204,17 +204,12 @@ func (_ERC20 *ERC20TransactorRaw) Transact(opts *bind.TransactOpts, method strin
 //
 // Solidity: function allowance(address owner, address spender) view returns(uint256)
 func (_ERC20 *ERC20Caller) Allowance(opts *bind.CallOpts, owner common.Address, spender common.Address) (*big.Int, error) {
-	var out []interface{}
-	err := _ERC20.contract.Call(opts, &out, "allowance", owner, spender)
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _ERC20.contract.Call(opts, out, "allowance", owner, spender)
+	return *ret0, err
 }
 
 // Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
@@ -235,17 +230,12 @@ func (_ERC20 *ERC20CallerSession) Allowance(owner common.Address, spender common
 //
 // Solidity: function balanceOf(address owner) view returns(uint256)
 func (_ERC20 *ERC20Caller) BalanceOf(opts *bind.CallOpts, owner common.Address) (*big.Int, error) {
-	var out []interface{}
-	err := _ERC20.contract.Call(opts, &out, "balanceOf", owner)
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _ERC20.contract.Call(opts, out, "balanceOf", owner)
+	return *ret0, err
 }
 
 // BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
@@ -266,17 +256,12 @@ func (_ERC20 *ERC20CallerSession) BalanceOf(owner common.Address) (*big.Int, err
 //
 // Solidity: function totalSupply() view returns(uint256)
 func (_ERC20 *ERC20Caller) TotalSupply(opts *bind.CallOpts) (*big.Int, error) {
-	var out []interface{}
-	err := _ERC20.contract.Call(opts, &out, "totalSupply")
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _ERC20.contract.Call(opts, out, "totalSupply")
+	return *ret0, err
 }
 
 // TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
@@ -548,7 +533,6 @@ func (_ERC20 *ERC20Filterer) ParseApproval(log types.Log) (*ERC20Approval, error
 	if err := _ERC20.contract.UnpackLog(event, "Approval", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
 
@@ -702,7 +686,6 @@ func (_ERC20 *ERC20Filterer) ParseTransfer(log types.Log) (*ERC20Transfer, error
 	if err := _ERC20.contract.UnpackLog(event, "Transfer", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
 
@@ -830,7 +813,7 @@ func bindERC20Detailed(address common.Address, caller bind.ContractCaller, trans
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_ERC20Detailed *ERC20DetailedRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_ERC20Detailed *ERC20DetailedRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
 	return _ERC20Detailed.Contract.ERC20DetailedCaller.contract.Call(opts, result, method, params...)
 }
 
@@ -849,7 +832,7 @@ func (_ERC20Detailed *ERC20DetailedRaw) Transact(opts *bind.TransactOpts, method
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_ERC20Detailed *ERC20DetailedCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_ERC20Detailed *ERC20DetailedCallerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
 	return _ERC20Detailed.Contract.contract.Call(opts, result, method, params...)
 }
 
@@ -868,17 +851,12 @@ func (_ERC20Detailed *ERC20DetailedTransactorRaw) Transact(opts *bind.TransactOp
 //
 // Solidity: function allowance(address owner, address spender) view returns(uint256)
 func (_ERC20Detailed *ERC20DetailedCaller) Allowance(opts *bind.CallOpts, owner common.Address, spender common.Address) (*big.Int, error) {
-	var out []interface{}
-	err := _ERC20Detailed.contract.Call(opts, &out, "allowance", owner, spender)
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _ERC20Detailed.contract.Call(opts, out, "allowance", owner, spender)
+	return *ret0, err
 }
 
 // Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
@@ -899,17 +877,12 @@ func (_ERC20Detailed *ERC20DetailedCallerSession) Allowance(owner common.Address
 //
 // Solidity: function balanceOf(address who) view returns(uint256)
 func (_ERC20Detailed *ERC20DetailedCaller) BalanceOf(opts *bind.CallOpts, who common.Address) (*big.Int, error) {
-	var out []interface{}
-	err := _ERC20Detailed.contract.Call(opts, &out, "balanceOf", who)
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _ERC20Detailed.contract.Call(opts, out, "balanceOf", who)
+	return *ret0, err
 }
 
 // BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
@@ -930,17 +903,12 @@ func (_ERC20Detailed *ERC20DetailedCallerSession) BalanceOf(who common.Address) 
 //
 // Solidity: function decimals() view returns(uint8)
 func (_ERC20Detailed *ERC20DetailedCaller) Decimals(opts *bind.CallOpts) (uint8, error) {
-	var out []interface{}
-	err := _ERC20Detailed.contract.Call(opts, &out, "decimals")
-
-	if err != nil {
-		return *new(uint8), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(uint8)).(*uint8)
-
-	return out0, err
-
+	var (
+		ret0 = new(uint8)
+	)
+	out := ret0
+	err := _ERC20Detailed.contract.Call(opts, out, "decimals")
+	return *ret0, err
 }
 
 // Decimals is a free data retrieval call binding the contract method 0x313ce567.
@@ -961,17 +929,12 @@ func (_ERC20Detailed *ERC20DetailedCallerSession) Decimals() (uint8, error) {
 //
 // Solidity: function name() view returns(string)
 func (_ERC20Detailed *ERC20DetailedCaller) Name(opts *bind.CallOpts) (string, error) {
-	var out []interface{}
-	err := _ERC20Detailed.contract.Call(opts, &out, "name")
-
-	if err != nil {
-		return *new(string), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(string)).(*string)
-
-	return out0, err
-
+	var (
+		ret0 = new(string)
+	)
+	out := ret0
+	err := _ERC20Detailed.contract.Call(opts, out, "name")
+	return *ret0, err
 }
 
 // Name is a free data retrieval call binding the contract method 0x06fdde03.
@@ -992,17 +955,12 @@ func (_ERC20Detailed *ERC20DetailedCallerSession) Name() (string, error) {
 //
 // Solidity: function symbol() view returns(string)
 func (_ERC20Detailed *ERC20DetailedCaller) Symbol(opts *bind.CallOpts) (string, error) {
-	var out []interface{}
-	err := _ERC20Detailed.contract.Call(opts, &out, "symbol")
-
-	if err != nil {
-		return *new(string), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(string)).(*string)
-
-	return out0, err
-
+	var (
+		ret0 = new(string)
+	)
+	out := ret0
+	err := _ERC20Detailed.contract.Call(opts, out, "symbol")
+	return *ret0, err
 }
 
 // Symbol is a free data retrieval call binding the contract method 0x95d89b41.
@@ -1023,17 +981,12 @@ func (_ERC20Detailed *ERC20DetailedCallerSession) Symbol() (string, error) {
 //
 // Solidity: function totalSupply() view returns(uint256)
 func (_ERC20Detailed *ERC20DetailedCaller) TotalSupply(opts *bind.CallOpts) (*big.Int, error) {
-	var out []interface{}
-	err := _ERC20Detailed.contract.Call(opts, &out, "totalSupply")
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _ERC20Detailed.contract.Call(opts, out, "totalSupply")
+	return *ret0, err
 }
 
 // TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
@@ -1263,7 +1216,6 @@ func (_ERC20Detailed *ERC20DetailedFilterer) ParseApproval(log types.Log) (*ERC2
 	if err := _ERC20Detailed.contract.UnpackLog(event, "Approval", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
 
@@ -1417,7 +1369,6 @@ func (_ERC20Detailed *ERC20DetailedFilterer) ParseTransfer(log types.Log) (*ERC2
 	if err := _ERC20Detailed.contract.UnpackLog(event, "Transfer", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
 
@@ -1441,7 +1392,7 @@ var ERC20MintableFuncSigs = map[string]string{
 }
 
 // ERC20MintableBin is the compiled bytecode used for deploying new contracts.
-var ERC20MintableBin = "0x6080604052610016336001600160e01b0361001b16565b6100f4565b61003381600361006a60201b61072f1790919060201c565b6040516001600160a01b038216907f6ae172837ea30b801fbfcdd4108aa1d5bf8ff775444fd70256b44e6bf3dfc3f690600090a250565b6001600160a01b03811661007d57600080fd5b61009082826001600160e01b036100bf16565b1561009a57600080fd5b6001600160a01b0316600090815260209190915260409020805460ff19166001179055565b60006001600160a01b0382166100d457600080fd5b506001600160a01b03166000908152602091909152604090205460ff1690565b6107f8806101036000396000f3fe608060405234801561001057600080fd5b50600436106100b45760003560e01c8063983b2d5611610071578063983b2d56146101c757806398650275146101ef578063a457c2d7146101f7578063a9059cbb14610223578063aa271e1a1461024f578063dd62ed3e14610275576100b4565b8063095ea7b3146100b957806318160ddd146100f957806323b872dd14610113578063395093511461014957806340c10f191461017557806370a08231146101a1575b600080fd5b6100e5600480360360408110156100cf57600080fd5b506001600160a01b0381351690602001356102a3565b604080519115158252519081900360200190f35b6101016102b9565b60408051918252519081900360200190f35b6100e56004803603606081101561012957600080fd5b506001600160a01b038135811691602081013590911690604001356102bf565b6100e56004803603604081101561015f57600080fd5b506001600160a01b038135169060200135610316565b6100e56004803603604081101561018b57600080fd5b506001600160a01b038135169060200135610352565b610101600480360360208110156101b757600080fd5b50356001600160a01b0316610370565b6101ed600480360360208110156101dd57600080fd5b50356001600160a01b031661038b565b005b6101ed6103a9565b6100e56004803603604081101561020d57600080fd5b506001600160a01b0381351690602001356103b4565b6100e56004803603604081101561023957600080fd5b506001600160a01b0381351690602001356103f0565b6100e56004803603602081101561026557600080fd5b50356001600160a01b03166103fd565b6101016004803603604081101561028b57600080fd5b506001600160a01b0381358116916020013516610416565b60006102b0338484610441565b50600192915050565b60025490565b60006102cc8484846104c9565b6001600160a01b03841660009081526001602090815260408083203380855292529091205461030c918691610307908663ffffffff61059416565b610441565b5060019392505050565b3360008181526001602090815260408083206001600160a01b038716845290915281205490916102b0918590610307908663ffffffff6105a916565b600061035d336103fd565b61036657600080fd5b6102b083836105c2565b6001600160a01b031660009081526020819052604090205490565b610394336103fd565b61039d57600080fd5b6103a68161066a565b50565b6103b2336106b2565b565b3360008181526001602090815260408083206001600160a01b038716845290915281205490916102b0918590610307908663ffffffff61059416565b60006102b03384846104c9565b600061041060038363ffffffff6106fa16565b92915050565b6001600160a01b03918216600090815260016020908152604080832093909416825291909152205490565b6001600160a01b03821661045457600080fd5b6001600160a01b03831661046757600080fd5b6001600160a01b03808416600081815260016020908152604080832094871680845294825291829020859055815185815291517f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b9259281900390910190a3505050565b6001600160a01b0382166104dc57600080fd5b6001600160a01b038316600090815260208190526040902054610505908263ffffffff61059416565b6001600160a01b03808516600090815260208190526040808220939093559084168152205461053a908263ffffffff6105a916565b6001600160a01b038084166000818152602081815260409182902094909455805185815290519193928716927fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef92918290030190a3505050565b6000828211156105a357600080fd5b50900390565b6000828201838110156105bb57600080fd5b9392505050565b6001600160a01b0382166105d557600080fd5b6002546105e8908263ffffffff6105a916565b6002556001600160a01b038216600090815260208190526040902054610614908263ffffffff6105a916565b6001600160a01b0383166000818152602081815260408083209490945583518581529351929391927fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef9281900390910190a35050565b61067b60038263ffffffff61072f16565b6040516001600160a01b038216907f6ae172837ea30b801fbfcdd4108aa1d5bf8ff775444fd70256b44e6bf3dfc3f690600090a250565b6106c360038263ffffffff61077b16565b6040516001600160a01b038216907fe94479a9f7e1952cc78f2d6baab678adc1b772d936c6583def489e524cb6669290600090a250565b60006001600160a01b03821661070f57600080fd5b506001600160a01b03166000908152602091909152604090205460ff1690565b6001600160a01b03811661074257600080fd5b61074c82826106fa565b1561075657600080fd5b6001600160a01b0316600090815260209190915260409020805460ff19166001179055565b6001600160a01b03811661078e57600080fd5b61079882826106fa565b6107a157600080fd5b6001600160a01b0316600090815260209190915260409020805460ff1916905556fea265627a7a72315820a5194e0e83007fd56b641f1c0e50290d1b3c4097e0054ded28f9836b803e6b7f64736f6c634300050f0032"
+var ERC20MintableBin = "0x6080604052610016336001600160e01b0361001b16565b6100f4565b61003381600361006a60201b61072f1790919060201c565b6040516001600160a01b038216907f6ae172837ea30b801fbfcdd4108aa1d5bf8ff775444fd70256b44e6bf3dfc3f690600090a250565b6001600160a01b03811661007d57600080fd5b61009082826001600160e01b036100bf16565b1561009a57600080fd5b6001600160a01b0316600090815260209190915260409020805460ff19166001179055565b60006001600160a01b0382166100d457600080fd5b506001600160a01b03166000908152602091909152604090205460ff1690565b6107f8806101036000396000f3fe608060405234801561001057600080fd5b50600436106100b45760003560e01c8063983b2d5611610071578063983b2d56146101c757806398650275146101ef578063a457c2d7146101f7578063a9059cbb14610223578063aa271e1a1461024f578063dd62ed3e14610275576100b4565b8063095ea7b3146100b957806318160ddd146100f957806323b872dd14610113578063395093511461014957806340c10f191461017557806370a08231146101a1575b600080fd5b6100e5600480360360408110156100cf57600080fd5b506001600160a01b0381351690602001356102a3565b604080519115158252519081900360200190f35b6101016102b9565b60408051918252519081900360200190f35b6100e56004803603606081101561012957600080fd5b506001600160a01b038135811691602081013590911690604001356102bf565b6100e56004803603604081101561015f57600080fd5b506001600160a01b038135169060200135610316565b6100e56004803603604081101561018b57600080fd5b506001600160a01b038135169060200135610352565b610101600480360360208110156101b757600080fd5b50356001600160a01b0316610370565b6101ed600480360360208110156101dd57600080fd5b50356001600160a01b031661038b565b005b6101ed6103a9565b6100e56004803603604081101561020d57600080fd5b506001600160a01b0381351690602001356103b4565b6100e56004803603604081101561023957600080fd5b506001600160a01b0381351690602001356103f0565b6100e56004803603602081101561026557600080fd5b50356001600160a01b03166103fd565b6101016004803603604081101561028b57600080fd5b506001600160a01b0381358116916020013516610416565b60006102b0338484610441565b50600192915050565b60025490565b60006102cc8484846104c9565b6001600160a01b03841660009081526001602090815260408083203380855292529091205461030c918691610307908663ffffffff61059416565b610441565b5060019392505050565b3360008181526001602090815260408083206001600160a01b038716845290915281205490916102b0918590610307908663ffffffff6105a916565b600061035d336103fd565b61036657600080fd5b6102b083836105c2565b6001600160a01b031660009081526020819052604090205490565b610394336103fd565b61039d57600080fd5b6103a68161066a565b50565b6103b2336106b2565b565b3360008181526001602090815260408083206001600160a01b038716845290915281205490916102b0918590610307908663ffffffff61059416565b60006102b03384846104c9565b600061041060038363ffffffff6106fa16565b92915050565b6001600160a01b03918216600090815260016020908152604080832093909416825291909152205490565b6001600160a01b03821661045457600080fd5b6001600160a01b03831661046757600080fd5b6001600160a01b03808416600081815260016020908152604080832094871680845294825291829020859055815185815291517f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b9259281900390910190a3505050565b6001600160a01b0382166104dc57600080fd5b6001600160a01b038316600090815260208190526040902054610505908263ffffffff61059416565b6001600160a01b03808516600090815260208190526040808220939093559084168152205461053a908263ffffffff6105a916565b6001600160a01b038084166000818152602081815260409182902094909455805185815290519193928716927fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef92918290030190a3505050565b6000828211156105a357600080fd5b50900390565b6000828201838110156105bb57600080fd5b9392505050565b6001600160a01b0382166105d557600080fd5b6002546105e8908263ffffffff6105a916565b6002556001600160a01b038216600090815260208190526040902054610614908263ffffffff6105a916565b6001600160a01b0383166000818152602081815260408083209490945583518581529351929391927fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef9281900390910190a35050565b61067b60038263ffffffff61072f16565b6040516001600160a01b038216907f6ae172837ea30b801fbfcdd4108aa1d5bf8ff775444fd70256b44e6bf3dfc3f690600090a250565b6106c360038263ffffffff61077b16565b6040516001600160a01b038216907fe94479a9f7e1952cc78f2d6baab678adc1b772d936c6583def489e524cb6669290600090a250565b60006001600160a01b03821661070f57600080fd5b506001600160a01b03166000908152602091909152604090205460ff1690565b6001600160a01b03811661074257600080fd5b61074c82826106fa565b1561075657600080fd5b6001600160a01b0316600090815260209190915260409020805460ff19166001179055565b6001600160a01b03811661078e57600080fd5b61079882826106fa565b6107a157600080fd5b6001600160a01b0316600090815260209190915260409020805460ff1916905556fea265627a7a72315820a29fb1f3eab7a28942306d77f21bd052bc04002c1d855f1ee03e29cd84a67b2964736f6c63430005110032"
 
 // DeployERC20Mintable deploys a new Ethereum contract, binding an instance of ERC20Mintable to it.
 func DeployERC20Mintable(auth *bind.TransactOpts, backend bind.ContractBackend) (common.Address, *types.Transaction, *ERC20Mintable, error) {
@@ -1565,7 +1516,7 @@ func bindERC20Mintable(address common.Address, caller bind.ContractCaller, trans
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_ERC20Mintable *ERC20MintableRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_ERC20Mintable *ERC20MintableRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
 	return _ERC20Mintable.Contract.ERC20MintableCaller.contract.Call(opts, result, method, params...)
 }
 
@@ -1584,7 +1535,7 @@ func (_ERC20Mintable *ERC20MintableRaw) Transact(opts *bind.TransactOpts, method
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_ERC20Mintable *ERC20MintableCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_ERC20Mintable *ERC20MintableCallerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
 	return _ERC20Mintable.Contract.contract.Call(opts, result, method, params...)
 }
 
@@ -1603,17 +1554,12 @@ func (_ERC20Mintable *ERC20MintableTransactorRaw) Transact(opts *bind.TransactOp
 //
 // Solidity: function allowance(address owner, address spender) view returns(uint256)
 func (_ERC20Mintable *ERC20MintableCaller) Allowance(opts *bind.CallOpts, owner common.Address, spender common.Address) (*big.Int, error) {
-	var out []interface{}
-	err := _ERC20Mintable.contract.Call(opts, &out, "allowance", owner, spender)
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _ERC20Mintable.contract.Call(opts, out, "allowance", owner, spender)
+	return *ret0, err
 }
 
 // Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
@@ -1634,17 +1580,12 @@ func (_ERC20Mintable *ERC20MintableCallerSession) Allowance(owner common.Address
 //
 // Solidity: function balanceOf(address owner) view returns(uint256)
 func (_ERC20Mintable *ERC20MintableCaller) BalanceOf(opts *bind.CallOpts, owner common.Address) (*big.Int, error) {
-	var out []interface{}
-	err := _ERC20Mintable.contract.Call(opts, &out, "balanceOf", owner)
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _ERC20Mintable.contract.Call(opts, out, "balanceOf", owner)
+	return *ret0, err
 }
 
 // BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
@@ -1665,17 +1606,12 @@ func (_ERC20Mintable *ERC20MintableCallerSession) BalanceOf(owner common.Address
 //
 // Solidity: function isMinter(address account) view returns(bool)
 func (_ERC20Mintable *ERC20MintableCaller) IsMinter(opts *bind.CallOpts, account common.Address) (bool, error) {
-	var out []interface{}
-	err := _ERC20Mintable.contract.Call(opts, &out, "isMinter", account)
-
-	if err != nil {
-		return *new(bool), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
-
-	return out0, err
-
+	var (
+		ret0 = new(bool)
+	)
+	out := ret0
+	err := _ERC20Mintable.contract.Call(opts, out, "isMinter", account)
+	return *ret0, err
 }
 
 // IsMinter is a free data retrieval call binding the contract method 0xaa271e1a.
@@ -1696,17 +1632,12 @@ func (_ERC20Mintable *ERC20MintableCallerSession) IsMinter(account common.Addres
 //
 // Solidity: function totalSupply() view returns(uint256)
 func (_ERC20Mintable *ERC20MintableCaller) TotalSupply(opts *bind.CallOpts) (*big.Int, error) {
-	var out []interface{}
-	err := _ERC20Mintable.contract.Call(opts, &out, "totalSupply")
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _ERC20Mintable.contract.Call(opts, out, "totalSupply")
+	return *ret0, err
 }
 
 // TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
@@ -2041,7 +1972,6 @@ func (_ERC20Mintable *ERC20MintableFilterer) ParseApproval(log types.Log) (*ERC2
 	if err := _ERC20Mintable.contract.UnpackLog(event, "Approval", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
 
@@ -2185,7 +2115,6 @@ func (_ERC20Mintable *ERC20MintableFilterer) ParseMinterAdded(log types.Log) (*E
 	if err := _ERC20Mintable.contract.UnpackLog(event, "MinterAdded", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
 
@@ -2329,7 +2258,6 @@ func (_ERC20Mintable *ERC20MintableFilterer) ParseMinterRemoved(log types.Log) (
 	if err := _ERC20Mintable.contract.UnpackLog(event, "MinterRemoved", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
 
@@ -2483,7 +2411,6 @@ func (_ERC20Mintable *ERC20MintableFilterer) ParseTransfer(log types.Log) (*ERC2
 	if err := _ERC20Mintable.contract.UnpackLog(event, "Transfer", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
 
@@ -2608,7 +2535,7 @@ func bindIERC20(address common.Address, caller bind.ContractCaller, transactor b
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_IERC20 *IERC20Raw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_IERC20 *IERC20Raw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
 	return _IERC20.Contract.IERC20Caller.contract.Call(opts, result, method, params...)
 }
 
@@ -2627,7 +2554,7 @@ func (_IERC20 *IERC20Raw) Transact(opts *bind.TransactOpts, method string, param
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_IERC20 *IERC20CallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_IERC20 *IERC20CallerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
 	return _IERC20.Contract.contract.Call(opts, result, method, params...)
 }
 
@@ -2646,17 +2573,12 @@ func (_IERC20 *IERC20TransactorRaw) Transact(opts *bind.TransactOpts, method str
 //
 // Solidity: function allowance(address owner, address spender) view returns(uint256)
 func (_IERC20 *IERC20Caller) Allowance(opts *bind.CallOpts, owner common.Address, spender common.Address) (*big.Int, error) {
-	var out []interface{}
-	err := _IERC20.contract.Call(opts, &out, "allowance", owner, spender)
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _IERC20.contract.Call(opts, out, "allowance", owner, spender)
+	return *ret0, err
 }
 
 // Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
@@ -2677,17 +2599,12 @@ func (_IERC20 *IERC20CallerSession) Allowance(owner common.Address, spender comm
 //
 // Solidity: function balanceOf(address who) view returns(uint256)
 func (_IERC20 *IERC20Caller) BalanceOf(opts *bind.CallOpts, who common.Address) (*big.Int, error) {
-	var out []interface{}
-	err := _IERC20.contract.Call(opts, &out, "balanceOf", who)
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _IERC20.contract.Call(opts, out, "balanceOf", who)
+	return *ret0, err
 }
 
 // BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
@@ -2708,17 +2625,12 @@ func (_IERC20 *IERC20CallerSession) BalanceOf(who common.Address) (*big.Int, err
 //
 // Solidity: function totalSupply() view returns(uint256)
 func (_IERC20 *IERC20Caller) TotalSupply(opts *bind.CallOpts) (*big.Int, error) {
-	var out []interface{}
-	err := _IERC20.contract.Call(opts, &out, "totalSupply")
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _IERC20.contract.Call(opts, out, "totalSupply")
+	return *ret0, err
 }
 
 // TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
@@ -2948,7 +2860,6 @@ func (_IERC20 *IERC20Filterer) ParseApproval(log types.Log) (*IERC20Approval, er
 	if err := _IERC20.contract.UnpackLog(event, "Approval", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
 
@@ -3102,7 +3013,6 @@ func (_IERC20 *IERC20Filterer) ParseTransfer(log types.Log) (*IERC20Transfer, er
 	if err := _IERC20.contract.UnpackLog(event, "Transfer", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
 
@@ -3224,7 +3134,7 @@ func bindMinterRole(address common.Address, caller bind.ContractCaller, transact
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_MinterRole *MinterRoleRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_MinterRole *MinterRoleRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
 	return _MinterRole.Contract.MinterRoleCaller.contract.Call(opts, result, method, params...)
 }
 
@@ -3243,7 +3153,7 @@ func (_MinterRole *MinterRoleRaw) Transact(opts *bind.TransactOpts, method strin
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_MinterRole *MinterRoleCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_MinterRole *MinterRoleCallerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
 	return _MinterRole.Contract.contract.Call(opts, result, method, params...)
 }
 
@@ -3262,17 +3172,12 @@ func (_MinterRole *MinterRoleTransactorRaw) Transact(opts *bind.TransactOpts, me
 //
 // Solidity: function isMinter(address account) view returns(bool)
 func (_MinterRole *MinterRoleCaller) IsMinter(opts *bind.CallOpts, account common.Address) (bool, error) {
-	var out []interface{}
-	err := _MinterRole.contract.Call(opts, &out, "isMinter", account)
-
-	if err != nil {
-		return *new(bool), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
-
-	return out0, err
-
+	var (
+		ret0 = new(bool)
+	)
+	out := ret0
+	err := _MinterRole.contract.Call(opts, out, "isMinter", account)
+	return *ret0, err
 }
 
 // IsMinter is a free data retrieval call binding the contract method 0xaa271e1a.
@@ -3471,7 +3376,6 @@ func (_MinterRole *MinterRoleFilterer) ParseMinterAdded(log types.Log) (*MinterR
 	if err := _MinterRole.contract.UnpackLog(event, "MinterAdded", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
 
@@ -3615,7 +3519,6 @@ func (_MinterRole *MinterRoleFilterer) ParseMinterRemoved(log types.Log) (*Minte
 	if err := _MinterRole.contract.UnpackLog(event, "MinterRemoved", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
 
@@ -3644,7 +3547,7 @@ var MockDaiFuncSigs = map[string]string{
 }
 
 // MockDaiBin is the compiled bytecode used for deploying new contracts.
-var MockDaiBin = "0x60806040523480156200001157600080fd5b50604051806040016040528060078152602001664d6f636b44616960c81b815250604051806040016040528060038152602001624d444160e81b81525060126200006133620000c060201b60201c565b82516200007690600490602086019062000274565b5081516200008c90600590602085019062000274565b506006805460ff191660ff9290921691909117905550620000ba90503369152d02c7e14af680000062000112565b62000319565b620000db816003620001cb60201b6200094c1790919060201c565b6040516001600160a01b038216907f6ae172837ea30b801fbfcdd4108aa1d5bf8ff775444fd70256b44e6bf3dfc3f690600090a250565b6001600160a01b0382166200012657600080fd5b62000142816002546200022460201b620007c61790919060201c565b6002556001600160a01b0382166000908152602081815260409091205462000175918390620007c662000224821b17901c565b6001600160a01b0383166000818152602081815260408083209490945583518581529351929391927fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef9281900390910190a35050565b6001600160a01b038116620001df57600080fd5b620001f482826001600160e01b036200023e16565b15620001ff57600080fd5b6001600160a01b0316600090815260209190915260409020805460ff19166001179055565b6000828201838110156200023757600080fd5b9392505050565b60006001600160a01b0382166200025457600080fd5b506001600160a01b03166000908152602091909152604090205460ff1690565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f10620002b757805160ff1916838001178555620002e7565b82800160010185558215620002e7579182015b82811115620002e7578251825591602001919060010190620002ca565b50620002f5929150620002f9565b5090565b6200031691905b80821115620002f5576000815560010162000300565b90565b610a1580620003296000396000f3fe608060405234801561001057600080fd5b506004361061010b5760003560e01c806340c10f19116100a2578063986502751161007157806398650275146102f9578063a457c2d714610301578063a9059cbb1461032d578063aa271e1a14610359578063dd62ed3e1461037f5761010b565b806340c10f191461027757806370a08231146102a357806395d89b41146102c9578063983b2d56146102d15761010b565b80632e0f2625116100de5780632e0f26251461021d5780632ff2e9dc1461023b578063313ce56714610243578063395093511461024b5761010b565b806306fdde0314610110578063095ea7b31461018d57806318160ddd146101cd57806323b872dd146101e7575b600080fd5b6101186103ad565b6040805160208082528351818301528351919283929083019185019080838360005b8381101561015257818101518382015260200161013a565b50505050905090810190601f16801561017f5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b6101b9600480360360408110156101a357600080fd5b506001600160a01b038135169060200135610443565b604080519115158252519081900360200190f35b6101d5610459565b60408051918252519081900360200190f35b6101b9600480360360608110156101fd57600080fd5b506001600160a01b0381358116916020810135909116906040013561045f565b6102256104b6565b6040805160ff9092168252519081900360200190f35b6101d56104bb565b6102256104c9565b6101b96004803603604081101561026157600080fd5b506001600160a01b0381351690602001356104d2565b6101b96004803603604081101561028d57600080fd5b506001600160a01b03813516906020013561050e565b6101d5600480360360208110156102b957600080fd5b50356001600160a01b031661052c565b610118610547565b6102f7600480360360208110156102e757600080fd5b50356001600160a01b03166105a8565b005b6102f76105c6565b6101b96004803603604081101561031757600080fd5b506001600160a01b0381351690602001356105d1565b6101b96004803603604081101561034357600080fd5b506001600160a01b03813516906020013561060d565b6101b96004803603602081101561036f57600080fd5b50356001600160a01b031661061a565b6101d56004803603604081101561039557600080fd5b506001600160a01b0381358116916020013516610633565b60048054604080516020601f60026000196101006001881615020190951694909404938401819004810282018101909252828152606093909290918301828280156104395780601f1061040e57610100808354040283529160200191610439565b820191906000526020600020905b81548152906001019060200180831161041c57829003601f168201915b5050505050905090565b600061045033848461065e565b50600192915050565b60025490565b600061046c8484846106e6565b6001600160a01b0384166000908152600160209081526040808320338085529252909120546104ac9186916104a7908663ffffffff6107b116565b61065e565b5060019392505050565b601281565b69152d02c7e14af680000081565b60065460ff1690565b3360008181526001602090815260408083206001600160a01b038716845290915281205490916104509185906104a7908663ffffffff6107c616565b60006105193361061a565b61052257600080fd5b61045083836107df565b6001600160a01b031660009081526020819052604090205490565b60058054604080516020601f60026000196101006001881615020190951694909404938401819004810282018101909252828152606093909290918301828280156104395780601f1061040e57610100808354040283529160200191610439565b6105b13361061a565b6105ba57600080fd5b6105c381610887565b50565b6105cf336108cf565b565b3360008181526001602090815260408083206001600160a01b038716845290915281205490916104509185906104a7908663ffffffff6107b116565b60006104503384846106e6565b600061062d60038363ffffffff61091716565b92915050565b6001600160a01b03918216600090815260016020908152604080832093909416825291909152205490565b6001600160a01b03821661067157600080fd5b6001600160a01b03831661068457600080fd5b6001600160a01b03808416600081815260016020908152604080832094871680845294825291829020859055815185815291517f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b9259281900390910190a3505050565b6001600160a01b0382166106f957600080fd5b6001600160a01b038316600090815260208190526040902054610722908263ffffffff6107b116565b6001600160a01b038085166000908152602081905260408082209390935590841681522054610757908263ffffffff6107c616565b6001600160a01b038084166000818152602081815260409182902094909455805185815290519193928716927fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef92918290030190a3505050565b6000828211156107c057600080fd5b50900390565b6000828201838110156107d857600080fd5b9392505050565b6001600160a01b0382166107f257600080fd5b600254610805908263ffffffff6107c616565b6002556001600160a01b038216600090815260208190526040902054610831908263ffffffff6107c616565b6001600160a01b0383166000818152602081815260408083209490945583518581529351929391927fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef9281900390910190a35050565b61089860038263ffffffff61094c16565b6040516001600160a01b038216907f6ae172837ea30b801fbfcdd4108aa1d5bf8ff775444fd70256b44e6bf3dfc3f690600090a250565b6108e060038263ffffffff61099816565b6040516001600160a01b038216907fe94479a9f7e1952cc78f2d6baab678adc1b772d936c6583def489e524cb6669290600090a250565b60006001600160a01b03821661092c57600080fd5b506001600160a01b03166000908152602091909152604090205460ff1690565b6001600160a01b03811661095f57600080fd5b6109698282610917565b1561097357600080fd5b6001600160a01b0316600090815260209190915260409020805460ff19166001179055565b6001600160a01b0381166109ab57600080fd5b6109b58282610917565b6109be57600080fd5b6001600160a01b0316600090815260209190915260409020805460ff1916905556fea265627a7a7231582068a3eca362a490d22378fb2859921663e80aee5775c01aabb887d7a65f99b26c64736f6c634300050f0032"
+var MockDaiBin = "0x60806040523480156200001157600080fd5b50604051806040016040528060078152602001664d6f636b44616960c81b815250604051806040016040528060038152602001624d444160e81b81525060126200006133620000c060201b60201c565b82516200007690600490602086019062000274565b5081516200008c90600590602085019062000274565b506006805460ff191660ff9290921691909117905550620000ba90503369152d02c7e14af680000062000112565b62000319565b620000db816003620001cb60201b6200094c1790919060201c565b6040516001600160a01b038216907f6ae172837ea30b801fbfcdd4108aa1d5bf8ff775444fd70256b44e6bf3dfc3f690600090a250565b6001600160a01b0382166200012657600080fd5b62000142816002546200022460201b620007c61790919060201c565b6002556001600160a01b0382166000908152602081815260409091205462000175918390620007c662000224821b17901c565b6001600160a01b0383166000818152602081815260408083209490945583518581529351929391927fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef9281900390910190a35050565b6001600160a01b038116620001df57600080fd5b620001f482826001600160e01b036200023e16565b15620001ff57600080fd5b6001600160a01b0316600090815260209190915260409020805460ff19166001179055565b6000828201838110156200023757600080fd5b9392505050565b60006001600160a01b0382166200025457600080fd5b506001600160a01b03166000908152602091909152604090205460ff1690565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f10620002b757805160ff1916838001178555620002e7565b82800160010185558215620002e7579182015b82811115620002e7578251825591602001919060010190620002ca565b50620002f5929150620002f9565b5090565b6200031691905b80821115620002f5576000815560010162000300565b90565b610a1580620003296000396000f3fe608060405234801561001057600080fd5b506004361061010b5760003560e01c806340c10f19116100a2578063986502751161007157806398650275146102f9578063a457c2d714610301578063a9059cbb1461032d578063aa271e1a14610359578063dd62ed3e1461037f5761010b565b806340c10f191461027757806370a08231146102a357806395d89b41146102c9578063983b2d56146102d15761010b565b80632e0f2625116100de5780632e0f26251461021d5780632ff2e9dc1461023b578063313ce56714610243578063395093511461024b5761010b565b806306fdde0314610110578063095ea7b31461018d57806318160ddd146101cd57806323b872dd146101e7575b600080fd5b6101186103ad565b6040805160208082528351818301528351919283929083019185019080838360005b8381101561015257818101518382015260200161013a565b50505050905090810190601f16801561017f5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b6101b9600480360360408110156101a357600080fd5b506001600160a01b038135169060200135610443565b604080519115158252519081900360200190f35b6101d5610459565b60408051918252519081900360200190f35b6101b9600480360360608110156101fd57600080fd5b506001600160a01b0381358116916020810135909116906040013561045f565b6102256104b6565b6040805160ff9092168252519081900360200190f35b6101d56104bb565b6102256104c9565b6101b96004803603604081101561026157600080fd5b506001600160a01b0381351690602001356104d2565b6101b96004803603604081101561028d57600080fd5b506001600160a01b03813516906020013561050e565b6101d5600480360360208110156102b957600080fd5b50356001600160a01b031661052c565b610118610547565b6102f7600480360360208110156102e757600080fd5b50356001600160a01b03166105a8565b005b6102f76105c6565b6101b96004803603604081101561031757600080fd5b506001600160a01b0381351690602001356105d1565b6101b96004803603604081101561034357600080fd5b506001600160a01b03813516906020013561060d565b6101b96004803603602081101561036f57600080fd5b50356001600160a01b031661061a565b6101d56004803603604081101561039557600080fd5b506001600160a01b0381358116916020013516610633565b60048054604080516020601f60026000196101006001881615020190951694909404938401819004810282018101909252828152606093909290918301828280156104395780601f1061040e57610100808354040283529160200191610439565b820191906000526020600020905b81548152906001019060200180831161041c57829003601f168201915b5050505050905090565b600061045033848461065e565b50600192915050565b60025490565b600061046c8484846106e6565b6001600160a01b0384166000908152600160209081526040808320338085529252909120546104ac9186916104a7908663ffffffff6107b116565b61065e565b5060019392505050565b601281565b69152d02c7e14af680000081565b60065460ff1690565b3360008181526001602090815260408083206001600160a01b038716845290915281205490916104509185906104a7908663ffffffff6107c616565b60006105193361061a565b61052257600080fd5b61045083836107df565b6001600160a01b031660009081526020819052604090205490565b60058054604080516020601f60026000196101006001881615020190951694909404938401819004810282018101909252828152606093909290918301828280156104395780601f1061040e57610100808354040283529160200191610439565b6105b13361061a565b6105ba57600080fd5b6105c381610887565b50565b6105cf336108cf565b565b3360008181526001602090815260408083206001600160a01b038716845290915281205490916104509185906104a7908663ffffffff6107b116565b60006104503384846106e6565b600061062d60038363ffffffff61091716565b92915050565b6001600160a01b03918216600090815260016020908152604080832093909416825291909152205490565b6001600160a01b03821661067157600080fd5b6001600160a01b03831661068457600080fd5b6001600160a01b03808416600081815260016020908152604080832094871680845294825291829020859055815185815291517f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b9259281900390910190a3505050565b6001600160a01b0382166106f957600080fd5b6001600160a01b038316600090815260208190526040902054610722908263ffffffff6107b116565b6001600160a01b038085166000908152602081905260408082209390935590841681522054610757908263ffffffff6107c616565b6001600160a01b038084166000818152602081815260409182902094909455805185815290519193928716927fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef92918290030190a3505050565b6000828211156107c057600080fd5b50900390565b6000828201838110156107d857600080fd5b9392505050565b6001600160a01b0382166107f257600080fd5b600254610805908263ffffffff6107c616565b6002556001600160a01b038216600090815260208190526040902054610831908263ffffffff6107c616565b6001600160a01b0383166000818152602081815260408083209490945583518581529351929391927fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef9281900390910190a35050565b61089860038263ffffffff61094c16565b6040516001600160a01b038216907f6ae172837ea30b801fbfcdd4108aa1d5bf8ff775444fd70256b44e6bf3dfc3f690600090a250565b6108e060038263ffffffff61099816565b6040516001600160a01b038216907fe94479a9f7e1952cc78f2d6baab678adc1b772d936c6583def489e524cb6669290600090a250565b60006001600160a01b03821661092c57600080fd5b506001600160a01b03166000908152602091909152604090205460ff1690565b6001600160a01b03811661095f57600080fd5b6109698282610917565b1561097357600080fd5b6001600160a01b0316600090815260209190915260409020805460ff19166001179055565b6001600160a01b0381166109ab57600080fd5b6109b58282610917565b6109be57600080fd5b6001600160a01b0316600090815260209190915260409020805460ff1916905556fea265627a7a723158205045200adb16c2112ee91a92a5d9e28a7f350ed845a11747c2cf6c2a8640ea2664736f6c63430005110032"
 
 // DeployMockDai deploys a new Ethereum contract, binding an instance of MockDai to it.
 func DeployMockDai(auth *bind.TransactOpts, backend bind.ContractBackend) (common.Address, *types.Transaction, *MockDai, error) {
@@ -3768,7 +3671,7 @@ func bindMockDai(address common.Address, caller bind.ContractCaller, transactor 
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_MockDai *MockDaiRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_MockDai *MockDaiRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
 	return _MockDai.Contract.MockDaiCaller.contract.Call(opts, result, method, params...)
 }
 
@@ -3787,7 +3690,7 @@ func (_MockDai *MockDaiRaw) Transact(opts *bind.TransactOpts, method string, par
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_MockDai *MockDaiCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_MockDai *MockDaiCallerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
 	return _MockDai.Contract.contract.Call(opts, result, method, params...)
 }
 
@@ -3806,17 +3709,12 @@ func (_MockDai *MockDaiTransactorRaw) Transact(opts *bind.TransactOpts, method s
 //
 // Solidity: function DECIMALS() view returns(uint8)
 func (_MockDai *MockDaiCaller) DECIMALS(opts *bind.CallOpts) (uint8, error) {
-	var out []interface{}
-	err := _MockDai.contract.Call(opts, &out, "DECIMALS")
-
-	if err != nil {
-		return *new(uint8), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(uint8)).(*uint8)
-
-	return out0, err
-
+	var (
+		ret0 = new(uint8)
+	)
+	out := ret0
+	err := _MockDai.contract.Call(opts, out, "DECIMALS")
+	return *ret0, err
 }
 
 // DECIMALS is a free data retrieval call binding the contract method 0x2e0f2625.
@@ -3837,17 +3735,12 @@ func (_MockDai *MockDaiCallerSession) DECIMALS() (uint8, error) {
 //
 // Solidity: function INITIAL_SUPPLY() view returns(uint256)
 func (_MockDai *MockDaiCaller) INITIALSUPPLY(opts *bind.CallOpts) (*big.Int, error) {
-	var out []interface{}
-	err := _MockDai.contract.Call(opts, &out, "INITIAL_SUPPLY")
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _MockDai.contract.Call(opts, out, "INITIAL_SUPPLY")
+	return *ret0, err
 }
 
 // INITIALSUPPLY is a free data retrieval call binding the contract method 0x2ff2e9dc.
@@ -3868,17 +3761,12 @@ func (_MockDai *MockDaiCallerSession) INITIALSUPPLY() (*big.Int, error) {
 //
 // Solidity: function allowance(address owner, address spender) view returns(uint256)
 func (_MockDai *MockDaiCaller) Allowance(opts *bind.CallOpts, owner common.Address, spender common.Address) (*big.Int, error) {
-	var out []interface{}
-	err := _MockDai.contract.Call(opts, &out, "allowance", owner, spender)
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _MockDai.contract.Call(opts, out, "allowance", owner, spender)
+	return *ret0, err
 }
 
 // Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
@@ -3899,17 +3787,12 @@ func (_MockDai *MockDaiCallerSession) Allowance(owner common.Address, spender co
 //
 // Solidity: function balanceOf(address owner) view returns(uint256)
 func (_MockDai *MockDaiCaller) BalanceOf(opts *bind.CallOpts, owner common.Address) (*big.Int, error) {
-	var out []interface{}
-	err := _MockDai.contract.Call(opts, &out, "balanceOf", owner)
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _MockDai.contract.Call(opts, out, "balanceOf", owner)
+	return *ret0, err
 }
 
 // BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
@@ -3930,17 +3813,12 @@ func (_MockDai *MockDaiCallerSession) BalanceOf(owner common.Address) (*big.Int,
 //
 // Solidity: function decimals() view returns(uint8)
 func (_MockDai *MockDaiCaller) Decimals(opts *bind.CallOpts) (uint8, error) {
-	var out []interface{}
-	err := _MockDai.contract.Call(opts, &out, "decimals")
-
-	if err != nil {
-		return *new(uint8), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(uint8)).(*uint8)
-
-	return out0, err
-
+	var (
+		ret0 = new(uint8)
+	)
+	out := ret0
+	err := _MockDai.contract.Call(opts, out, "decimals")
+	return *ret0, err
 }
 
 // Decimals is a free data retrieval call binding the contract method 0x313ce567.
@@ -3961,17 +3839,12 @@ func (_MockDai *MockDaiCallerSession) Decimals() (uint8, error) {
 //
 // Solidity: function isMinter(address account) view returns(bool)
 func (_MockDai *MockDaiCaller) IsMinter(opts *bind.CallOpts, account common.Address) (bool, error) {
-	var out []interface{}
-	err := _MockDai.contract.Call(opts, &out, "isMinter", account)
-
-	if err != nil {
-		return *new(bool), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
-
-	return out0, err
-
+	var (
+		ret0 = new(bool)
+	)
+	out := ret0
+	err := _MockDai.contract.Call(opts, out, "isMinter", account)
+	return *ret0, err
 }
 
 // IsMinter is a free data retrieval call binding the contract method 0xaa271e1a.
@@ -3992,17 +3865,12 @@ func (_MockDai *MockDaiCallerSession) IsMinter(account common.Address) (bool, er
 //
 // Solidity: function name() view returns(string)
 func (_MockDai *MockDaiCaller) Name(opts *bind.CallOpts) (string, error) {
-	var out []interface{}
-	err := _MockDai.contract.Call(opts, &out, "name")
-
-	if err != nil {
-		return *new(string), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(string)).(*string)
-
-	return out0, err
-
+	var (
+		ret0 = new(string)
+	)
+	out := ret0
+	err := _MockDai.contract.Call(opts, out, "name")
+	return *ret0, err
 }
 
 // Name is a free data retrieval call binding the contract method 0x06fdde03.
@@ -4023,17 +3891,12 @@ func (_MockDai *MockDaiCallerSession) Name() (string, error) {
 //
 // Solidity: function symbol() view returns(string)
 func (_MockDai *MockDaiCaller) Symbol(opts *bind.CallOpts) (string, error) {
-	var out []interface{}
-	err := _MockDai.contract.Call(opts, &out, "symbol")
-
-	if err != nil {
-		return *new(string), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(string)).(*string)
-
-	return out0, err
-
+	var (
+		ret0 = new(string)
+	)
+	out := ret0
+	err := _MockDai.contract.Call(opts, out, "symbol")
+	return *ret0, err
 }
 
 // Symbol is a free data retrieval call binding the contract method 0x95d89b41.
@@ -4054,17 +3917,12 @@ func (_MockDai *MockDaiCallerSession) Symbol() (string, error) {
 //
 // Solidity: function totalSupply() view returns(uint256)
 func (_MockDai *MockDaiCaller) TotalSupply(opts *bind.CallOpts) (*big.Int, error) {
-	var out []interface{}
-	err := _MockDai.contract.Call(opts, &out, "totalSupply")
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _MockDai.contract.Call(opts, out, "totalSupply")
+	return *ret0, err
 }
 
 // TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
@@ -4399,7 +4257,6 @@ func (_MockDai *MockDaiFilterer) ParseApproval(log types.Log) (*MockDaiApproval,
 	if err := _MockDai.contract.UnpackLog(event, "Approval", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
 
@@ -4543,7 +4400,6 @@ func (_MockDai *MockDaiFilterer) ParseMinterAdded(log types.Log) (*MockDaiMinter
 	if err := _MockDai.contract.UnpackLog(event, "MinterAdded", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
 
@@ -4687,7 +4543,6 @@ func (_MockDai *MockDaiFilterer) ParseMinterRemoved(log types.Log) (*MockDaiMint
 	if err := _MockDai.contract.UnpackLog(event, "MinterRemoved", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
 
@@ -4841,7 +4696,6 @@ func (_MockDai *MockDaiFilterer) ParseTransfer(log types.Log) (*MockDaiTransfer,
 	if err := _MockDai.contract.UnpackLog(event, "Transfer", log); err != nil {
 		return nil, err
 	}
-	event.Raw = log
 	return event, nil
 }
 
@@ -4849,7 +4703,7 @@ func (_MockDai *MockDaiFilterer) ParseTransfer(log types.Log) (*MockDaiTransfer,
 const RolesABI = "[]"
 
 // RolesBin is the compiled bytecode used for deploying new contracts.
-var RolesBin = "0x60556023600b82828239805160001a607314601657fe5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea265627a7a723158206943fd0bf0f9bf5d9e473c1bbf6bfd6ceec0d3de82d1489ec7b55c7c655de9a964736f6c634300050f0032"
+var RolesBin = "0x60556023600b82828239805160001a607314601657fe5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea265627a7a72315820fe84b3838145369791b78fb5aa6bd79080cd0e07697cb8b6ec8d14eac06a18de64736f6c63430005110032"
 
 // DeployRoles deploys a new Ethereum contract, binding an instance of Roles to it.
 func DeployRoles(auth *bind.TransactOpts, backend bind.ContractBackend) (common.Address, *types.Transaction, *Roles, error) {
@@ -4973,7 +4827,7 @@ func bindRoles(address common.Address, caller bind.ContractCaller, transactor bi
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_Roles *RolesRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_Roles *RolesRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
 	return _Roles.Contract.RolesCaller.contract.Call(opts, result, method, params...)
 }
 
@@ -4992,7 +4846,7 @@ func (_Roles *RolesRaw) Transact(opts *bind.TransactOpts, method string, params 
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_Roles *RolesCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_Roles *RolesCallerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
 	return _Roles.Contract.contract.Call(opts, result, method, params...)
 }
 
@@ -5011,7 +4865,7 @@ func (_Roles *RolesTransactorRaw) Transact(opts *bind.TransactOpts, method strin
 const SafeMathABI = "[]"
 
 // SafeMathBin is the compiled bytecode used for deploying new contracts.
-var SafeMathBin = "0x60556023600b82828239805160001a607314601657fe5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea265627a7a7231582021b24d756d752cfdb71dc93615bd43c6e73e6699b5e7a5a4cfe5db69e328af2c64736f6c634300050f0032"
+var SafeMathBin = "0x60556023600b82828239805160001a607314601657fe5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea265627a7a723158201fc7e0d753bfff1c28053746927e5de5b20e71825f8c8423f47635d96b82385964736f6c63430005110032"
 
 // DeploySafeMath deploys a new Ethereum contract, binding an instance of SafeMath to it.
 func DeploySafeMath(auth *bind.TransactOpts, backend bind.ContractBackend) (common.Address, *types.Transaction, *SafeMath, error) {
@@ -5135,7 +4989,7 @@ func bindSafeMath(address common.Address, caller bind.ContractCaller, transactor
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_SafeMath *SafeMathRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_SafeMath *SafeMathRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
 	return _SafeMath.Contract.SafeMathCaller.contract.Call(opts, result, method, params...)
 }
 
@@ -5154,7 +5008,7 @@ func (_SafeMath *SafeMathRaw) Transact(opts *bind.TransactOpts, method string, p
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_SafeMath *SafeMathCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_SafeMath *SafeMathCallerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
 	return _SafeMath.Contract.contract.Call(opts, result, method, params...)
 }
 
