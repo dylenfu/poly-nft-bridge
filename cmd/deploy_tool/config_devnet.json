@@ -1,9 +1,9 @@
 {
   "Ethereum": {
     "ChainID": 2,
-    "RPC": "https://localhost:8545",
-    "Admin": "",
-    "Keystore": "",
+    "RPC": "http://localhost:8545",
+    "Admin": "0x31c0dd87B33Dcd66f9a255Cf4CF39287F8AE593C",
+    "Keystore": "keystore/eth/",
     "ECCD": "",
     "ECCM": "",
     "CCMP": "",
@@ -15,8 +15,8 @@
   "Bsc": {
     "ChainID": 6,
     "RPC": "http://localhost:8546",
-    "Admin": "",
-    "Keystore": "",
+    "Admin": "0x896fB9Dd4Bddd1C4ea2cab3df66C632AD736a9D1",
+    "Keystore": "keystore/bsc",
     "ECCD": "",
     "ECCM": "",
     "CCMP": "",
@@ -28,8 +28,8 @@
   "Heco": {
     "ChainID": 7,
     "RPC": "http://localhost:8547",
-    "Admin": "",
-    "Keystore": "",
+    "Admin": "0x3E47aD86f6eF5829048FFA58800D11Af3Dc7F7a5",
+    "Keystore": "keystore/heco",
     "ECCD": "",
     "ECCM": "",
     "CCMP": "",

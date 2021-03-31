@@ -17,8 +17,6 @@
 
 package main
 
-import "github.com/ethereum/go-ethereum/common"
-
 type Config struct {
 	Ethereum *ChainConfig
 	Bsc      *ChainConfig
@@ -38,14 +36,14 @@ type ChainConfig struct {
 	Admin    string
 	Keystore string
 
-	ECCD common.Address
-	ECCM common.Address
-	CCMP common.Address
+	ECCD string
+	ECCM string
+	CCMP string
 
-	NFTLockProxy common.Address
-	NFTWrap      common.Address
-	FeeToken     common.Address
-	FeeCollector common.Address
+	NFTLockProxy string
+	NFTWrap      string
+	FeeToken     string
+	FeeCollector string
 }
 
 type PolyConfig struct {

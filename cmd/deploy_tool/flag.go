@@ -40,7 +40,7 @@ var (
 	ConfigPathFlag = cli.StringFlag{
 		Name:  "cliconfig",
 		Usage: "Server config file `<path>`",
-		Value: "./bridge_tools/conf/config_transactions.json",
+		Value: "./config.json",
 	}
 
 	ChainIDFlag = cli.Uint64Flag{
@@ -49,26 +49,20 @@ var (
 		Value: basedef.ETHEREUM_CROSSCHAIN_ID,
 	}
 
-	//OwnerFlag = cli.StringFlag{
-	//	Name:  "owner",
-	//	Usage: "set owner for deploy nft contract, etc.",
-	//	Value: "",
-	//}
-
 	NFTNameFlag = cli.StringFlag{
-		Name:  "nft-name",
+		Name:  "name",
 		Usage: "set nft name for deploy nft contract, etc.",
 		Value: "",
 	}
 
 	NFTSymbolFlag = cli.StringFlag{
-		Name:  "nft-symbol",
+		Name:  "symbol",
 		Usage: "set nft symbol for deploy nft contract, etc.",
 		Value: "",
 	}
 
 	DstChainFlag = cli.Uint64Flag{
-		Name:  "dst-chain",
+		Name:  "dstChain",
 		Usage: "set dest chain for cross chain",
 		Value: 0,
 	}
@@ -80,7 +74,7 @@ var (
 	}
 
 	DstAssetFlag = cli.Uint64Flag{
-		Name:  "dst-asset",
+		Name:  "dstAsset",
 		Usage: "set dest asset for cross chain",
 		Value: 0,
 	}
@@ -95,12 +89,12 @@ var (
 	}
 
 	FeeTokenFlag = cli.BoolTFlag{
-		Name:  "fee-token",
+		Name:  "feeToken",
 		Usage: "choose erc20 token to be fee token",
 	}
 
 	ERC20TokenFlag = cli.BoolFlag{
-		Name:  "erc20-token",
+		Name:  "erc20Token",
 		Usage: "choose erc20 token to be fee token",
 	}
 
@@ -111,43 +105,43 @@ var (
 	}
 
 	TokenIdFlag = cli.Uint64Flag{
-		Name:  "token-id",
+		Name:  "tokenId",
 		Usage: "set token id while mint nft",
 	}
 
 	LockIdFlag = cli.Uint64Flag{
-		Name:  "lock-id",
+		Name:  "lockId",
 		Usage: "wrap lock nft item id",
 	}
 )
 
 var (
 	CmdDeployECCDContract = cli.Command{
-		Name:   "deploy-eccd",
+		Name:   "deployECCD",
 		Usage:  "admin account deploy ethereum cross chain data contract.",
 		Action: handleCmdDeployECCDContract,
 	}
 
 	CmdDeployECCMContract = cli.Command{
-		Name:   "deploy-eccm",
+		Name:   "deployECCM",
 		Usage:  "admin account deploy ethereum cross chain manage contract.",
 		Action: handleCmdDeployECCMContract,
 	}
 
 	CmdDeployCCMPContract = cli.Command{
-		Name:   "deploy-ccmp",
+		Name:   "deployCCMP",
 		Usage:  "admin account deploy ethereum cross chain manager proxy contract.",
 		Action: handleCmdDeployCCMPContract,
 	}
 
 	CmdDeployNFTContract = cli.Command{
-		Name:   "deploy-nft",
+		Name:   "deployNFT",
 		Usage:  "admin account deploy new nft asset with mapping contract.",
 		Action: handleCmdDeployNFTContract,
 	}
 
 	CmdDeployERC20Contract = cli.Command{
-		Name:   "deploy-erc20",
+		Name:   "deployERC20",
 		Usage:  "admin account deploy new mintable erc20 contract.",
 		Action: handleCmdDeployERC20Contract,
 		Flags: []cli.Flag{
@@ -156,25 +150,25 @@ var (
 	}
 
 	CmdDeployLockProxyContract = cli.Command{
-		Name:   "deploy-proxy",
+		Name:   "deployNFTLockProxy",
 		Usage:  "admin account deploy nft lock proxy contract.",
 		Action: handleCmdDeployLockProxyContract,
 	}
 
 	CmdDeployNFTWrapContract = cli.Command{
-		Name:   "deploy-nft-wrap",
+		Name:   "deployNFTWrapper",
 		Usage:  "admin account deploy nft wrapper contract.",
 		Action: handleCmdDeployNFTWrapContract,
 	}
 
 	CmdLockProxySetCCMP = cli.Command{
-		Name:   "proxy-set-ccmp",
+		Name:   "proxySetCCMP",
 		Usage:  "admin account set cross chain manager proxy address for lock proxy contract.",
 		Action: handleCmdLockProxySetCCMP,
 	}
 
 	CmdBindLockProxy = cli.Command{
-		Name:   "bind-proxy",
+		Name:   "bindProxy",
 		Usage:  "admin  account bind lock proxy contract with another side chain's lock proxy contract.",
 		Action: handleCmdBindLockProxy,
 		Flags: []cli.Flag{
@@ -183,7 +177,7 @@ var (
 	}
 
 	CmdGetBoundLockProxy = cli.Command{
-		Name:   "get-bound-proxy",
+		Name:   "getBoundProxy",
 		Usage:  "get bound lock proxy contract.",
 		Action: handleCmdGetBoundLockProxy,
 		Flags: []cli.Flag{
@@ -192,7 +186,7 @@ var (
 	}
 
 	CmdBindNFTAsset = cli.Command{
-		Name:   "bind-nft",
+		Name:   "bindNFT",
 		Usage:  "admin account bind nft asset to side chain.",
 		Action: handleCmdBindNFTAsset,
 		Flags: []cli.Flag{
@@ -203,43 +197,43 @@ var (
 	}
 
 	CmdTransferECCDOwnership = cli.Command{
-		Name:   "transfer-eccd-ownership",
+		Name:   "transferECCDOwnership",
 		Usage:  "admin account transfer ethereum cross chain data contract ownership eccm contract.",
 		Action: handleCmdTransferECCDOwnership,
 	}
 
 	CmdTransferECCMOwnership = cli.Command{
-		Name:   "transfer-eccm-ownership",
+		Name:   "transferECCMOwnership",
 		Usage:  "admin account transfer ethereum cross chain manager contract ownership to ccmp contract.",
 		Action: handleCmdTransferECCMOwnership,
 	}
 
 	CmdSyncSideChainGenesis2Poly = cli.Command{
-		Name:   "sync-side-genesis",
+		Name:   "syncSideGenesis",
 		Usage:  "sync side chain genesis header to poly chain.",
 		Action: handleCmdSyncSideChainGenesis2Poly,
 	}
 
 	CmdSyncPolyGenesis2SideChain = cli.Command{
-		Name:   "sync-poly-genesis",
+		Name:   "syncPolyGenesis",
 		Usage:  "sync poly genesis header to side chain.",
 		Action: handleCmdSyncPolyGenesis2SideChain,
 	}
 
 	CmdNFTWrapSetFeeCollector = cli.Command{
-		Name:   "set-fee-collector",
+		Name:   "setFeeCollector",
 		Usage:  "admin account set nft fee collecotr for wrap contract",
 		Action: handleCmdNFTWrapSetFeeCollector,
 	}
 
 	CmdNFTWrapSetLockProxy = cli.Command{
-		Name:   "set-wrap-lock-proxy",
+		Name:   "setWrapLockProxy",
 		Usage:  "admin account set nft lock proxy for wrap contract.",
 		Action: handleCmdNFTWrapSetLockProxy,
 	}
 
 	CmdNFTMint = cli.Command{
-		Name:   "mint-nft",
+		Name:   "mintNFT",
 		Usage:  "admin account mint nft token.",
 		Action: handleCmdNFTMint,
 		Flags: []cli.Flag{
@@ -250,7 +244,7 @@ var (
 	}
 
 	CmdNFTWrapLock = cli.Command{
-		Name:   "lock-nft",
+		Name:   "lockNFT",
 		Usage:  "lock nft token on wrap contract.",
 		Action: handleCmdNFTWrapLock,
 		Flags: []cli.Flag{
@@ -265,7 +259,7 @@ var (
 	}
 
 	CmdERC20Mint = cli.Command{
-		Name:   "mint-erc20",
+		Name:   "mintERC20",
 		Usage:  "admin account mint erc20 token.",
 		Action: handleCmdERC20Mint,
 		Flags: []cli.Flag{
@@ -277,7 +271,7 @@ var (
 	}
 
 	CmdERC20Transfer = cli.Command{
-		Name:   "transfer-erc20",
+		Name:   "transferERC20",
 		Usage:  "transfer ERC20 token.",
 		Action: handleCmdERC20Transfer,
 		Flags: []cli.Flag{
