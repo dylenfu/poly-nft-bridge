@@ -1,0 +1,48 @@
+{
+  "Ethereum": {
+    "ChainID": 2,
+    "RPC": "https://localhost:8545",
+    "Admin": "",
+    "Keystore": "",
+    "ECCD": "",
+    "ECCM": "",
+    "CCMP": "",
+    "NFTLockProxy": "",
+    "NFTWrap": "",
+    "FeeToken": "",
+    "FeeCollector": ""
+  },
+  "Bsc": {
+    "ChainID": 6,
+    "RPC": "http://localhost:8546",
+    "Admin": "",
+    "Keystore": "",
+    "ECCD": "",
+    "ECCM": "",
+    "CCMP": "",
+    "NFTLockProxy": "",
+    "NFTWrap": "",
+    "FeeToken": "",
+    "FeeCollector": ""
+  },
+  "Heco": {
+    "ChainID": 7,
+    "RPC": "http://localhost:8547",
+    "Admin": "",
+    "Keystore": "",
+    "ECCD": "",
+    "ECCM": "",
+    "CCMP": "",
+    "NFTLockProxy": "",
+    "NFTWrap": "",
+    "FeeToken": "",
+    "FeeCollector": ""
+  },
+  "Poly": {
+    "RPC": "",
+    "Keystore": "",
+    "Passphrase": ""
+  },
+  "LevelDB": "./leveldb",
+  "OSS": "http://106.75.250.160:10060/minio/"
+}
