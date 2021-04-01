@@ -44,6 +44,8 @@ var (
 	storage *leveldb.LevelDBImpl
 	sdk     *eth_sdk.EthereumSdk
 	adm     *ecdsa.PrivateKey
+
+	nativeToken = common.HexToAddress("0x0000000000000000000000000000000000000000")
 )
 
 const defaultAccPwd = "111111"
@@ -96,6 +98,8 @@ func setupApp() *cli.App {
 		CmdERC20Mint,
 		CmdERC20Transfer,
 		CmdGetERC20Balance,
+		CmdERC20Approve,
+		CmdERC20Allowance,
 	}
 
 	app.Before = beforeCommands
@@ -151,7 +155,8 @@ func beforeCommands(ctx *cli.Context) (err error) {
 func handleSample(ctx *cli.Context) error {
 	log.Info("start to debug sample...")
 	feeToken := ctx.BoolT(getFlagName(FeeTokenFlag))
-	log.Info("feeToken %v", feeToken)
+	nativeToken := ctx.Bool(getFlagName(NativeTokenFlag))
+	log.Info("feeToken %v, nativeToken %v", feeToken, nativeToken)
 	return nil
 }
 
@@ -512,28 +517,20 @@ func handleCmdNFTWrapLock(ctx *cli.Context) error {
 	id := new(big.Int).SetUint64(flag2Uint64(ctx, LockIdFlag))
 	wrapper := common.HexToAddress(cc.NFTWrap)
 
-	fmt.Printf("-------assset:%s, to:%s, dstChainID:%d, tokenID:%s, feeToken:%s, fee:%s, id: %s",
-		asset.Hex(), to.Hex(), dstChainID, tokenID.String(), feeToken.Hex(), fee.String(), id.String())
-
 	tx, err := sdk.WrapLock(key, wrapper, asset, to, dstChainID, tokenID, feeToken, fee, id)
 	if err != nil {
 		return err
 	}
-	log.Info("wrap lock nft %d success! txhash %s", tokenID, tx.Hex())
+
+	log.Info("wrap lock nft success, txhash %s! [assset:%s, to:%s, dstChainID:%d, tokenID:%s, feeToken:%s, fee:%s, id: %s]",
+		tx.Hex(), asset.Hex(), to.Hex(), dstChainID, tokenID.String(), feeToken.Hex(), fee.String(), id.String())
 	return nil
 }
 
 func handleCmdERC20Mint(ctx *cli.Context) error {
 	log.Info("start to mint erc20 token...")
 
-	var asset common.Address
-	isFeeToken := ctx.GlobalBool(getFlagName(FeeTokenFlag))
-	if isFeeToken {
-		asset = common.HexToAddress(cc.FeeToken)
-	} else {
-		asset = flag2address(ctx, ERC20TokenFlag)
-	}
-
+	asset := getAsset(ctx)
 	to := flag2address(ctx, DstAccountFlag)
 	amount := flag2big(ctx, AmountFlag)
 	log.Debug("mint to %s %s", to.Hex(), amount.String())
@@ -549,14 +546,7 @@ func handleCmdERC20Mint(ctx *cli.Context) error {
 func handleCmdERC20Transfer(ctx *cli.Context) error {
 	log.Info("start to transfer erc20 token...")
 
-	var asset common.Address
-	isFeeToken := ctx.Bool(getFlagName(FeeTokenFlag))
-	if isFeeToken {
-		asset = common.HexToAddress(cc.FeeToken)
-	} else {
-		asset = flag2address(ctx, ERC20TokenFlag)
-	}
-
+	asset := getAsset(ctx)
 	from := flag2address(ctx, SrcAccountFlag)
 	key, err := wallet.LoadEthAccount(storage, cc.Keystore, from.Hex(), defaultAccPwd)
 	if err != nil {
@@ -576,14 +566,7 @@ func handleCmdERC20Transfer(ctx *cli.Context) error {
 
 func handleGetErc20Balance(ctx *cli.Context) error {
 	owner := flag2address(ctx, SrcAccountFlag)
-
-	var asset common.Address
-	isFeeToken := ctx.Bool(getFlagName(FeeTokenFlag))
-	if isFeeToken {
-		asset = common.HexToAddress(cc.FeeToken)
-	} else {
-		asset = flag2address(ctx, ERC20TokenFlag)
-	}
+	asset := getAsset(ctx)
 
 	balance, err := sdk.GetERC20Balance(asset, owner)
 	if err != nil {
@@ -591,6 +574,48 @@ func handleGetErc20Balance(ctx *cli.Context) error {
 	}
 	log.Info("%s balance of asset %s is %s", owner.Hex(), asset.Hex(), balance.String())
 	return nil
+}
+
+func handleCmdERC20Approve(ctx *cli.Context) error {
+	asset := getAsset(ctx)
+	sender := flag2address(ctx, SrcAccountFlag)
+	key, err := wallet.LoadEthAccount(storage, cc.Keystore, sender.Hex(), defaultAccPwd)
+	if err != nil {
+		return err
+	}
+	spender := flag2address(ctx, DstAccountFlag)
+	amount := flag2big(ctx, AmountFlag)
+	if tx, err := sdk.ApproveERC20Token(key, asset, spender, amount); err != nil {
+		return err
+	} else {
+		log.Info("sender %s approve spender %s %s on asset of %s, txhash %s",
+			sender.Hex(), spender.Hex(), amount.String(), asset.Hex(), tx.Hex())
+	}
+	return nil
+}
+
+func handleCmdERC20Allowance(ctx *cli.Context) error {
+	asset := getAsset(ctx)
+	owner := flag2address(ctx, SrcAccountFlag)
+	spender := flag2address(ctx, DstAccountFlag)
+	if amount, err := sdk.GetERC20Allowance(asset, owner, spender); err != nil {
+		return err
+	} else {
+		log.Info("sender %s already approved spender %s %s on asset of %s",
+			owner.Hex(), spender.Hex(), amount.String(), asset.Hex())
+	}
+	return nil
+}
+
+// getAsset return feeToken if `feeToken` is true
+func getAsset(ctx *cli.Context) common.Address {
+	if ctx.Bool(getFlagName(NativeTokenFlag)) {
+		return nativeToken
+	} else if ctx.Bool(getFlagName(FeeTokenFlag)) {
+		return common.HexToAddress(cc.FeeToken)
+	} else {
+		return flag2address(ctx, ERC20TokenFlag)
+	}
 }
 
 func updateConfig() error {

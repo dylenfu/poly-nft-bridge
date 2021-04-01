@@ -135,6 +135,41 @@ func (s *EthereumSdk) GetERC20Balance(asset, owner common.Address) (*big.Int, er
 	return contract.BalanceOf(nil, owner)
 }
 
+func (s *EthereumSdk) ApproveERC20Token(
+	key *ecdsa.PrivateKey,
+	asset, spender common.Address,
+	amount *big.Int,
+) (common.Hash, error) {
+
+	contract, err := erc20.NewERC20Mintable(asset, s.backend())
+	if err != nil {
+		return EmptyHash, err
+	}
+
+	auth, err := s.makeAuth(key)
+	if err != nil {
+		return EmptyHash, err
+	}
+	tx, err := contract.Approve(auth, spender, amount)
+	if err != nil {
+		return EmptyHash, err
+	}
+
+	if err := s.waitTxConfirm(tx.Hash()); err != nil {
+		return EmptyHash, err
+	}
+
+	return tx.Hash(), nil
+}
+
+func (s *EthereumSdk) GetERC20Allowance(asset, owner, spender common.Address) (*big.Int, error) {
+	contract, err := erc20.NewERC20Mintable(asset, s.backend())
+	if err != nil {
+		return nil, err
+	}
+	return contract.Allowance(nil, owner, spender)
+}
+
 func (s *EthereumSdk) MintNFT(
 	ownerKey *ecdsa.PrivateKey,
 	asset,

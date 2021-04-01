@@ -79,16 +79,21 @@ var (
 
 	SrcAccountFlag = cli.StringFlag{
 		Name:  "from",
-		Usage: "set from account",
+		Usage: "set `from` account, or approve `sender` account",
 	}
 	DstAccountFlag = cli.StringFlag{
 		Name:  "to",
-		Usage: "set to account",
+		Usage: "set `to` account, or approve `spender` account",
 	}
 
 	FeeTokenFlag = cli.BoolTFlag{
 		Name:  "feeToken",
 		Usage: "choose erc20 token to be fee token",
+	}
+
+	NativeTokenFlag = cli.BoolFlag{
+		Name:  "nativeToken",
+		Usage: "choose native token as wrapper fee token",
 	}
 
 	ERC20TokenFlag = cli.BoolFlag{
@@ -98,7 +103,7 @@ var (
 
 	AmountFlag = cli.StringFlag{
 		Name:  "amount",
-		Usage: "transfer amount or fee amount",
+		Usage: "transfer amount or fee amount, can also used as approve amount",
 		Value: "",
 	}
 
@@ -289,6 +294,7 @@ var (
 			DstChainFlag,
 			DstAccountFlag,
 			TokenIdFlag,
+			NativeTokenFlag,
 			AmountFlag,
 			LockIdFlag,
 		},
@@ -303,6 +309,31 @@ var (
 			ERC20TokenFlag,
 			DstAccountFlag,
 			AmountFlag,
+		},
+	}
+
+	CmdERC20Approve = cli.Command{
+		Name:   "approveERC20",
+		Usage:  "approve ERC20 token.",
+		Action: handleCmdERC20Approve,
+		Flags: []cli.Flag{
+			FeeTokenFlag,
+			ERC20TokenFlag,
+			SrcAccountFlag,
+			DstAccountFlag,
+			AmountFlag,
+		},
+	}
+
+	CmdERC20Allowance = cli.Command{
+		Name:   "erc20Allowance",
+		Usage:  "get ERC20 allowance.",
+		Action: handleCmdERC20Allowance,
+		Flags: []cli.Flag{
+			FeeTokenFlag,
+			ERC20TokenFlag,
+			SrcAccountFlag,
+			DstAccountFlag,
 		},
 	}
 

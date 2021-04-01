@@ -152,11 +152,24 @@ heco user1 0x95598C69B02925De711D4015F85b49527381aF6d user2 0xE4Ecc16675d1e0A587
 
 ```shell script
 
-./deploy_tool --chain=2 mintNFT --asset=0x4A17a58141E9D0b85B0F9186c9dfCfc0DCD4425f --to=0x5Fb03EB21303D39967a1a119B32DD744a0fA8986 --tokenId=1
+# deploy nft wrapper and set lock proxy and fee collector
+./deploy_tool --chain=2 deployNFTWrapper
+./deploy_tool --chain=2 setWrapLockProxy
+./deploy_tool --chain=2 setFeeCollector
 
+# approve fee token to wrapper and check allowance
+./deploy_tool --chain=2 approveERC20 --from=0x5Fb03EB21303D39967a1a119B32DD744a0fA8986 --to=0xa64697B45eD4566Af42d8811B0320a1636c13BC2 --amount=1000000000000000000000000
+./deploy_tool --chain=2 erc20Allowance --from=0x5Fb03EB21303D39967a1a119B32DD744a0fA8986 --to=0xa64697B45eD4566Af42d8811B0320a1636c13BC2
+
+# mint nft token
+./deploy_tool --chain=2 mintNFT --asset=0x4A17a58141E9D0b85B0F9186c9dfCfc0DCD4425f --to=0x5Fb03EB21303D39967a1a119B32DD744a0fA8986 --tokenId=5
+
+# wrapper lock nft
 ./deploy_tool --chain=2 lockNFT --dstChain=6 \
 --asset=0x4A17a58141E9D0b85B0F9186c9dfCfc0DCD4425f \
 --from=0x5Fb03EB21303D39967a1a119B32DD744a0fA8986 \
 --to=0x8cbE1493A2894e32985E45e7e3394f3FEA15Afb2 \
---tokenId=1 --amount=1000000000000000000 --lockId=1
+--amount=1000000000000000000 \
+--nativeToken=true \
+--tokenId=5 --lockId=5
 ```
