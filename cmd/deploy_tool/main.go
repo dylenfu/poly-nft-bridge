@@ -411,7 +411,7 @@ func handleCmdApproveSideChain(ctx *cli.Context) error {
 }
 
 func handleCmdSyncSideChainGenesis2Poly(ctx *cli.Context) error {
-	log.Info("start to sync side chain genesis header to poly chain...")
+	log.Info("start to sync side chain %s genesis header to poly chain...", cc.ChainName)
 
 	polySdk, err := poly_sdk.NewPolySdkAndSetChainID(cfg.Poly.RPC)
 	if err != nil {
@@ -422,12 +422,17 @@ func handleCmdSyncSideChainGenesis2Poly(ctx *cli.Context) error {
 		return err
 	}
 
-	if err := SyncSideChainGenesisHeaderToPolyChain(
-		cc.ChainID,
-		sdk,
-		polySdk,
-		validators,
-	); err != nil {
+	switch cc.ChainID {
+	case basedef.ETHEREUM_CROSSCHAIN_ID:
+		err = SyncEthGenesisHeader2Poly(cc.ChainID, sdk, polySdk, validators)
+	case basedef.BSC_CROSSCHAIN_ID:
+		err = SyncBscGenesisHeader2Poly(cc.ChainID, sdk, polySdk, validators)
+	case basedef.HECO_CROSSCHAIN_ID:
+		err = SyncHecoGenesisHeader2Poly(cc.ChainID, sdk, polySdk, validators)
+	default:
+		err = fmt.Errorf("chain id %d invalid", cc.ChainID)
+	}
+	if err != nil {
 		return fmt.Errorf("sync side chain %d genesis header to poly failed, err: %v", cc.ChainID, err)
 	} else {
 		log.Info("sync side chain %d genesis header to poly success!", cc.ChainID)
@@ -444,7 +449,7 @@ func handleCmdSyncPolyGenesis2SideChain(ctx *cli.Context) error {
 	}
 	eccm := common.HexToAddress(cc.ECCM)
 
-	if err := SyncPolyChainGenesisHeader2SideChain(
+	if err := SyncPolyGenesisHeader2Eth(
 		polySdk,
 		adm,
 		sdk,

@@ -63,7 +63,7 @@ func (s *PolySDK) SyncGenesisBlock(
 		validators,
 	); err != nil {
 		if strings.Contains(err.Error(), "had been initialized") {
-			log.Info("eth already synced")
+			log.Info("side chain already synced")
 			return nil
 		}
 		return err

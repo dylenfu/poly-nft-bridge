@@ -68,6 +68,9 @@ heco user1 0x95598C69B02925De711D4015F85b49527381aF6d user2 0xE4Ecc16675d1e0A587
 
 ./deploy_tool --chain=2 registerSideChain
 ./deploy_tool --chain=2 approveSideChain
+
+./deploy_tool --chain=2 syncSideGenesis
+./deploy_tool --chain=2 syncPolyGenesis
 ```
 
 2.bsc
@@ -81,6 +84,9 @@ heco user1 0x95598C69B02925De711D4015F85b49527381aF6d user2 0xE4Ecc16675d1e0A587
 
 ./deploy_tool --chain=6 registerSideChain
 ./deploy_tool --chain=6 approveSideChain
+
+./deploy_tool --chain=6 syncSideGenesis
+./deploy_tool --chain=6 syncPolyGenesis
 ```
 
 3.heco
