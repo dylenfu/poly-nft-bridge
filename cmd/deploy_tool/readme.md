@@ -100,6 +100,9 @@ heco user1 0x95598C69B02925De711D4015F85b49527381aF6d user2 0xE4Ecc16675d1e0A587
 
 ./deploy_tool --chain=7 registerSideChain
 ./deploy_tool --chain=7 approveSideChain
+
+./deploy_tool --chain=7 syncSideGenesis
+./deploy_tool --chain=7 syncPolyGenesis
 ```
 
 #### NFTLockProxy合约
