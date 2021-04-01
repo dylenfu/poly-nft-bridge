@@ -100,6 +100,7 @@ func setupApp() *cli.App {
 		CmdGetERC20Balance,
 		CmdERC20Approve,
 		CmdERC20Allowance,
+		CmdNativeTransfer,
 	}
 
 	app.Before = beforeCommands
@@ -609,6 +610,25 @@ func handleCmdERC20Allowance(ctx *cli.Context) error {
 		log.Info("sender %s already approved spender %s %s on asset of %s",
 			owner.Hex(), spender.Hex(), amount.String(), asset.Hex())
 	}
+	return nil
+}
+
+func handleCmdNativeTransfer(ctx *cli.Context) error {
+	log.Info("start to transfer native token on chain %s...", cc.ChainName)
+
+	from := flag2address(ctx, SrcAccountFlag)
+	key, err := wallet.LoadEthAccount(storage, cc.Keystore, from.Hex(), defaultAccPwd)
+	if err != nil {
+		return err
+	}
+
+	to := flag2address(ctx, DstAccountFlag)
+	amount := flag2big(ctx, AmountFlag)
+	tx, err := sdk.TransferNative(key, to, amount)
+	if err != nil {
+		return err
+	}
+	log.Info("%s transfer %s to %s success, txhash %s", from.Hex(), amount.String(), to.Hex(), tx.Hex())
 	return nil
 }
 

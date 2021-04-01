@@ -360,6 +360,17 @@ var (
 			SrcAccountFlag,
 		},
 	}
+
+	CmdNativeTransfer = cli.Command{
+		Name:   "transferNative",
+		Usage:  "transfer native token.",
+		Action: handleCmdNativeTransfer,
+		Flags: []cli.Flag{
+			SrcAccountFlag,
+			DstAccountFlag,
+			AmountFlag,
+		},
+	}
 )
 
 //getFlagName deal with short flag, and return the flag name whether flag name have short name

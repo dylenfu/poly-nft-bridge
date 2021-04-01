@@ -54,6 +54,18 @@ heco user1 0x95598C69B02925De711D4015F85b49527381aF6d user2 0xE4Ecc16675d1e0A587
 
 ./deploy_tool --chain=6 erc20Balance --from=0x8cbE1493A2894e32985E45e7e3394f3FEA15Afb2
 ./deploy_tool --chain=6 erc20Balance --from=0xa252dCBF98D02218b4E5B7B00d8FE7646592394E
+
+./deploy_tool --chain=2 approveERC20 --from=0x5Fb03EB21303D39967a1a119B32DD744a0fA8986 --to=0xa64697B45eD4566Af42d8811B0320a1636c13BC2 --amount=1000000000000000000000000
+./deploy_tool --chain=2 erc20Allowance --from=0x5Fb03EB21303D39967a1a119B32DD744a0fA8986 --to=0xa64697B45eD4566Af42d8811B0320a1636c13BC2
+
+```
+或者使用native token作为feeToken
+```shell script
+./deploy_tool --chain=2 transferNative --from=0x31c0dd87B33Dcd66f9a255Cf4CF39287F8AE593C --to=0x5Fb03EB21303D39967a1a119B32DD744a0fA8986 --amount=100000000000000000000
+./deploy_tool --chain=2 transferNative --from=0x31c0dd87B33Dcd66f9a255Cf4CF39287F8AE593C --to=0xB9933ff0CB5C5B42b12972C9826703E10BFDd863 --amount=100000000000000000000
+
+./deploy_tool --chain=6 transferNative --from=0x896fB9Dd4Bddd1C4ea2cab3df66C632AD736a9D1 --to=0x8cbE1493A2894e32985E45e7e3394f3FEA15Afb2 --amount=100000000000000000000
+./deploy_tool --chain=6 transferNative --from=0x896fB9Dd4Bddd1C4ea2cab3df66C632AD736a9D1 --to=0xa252dCBF98D02218b4E5B7B00d8FE7646592394E --amount=100000000000000000000
 ```
 #### 链基础合约
 
@@ -145,30 +157,25 @@ heco user1 0x95598C69B02925De711D4015F85b49527381aF6d user2 0xE4Ecc16675d1e0A587
 
 #### NFT资产合约及绑定
 
+这里以eth和bsc的跨链为例
 ```shell script
 
 #todo: erc721合约_safeMint已修改.在mint的时候不要进入到onReceive方法，因为现在的lock proxy的onReceive方法中只接收来自proxy的行为 
 
-./deploy_tool --chain=2 deployNFT --name=digtalDog1 --symbol=dog1
-./deploy_tool --chain=6 deployNFT --name=digtalDog1 --symbol=dog1
-./deploy_tool --chain=7 deployNFT --name=digtalDog1 --symbol=dog1
+./deploy_tool --chain=2 deployNFT --name=digtalCat1 --symbol=cat1
+./deploy_tool --chain=6 deployNFT --name=digtalCat1 --symbol=cat1
 
-./deploy_tool --chain=2 bindNFT --asset=0x4A17a58141E9D0b85B0F9186c9dfCfc0DCD4425f --dstChain=6 --dstAsset=0x19f7189e5250e3a49E7554133fd821889BecC031
-./deploy_tool --chain=6 bindNFT --asset=0x19f7189e5250e3a49E7554133fd821889BecC031 --dstChain=2 --dstAsset=0x4A17a58141E9D0b85B0F9186c9dfCfc0DCD4425f
+./deploy_tool --chain=2 bindNFT --asset=0x35EFCE8D79D6Cae30B38F6dAC3fc55C62c146b4c --dstChain=6 --dstAsset=0x63F8eaCfbF43F027cca37aB90c0ce08E76D93679
+./deploy_tool --chain=6 bindNFT --asset=0x63F8eaCfbF43F027cca37aB90c0ce08E76D93679 --dstChain=2 --dstAsset=0x35EFCE8D79D6Cae30B38F6dAC3fc55C62c146b4c
 ```
 
 #### NFT跨链
 
 ```shell script
 
-# deploy nft wrapper and set lock proxy and fee collector
-./deploy_tool --chain=2 deployNFTWrapper
-./deploy_tool --chain=2 setWrapLockProxy
-./deploy_tool --chain=2 setFeeCollector
-
-# approve fee token to wrapper and check allowance
-./deploy_tool --chain=2 approveERC20 --from=0x5Fb03EB21303D39967a1a119B32DD744a0fA8986 --to=0xa64697B45eD4566Af42d8811B0320a1636c13BC2 --amount=1000000000000000000000000
-./deploy_tool --chain=2 erc20Allowance --from=0x5Fb03EB21303D39967a1a119B32DD744a0fA8986 --to=0xa64697B45eD4566Af42d8811B0320a1636c13BC2
+# 为relayer发送账户准备native token
+./deploy_tool --chain=2 transferNative --from=0x31c0dd87B33Dcd66f9a255Cf4CF39287F8AE593C --to=0x69611B922c985fD793AFA56CE8Cfe7d8aFffeFDd --amount=100000000000000000000
+./deploy_tool --chain=6 transferNative --from=0x896fB9Dd4Bddd1C4ea2cab3df66C632AD736a9D1 --to=0xc4A519453135aE569c582154A5E632668E6DADc4 --amount=100000000000000000000
 
 # mint nft token
 ./deploy_tool --chain=2 mintNFT --asset=0x4A17a58141E9D0b85B0F9186c9dfCfc0DCD4425f --to=0x5Fb03EB21303D39967a1a119B32DD744a0fA8986 --tokenId=5
@@ -178,7 +185,7 @@ heco user1 0x95598C69B02925De711D4015F85b49527381aF6d user2 0xE4Ecc16675d1e0A587
 --asset=0x4A17a58141E9D0b85B0F9186c9dfCfc0DCD4425f \
 --from=0x5Fb03EB21303D39967a1a119B32DD744a0fA8986 \
 --to=0x8cbE1493A2894e32985E45e7e3394f3FEA15Afb2 \
---amount=1000000000000000000 \
+--amount=10000000000000000 \
 --nativeToken=true \
 --tokenId=5 --lockId=5
 ```
