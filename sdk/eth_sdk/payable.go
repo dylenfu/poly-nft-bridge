@@ -307,7 +307,6 @@ func (s *EthereumSdk) WrapLock(
 	if err != nil {
 		return EmptyHash, err
 	}
-
 	if err := s.waitTxConfirm(tx.Hash()); err != nil {
 		return EmptyHash, err
 	}

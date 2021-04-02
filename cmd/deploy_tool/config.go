@@ -31,11 +31,11 @@ type Config struct {
 }
 
 type ChainConfig struct {
-	ChainID   uint64
-	ChainName string
-	RPC       string
-	Admin     string
-	Keystore  string
+	SideChainID   uint64 // 注册在poly上的侧链ID，这个id同时也必须是genesis.json中的chainId，尤其是bsc，会根据这个校验header.
+	SideChainName string
+	RPC           string
+	Admin         string
+	Keystore      string
 
 	ECCD string
 	ECCM string

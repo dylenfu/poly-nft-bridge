@@ -21,7 +21,9 @@ import (
 	"github.com/polynetwork/poly/core/types"
 )
 
-const sideChainBlockToWait = 1
+const (
+	block2wait uint64 = 1
+)
 
 func NewPolySdkAndSetChainID(url string) (*PolySDK, error) {
 	s := NewPolySDK(url)
@@ -90,16 +92,54 @@ func (s *PolySDK) RegisterSideChain(
 		chainID,
 		router,
 		sideChainName,
-		sideChainBlockToWait,
+		block2wait,
 		eccd,
 		owner,
 	); err != nil {
 		if strings.Contains(err.Error(), "already registered") {
-			log.Info("palette chain %d already registered", chainID)
+			log.Info("chain %d already registered", chainID)
 			return nil
 		}
 		if strings.Contains(err.Error(), "already requested") {
-			log.Info("palette chain %d already requested", chainID)
+			log.Info("chain %d already requested", chainID)
+			return nil
+		}
+		return err
+	} else {
+		return s.waitPolyTx(txhash)
+	}
+}
+
+func (s *PolySDK) RegisterSideChainExt(
+	owner *polysdk.Account,
+	chainID,
+	router uint64,
+	eccdAddr ecm.Address,
+	sideChainName string,
+	extra []byte,
+) error {
+
+	eccd, err := hex.DecodeString(strings.Replace(eccdAddr.Hex(), "0x", "", 1))
+	if err != nil {
+		return fmt.Errorf("failed to decode eccd address, err: %s", err)
+	}
+
+	if txhash, err := s.sdk.Native.Scm.RegisterSideChainExt(
+		owner.Address,
+		chainID,
+		router,
+		sideChainName,
+		block2wait,
+		eccd,
+		extra,
+		owner,
+	); err != nil {
+		if strings.Contains(err.Error(), "already registered") {
+			log.Info("chain %d already registered", chainID)
+			return nil
+		}
+		if strings.Contains(err.Error(), "already requested") {
+			log.Info("chain %d already requested", chainID)
 			return nil
 		}
 		return err

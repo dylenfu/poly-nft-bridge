@@ -86,20 +86,20 @@ var (
 		Usage: "set `to` account, or approve `spender` account",
 	}
 
-	FeeTokenFlag = cli.BoolTFlag{
-		Name:  "feeToken",
-		Usage: "choose erc20 token to be fee token",
-	}
+	//FeeTokenFlag = cli.BoolTFlag{
+	//	Name:  "feeToken",
+	//	Usage: "choose erc20 token to be fee token",
+	//}
 
-	NativeTokenFlag = cli.BoolFlag{
-		Name:  "nativeToken",
-		Usage: "choose native token as wrapper fee token",
-	}
+	//NativeTokenFlag = cli.BoolFlag{
+	//	Name:  "nativeToken",
+	//	Usage: "choose native token as wrapper fee token",
+	//}
 
-	ERC20TokenFlag = cli.BoolFlag{
-		Name:  "erc20Token",
-		Usage: "choose erc20 token to be fee token",
-	}
+	//ERC20TokenFlag = cli.BoolFlag{
+	//	Name:  "erc20Token",
+	//	Usage: "choose erc20 token to be fee token",
+	//}
 
 	AmountFlag = cli.StringFlag{
 		Name:  "amount",
@@ -134,8 +134,8 @@ var (
 			DstAssetFlag,
 			SrcAccountFlag,
 			DstAccountFlag,
-			FeeTokenFlag,
-			ERC20TokenFlag,
+			//FeeTokenFlag,
+			//ERC20TokenFlag,
 			AmountFlag,
 			TokenIdFlag,
 		},
@@ -169,13 +169,13 @@ var (
 		},
 	}
 
-	CmdDeployERC20Contract = cli.Command{
-		Name:   "deployERC20",
+	CmdDeployFeeContract = cli.Command{
+		Name:   "deployFee",
 		Usage:  "admin account deploy new mintable erc20 contract.",
-		Action: handleCmdDeployERC20Contract,
-		Flags: []cli.Flag{
-			FeeTokenFlag,
-		},
+		Action: handleCmdDeployFeeContract,
+		//Flags: []cli.Flag{
+		//	FeeTokenFlag,
+		//},
 	}
 
 	CmdDeployLockProxyContract = cli.Command{
@@ -284,6 +284,27 @@ var (
 		},
 	}
 
+	CmdNFTApprove = cli.Command{
+		Name:   "nftApprove",
+		Usage:  "approve nft.",
+		Action: handleCmdNFTApprove,
+		Flags: []cli.Flag{
+			SrcAccountFlag,
+			AssetFlag,
+			TokenIdFlag,
+		},
+	}
+
+	CmdNFTOwner = cli.Command{
+		Name:   "owner",
+		Usage:  "check nft token owner.",
+		Action: handleCmdNFTOwner,
+		Flags: []cli.Flag{
+			AssetFlag,
+			TokenIdFlag,
+		},
+	}
+
 	CmdNFTWrapLock = cli.Command{
 		Name:   "lockNFT",
 		Usage:  "lock nft token on wrap contract.",
@@ -294,69 +315,69 @@ var (
 			DstChainFlag,
 			DstAccountFlag,
 			TokenIdFlag,
-			NativeTokenFlag,
+			//NativeTokenFlag,
 			AmountFlag,
 			LockIdFlag,
 		},
 	}
 
-	CmdERC20Mint = cli.Command{
-		Name:   "mintERC20",
-		Usage:  "admin account mint erc20 token.",
-		Action: handleCmdERC20Mint,
+	CmdMintFee = cli.Command{
+		Name:   "mintFee",
+		Usage:  "admin account mint fee token.",
+		Action: handleCmdMintFee,
 		Flags: []cli.Flag{
-			FeeTokenFlag,
-			ERC20TokenFlag,
+			//FeeTokenFlag,
+			//ERC20TokenFlag,
 			DstAccountFlag,
 			AmountFlag,
 		},
 	}
 
-	CmdERC20Approve = cli.Command{
-		Name:   "approveERC20",
-		Usage:  "approve ERC20 token.",
-		Action: handleCmdERC20Approve,
+	CmdApproveFee = cli.Command{
+		Name:   "approve",
+		Usage:  "approve nft wrap contract.",
+		Action: handleCmdApprove,
 		Flags: []cli.Flag{
-			FeeTokenFlag,
-			ERC20TokenFlag,
+			//FeeTokenFlag,
+			//ERC20TokenFlag,
+			SrcAccountFlag,
+			//DstAccountFlag,
+			AmountFlag,
+		},
+	}
+
+	CmdWrapAllowance = cli.Command{
+		Name:   "allowance",
+		Usage:  "get wrap allowance.",
+		Action: handleCmdAllowance,
+		Flags: []cli.Flag{
+			//FeeTokenFlag,
+			//ERC20TokenFlag,
+			SrcAccountFlag,
+			DstAccountFlag,
+		},
+	}
+
+	CmdTransferFee = cli.Command{
+		Name:   "transferFee",
+		Usage:  "transfer fee token.",
+		Action: handleCmdTransferFee,
+		Flags: []cli.Flag{
+			//FeeTokenFlag,
+			//ERC20TokenFlag,
 			SrcAccountFlag,
 			DstAccountFlag,
 			AmountFlag,
 		},
 	}
 
-	CmdERC20Allowance = cli.Command{
-		Name:   "erc20Allowance",
-		Usage:  "get ERC20 allowance.",
-		Action: handleCmdERC20Allowance,
+	CmdGetFeeBalance = cli.Command{
+		Name:   "feeBalance",
+		Usage:  "get fee balance.",
+		Action: handleGetFeeBalance,
 		Flags: []cli.Flag{
-			FeeTokenFlag,
-			ERC20TokenFlag,
-			SrcAccountFlag,
-			DstAccountFlag,
-		},
-	}
-
-	CmdERC20Transfer = cli.Command{
-		Name:   "transferERC20",
-		Usage:  "transfer ERC20 token.",
-		Action: handleCmdERC20Transfer,
-		Flags: []cli.Flag{
-			FeeTokenFlag,
-			ERC20TokenFlag,
-			SrcAccountFlag,
-			DstAccountFlag,
-			AmountFlag,
-		},
-	}
-
-	CmdGetERC20Balance = cli.Command{
-		Name:   "erc20Balance",
-		Usage:  "get ERC20 balance.",
-		Action: handleGetErc20Balance,
-		Flags: []cli.Flag{
-			FeeTokenFlag,
-			ERC20TokenFlag,
+			//FeeTokenFlag,
+			//ERC20TokenFlag,
 			SrcAccountFlag,
 		},
 	}

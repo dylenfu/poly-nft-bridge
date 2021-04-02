@@ -1,6 +1,8 @@
 package wallet
 
 import (
+	"encoding/hex"
+	"github.com/ethereum/go-ethereum/crypto"
 	"testing"
 
 	"github.com/polynetwork/poly-nft-bridge/utils/leveldb"
@@ -17,4 +19,15 @@ func TestLoadEthAccount(t *testing.T) {
 	assert.NoError(t, err)
 
 	t.Log(key.PublicKey.X.String(), key.PublicKey.Y.String())
+}
+
+func TestDecryptKey(t *testing.T) {
+	data := "12f66113274159e261c2361f076dce335f917cd9244437129dfdbb640a80a171"
+	bz, err := hex.DecodeString(data)
+	assert.NoError(t, err)
+	ec, err := crypto.ToECDSA(bz)
+	assert.NoError(t, err)
+
+	addr := crypto.PubkeyToAddress(ec.PublicKey)
+	t.Log(addr.Hex())
 }
