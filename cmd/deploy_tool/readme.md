@@ -162,11 +162,11 @@ heco user1 0x95598C69B02925De711D4015F85b49527381aF6d user2 0xE4Ecc16675d1e0A587
 
 #todo: erc721合约_safeMint已修改.在mint的时候不要进入到onReceive方法，因为现在的lock proxy的onReceive方法中只接收来自proxy的行为 
 
-./deploy_tool --chain=2 deployNFT --name=digtalCat1 --symbol=cat1
-./deploy_tool --chain=6 deployNFT --name=digtalCat1 --symbol=cat1
+./deploy_tool --chain=2 deployNFT --name=digitalCat1 --symbol=cat1
+./deploy_tool --chain=6 deployNFT --name=digitalCat1 --symbol=cat1
 
-./deploy_tool --chain=2 bindNFT --asset=0x35EFCE8D79D6Cae30B38F6dAC3fc55C62c146b4c --dstChain=6 --dstAsset=0x63F8eaCfbF43F027cca37aB90c0ce08E76D93679
-./deploy_tool --chain=6 bindNFT --asset=0x63F8eaCfbF43F027cca37aB90c0ce08E76D93679 --dstChain=2 --dstAsset=0x35EFCE8D79D6Cae30B38F6dAC3fc55C62c146b4c
+./deploy_tool --chain=2 bindNFT --asset=0x03d84da9432F7Cb5364A8b99286f97c59f738001 --dstChain=6 --dstAsset=0xa99E887E5A3Ce6120F5F7922C64d7bf956822120
+./deploy_tool --chain=6 bindNFT --asset=0xa99E887E5A3Ce6120F5F7922C64d7bf956822120 --dstChain=2 --dstAsset=0x03d84da9432F7Cb5364A8b99286f97c59f738001
 ```
 
 #### NFT跨链
