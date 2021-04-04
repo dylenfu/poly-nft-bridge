@@ -18,35 +18,21 @@
 package test
 
 import (
-	"fmt"
-	"os"
 	"testing"
 
-	"github.com/polynetwork/poly-nft-bridge/conf"
 	basedef "github.com/polynetwork/poly-nft-bridge/const"
 	"github.com/polynetwork/poly-nft-bridge/dao/crosschaindao"
-	"github.com/polynetwork/poly-nft-bridge/logic/crosschain"
+	wp "github.com/polynetwork/poly-nft-bridge/wrap"
+	"github.com/stretchr/testify/assert"
 )
 
-func TestHecoListen(t *testing.T) {
-	dir, err := os.Getwd()
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("current directory: %s\n", dir)
-	config := conf.NewConfig("./../../../conf/config_mainnet.json")
-	if config == nil {
-		panic("read config failed!")
-	}
+func Test_HecoListen(t *testing.T) {
 	dao := crosschaindao.NewCrossChainDao(basedef.SERVER_STAKE, true, config.DBConfig)
-	if dao == nil {
-		panic("server is not valid")
-	}
-	ethListenConfig := config.GetChainListenConfig(basedef.HECO_CROSSCHAIN_ID)
-	if ethListenConfig == nil {
-		panic("config is not valid")
-	}
-	chainHandle := crosschain.NewChainHandle(ethListenConfig)
-	chainListen := crosschain.NewCrossChainListen(chainHandle, dao)
+	assert.NotNil(t, dao)
+
+	cfg := config.GetChainListenConfig(basedef.HECO_CROSSCHAIN_ID)
+	assert.NotNil(t, cfg)
+	chainHandle := wp.NewChainHandle(cfg)
+	chainListen := wp.NewCrossChainListen(chainHandle, dao)
 	chainListen.ListenChain()
 }

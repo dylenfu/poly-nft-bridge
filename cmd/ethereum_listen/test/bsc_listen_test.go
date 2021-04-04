@@ -18,63 +18,37 @@
 package test
 
 import (
-	"fmt"
-	"os"
 	"testing"
 
-	"github.com/polynetwork/poly-nft-bridge/logic/crosschain/eth"
-
-	"github.com/polynetwork/poly-nft-bridge/conf"
 	basedef "github.com/polynetwork/poly-nft-bridge/const"
 	"github.com/polynetwork/poly-nft-bridge/dao/crosschaindao"
-	"github.com/polynetwork/poly-nft-bridge/logic/crosschain"
+	wp "github.com/polynetwork/poly-nft-bridge/wrap"
+	"github.com/polynetwork/poly-nft-bridge/wrap/eth"
+	"github.com/stretchr/testify/assert"
 )
 
-func TestBscListen(t *testing.T) {
-	dir, err := os.Getwd()
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("current directory: %s\n", dir)
-	config := conf.NewConfig("./../../../conf/config_testnet.json")
-	if config == nil {
-		panic("read config failed!")
-	}
+func Test_BscListen(t *testing.T) {
 	dao := crosschaindao.NewCrossChainDao(basedef.SERVER_STAKE, true, config.DBConfig)
-	if dao == nil {
-		panic("server is not valid")
-	}
-	bscListenConfig := config.GetChainListenConfig(basedef.BSC_CROSSCHAIN_ID)
-	if bscListenConfig == nil {
-		panic("config is not valid")
-	}
-	chainHandle := crosschain.NewChainHandle(bscListenConfig)
-	chainListen := crosschain.NewCrossChainListen(chainHandle, dao)
+	assert.NotNil(t, dao)
+
+	cfg := config.GetChainListenConfig(basedef.BSC_CROSSCHAIN_ID)
+	assert.NotNil(t, cfg)
+
+	chainHandle := wp.NewChainHandle(cfg)
+	chainListen := wp.NewCrossChainListen(chainHandle, dao)
 	chainListen.ListenChain()
 }
 
-func TestBscListen2(t *testing.T) {
-	dir, err := os.Getwd()
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("current directory: %s\n", dir)
-	config := conf.NewConfig("./../../../conf/config_testnet.json")
-	if config == nil {
-		panic("read config failed!")
-	}
-	bscListenConfig := config.GetChainListenConfig(basedef.BSC_CROSSCHAIN_ID)
-	if bscListenConfig == nil {
-		panic("config is not valid")
-	}
-	ethListen := eth.NewEthereumChainListen(bscListenConfig)
-	wrapperTransactions, srcTransactions, polyTransactions, dstTransactions, err := ethListen.HandleNewBlockBatch(6014032, 6501774)
-	if err != nil {
-		panic(err)
-	}
+func Test_BscHandleBatch(t *testing.T) {
+	cfg := config.GetChainListenConfig(basedef.BSC_CROSSCHAIN_ID)
+	assert.NotNil(t, cfg)
+
+	var start, end uint64 = 6014032, 6501774
+	ethListen := eth.NewEthereumChainListen(cfg)
+	wpTxs, srcTxs, polyTxs, dstTxs, err := ethListen.HandleNewBlockBatch(start, end)
+	assert.NoError(t, err)
+
 	dao := crosschaindao.NewCrossChainDao(basedef.SERVER_STAKE, true, config.DBConfig)
-	if dao == nil {
-		panic("server is not valid")
-	}
-	dao.UpdateEvents(nil, wrapperTransactions, srcTransactions, polyTransactions, dstTransactions)
+	assert.NotNil(t, dao)
+	assert.NoError(t, dao.UpdateEvents(nil, wpTxs, srcTxs, polyTxs, dstTxs))
 }

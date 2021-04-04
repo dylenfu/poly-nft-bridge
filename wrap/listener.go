@@ -15,7 +15,7 @@
  * along with The poly network .  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package crosschain
+package wrap
 
 import (
 	"fmt"
@@ -27,11 +27,7 @@ import (
 	"github.com/polynetwork/poly-nft-bridge/conf"
 	basedef "github.com/polynetwork/poly-nft-bridge/const"
 	"github.com/polynetwork/poly-nft-bridge/dao/crosschaindao"
-	"github.com/polynetwork/poly-nft-bridge/dao/models"
-	"github.com/polynetwork/poly-nft-bridge/logic/crosschain/eth"
-	"github.com/polynetwork/poly-nft-bridge/logic/crosschain/neo"
-	"github.com/polynetwork/poly-nft-bridge/logic/crosschain/ontology"
-	"github.com/polynetwork/poly-nft-bridge/logic/crosschain/poly"
+	"github.com/polynetwork/poly-nft-bridge/wrap/eth"
 )
 
 var chainListens [10]*CrossChainListen
@@ -60,32 +56,26 @@ func StopCrossChainListen() {
 	}
 }
 
-type ChainHandle interface {
-	GetExtendLatestHeight() (uint64, error)
-	GetLatestHeight() (uint64, error)
-	HandleNewBlock(height uint64) ([]*models.WrapperTransaction, []*models.SrcTransaction, []*models.PolyTransaction, []*models.DstTransaction, error)
-	GetChainListenSlot() uint64
-	GetChainId() uint64
-	GetChainName() string
-	GetDefer() uint64
-}
-
 func NewChainHandle(chainListenConfig *conf.ChainListenConfig) ChainHandle {
 	if chainListenConfig.ChainId == basedef.ETHEREUM_CROSSCHAIN_ID {
 		return eth.NewEthereumChainListen(chainListenConfig)
-	} else if chainListenConfig.ChainId == basedef.POLY_CROSSCHAIN_ID {
-		return poly.NewPolyChainListen(chainListenConfig)
-	} else if chainListenConfig.ChainId == basedef.NEO_CROSSCHAIN_ID {
-		return neo.NewNeoChainListen(chainListenConfig)
-	} else if chainListenConfig.ChainId == basedef.BSC_CROSSCHAIN_ID {
-		return eth.NewEthereumChainListen(chainListenConfig)
-	} else if chainListenConfig.ChainId == basedef.HECO_CROSSCHAIN_ID {
-		return eth.NewEthereumChainListen(chainListenConfig)
-	} else if chainListenConfig.ChainId == basedef.ONT_CROSSCHAIN_ID {
-		return ontology.NewOntologyChainListen(chainListenConfig)
 	} else {
 		return nil
 	}
+
+	//else if chainListenConfig.ChainId == basedef.POLY_CROSSCHAIN_ID {
+	//	return poly.NewPolyChainListen(chainListenConfig)
+	//} else if chainListenConfig.ChainId == basedef.NEO_CROSSCHAIN_ID {
+	//	return neo.NewNeoChainListen(chainListenConfig)
+	//} else if chainListenConfig.ChainId == basedef.BSC_CROSSCHAIN_ID {
+	//	return eth.NewEthereumChainListen(chainListenConfig)
+	//} else if chainListenConfig.ChainId == basedef.HECO_CROSSCHAIN_ID {
+	//	return eth.NewEthereumChainListen(chainListenConfig)
+	//} else if chainListenConfig.ChainId == basedef.ONT_CROSSCHAIN_ID {
+	//	return ontology.NewOntologyChainListen(chainListenConfig)
+	//} else {
+	//	return nil
+	//}
 }
 
 type CrossChainListen struct {

@@ -29,11 +29,11 @@ import (
 	"github.com/astaxie/beego/logs"
 	"github.com/polynetwork/poly-nft-bridge/conf"
 	"github.com/polynetwork/poly-nft-bridge/dao/crosschaindao"
-	"github.com/polynetwork/poly-nft-bridge/logic/crosschain"
+	wp "github.com/polynetwork/poly-nft-bridge/wrap"
 	"github.com/urfave/cli"
 )
 
-var chainListen *crosschain.CrossChainListen
+var chainListen *wp.CrossChainListen
 
 var (
 	logLevelFlag = cli.UintFlag{
@@ -45,7 +45,7 @@ var (
 	configPathFlag = cli.StringFlag{
 		Name:  "cliconfig",
 		Usage: "Server config file `<path>`",
-		Value: "./conf/config_mainnet.json",
+		Value: "./conf/mainnet.json",
 	}
 
 	logDirFlag = cli.StringFlag{
@@ -56,7 +56,7 @@ var (
 
 	chainFlag = cli.UintFlag{
 		Name:  "chain",
-		Usage: "Set chain. 2:Ethereum 8:Bsc",
+		Usage: "Set chain. 2:Ethereum, 6:Bsc, 7:Heco",
 		Value: 100000,
 	}
 )
@@ -72,7 +72,7 @@ func getFlagName(flag cli.Flag) string {
 
 func setupApp() *cli.App {
 	app := cli.NewApp()
-	app.Usage = "listen Service"
+	app.Usage = "wrapper listen Service"
 	app.Action = StartServer
 	app.Version = "1.0.0"
 	app.Copyright = "Copyright in 2019 The Ontology Authors"
@@ -125,11 +125,11 @@ func startServer(ctx *cli.Context) {
 	if chainListenConfig == nil {
 		panic("chain is invalid")
 	}
-	chainHandler := crosschain.NewChainHandle(chainListenConfig)
+	chainHandler := wp.NewChainHandle(chainListenConfig)
 	if chainHandler == nil {
 		panic("chain handler is invalid")
 	}
-	chainListen = crosschain.NewCrossChainListen(chainHandler, db)
+	chainListen = wp.NewCrossChainListen(chainHandler, db)
 	chainListen.Start()
 }
 

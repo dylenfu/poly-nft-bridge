@@ -19,73 +19,70 @@ package test
 
 import (
 	"encoding/hex"
-	"fmt"
 	"math/big"
 	"strings"
 	"testing"
-
-	"github.com/polynetwork/poly-nft-bridge/sdk/eth_sdk"
 
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/polynetwork/poly-nft-bridge/conf"
 	basedef "github.com/polynetwork/poly-nft-bridge/const"
 	"github.com/polynetwork/poly-nft-bridge/go_abi/wrapper_abi"
+	"github.com/polynetwork/poly-nft-bridge/sdk/eth_sdk"
+	"github.com/stretchr/testify/assert"
 )
 
-func TestBscCross(t *testing.T) {
-	config := conf.NewConfig("./../../../conf/config_testnet.json")
-	if config == nil {
-		panic("read config failed!")
-	}
-	bscChainListenConfig := config.GetChainListenConfig(basedef.BSC_CROSSCHAIN_ID)
-	urls := bscChainListenConfig.GetNodesUrl()
-	ethSdk := eth_sdk.NewEthereumSdkPro(urls, bscChainListenConfig.ListenSlot, basedef.BSC_CROSSCHAIN_ID)
+func Test_BscCrossChain(t *testing.T) {
+	cfg := config.GetChainListenConfig(basedef.BSC_CROSSCHAIN_ID)
+	urls := cfg.GetNodesUrl()
+
+	ethSdk := eth_sdk.NewEthereumSdkPro(urls, cfg.ListenSlot, basedef.BSC_CROSSCHAIN_ID)
 	contractabi, err := abi.JSON(strings.NewReader(wrapper_abi.IPolyWrapperABI))
-	if err != nil {
-		panic(err)
-	}
+	assert.NoError(t, err)
+
 	assetHash := common.HexToAddress("0000000000000000000000000000000000000000")
 	toAddress := common.Hex2Bytes("6e43f9988f2771f1a2b140cb3faad424767d39fc")
-	txData, err := contractabi.Pack("lock", assetHash, uint64(2), toAddress, big.NewInt(int64(100000000000000000)), big.NewInt(10000000000000000), big.NewInt(0))
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("TestInvokeContract - txdata:%s\n", hex.EncodeToString(txData))
-	wrapperContractAddress := common.HexToAddress(bscChainListenConfig.WrapperContract)
-	privateKey := NewPrivateKey("56b446a2de5edfccee1581fbba79e8bb5c269e28ab4c0487860afb7e2c2d2b6e")
+	txData, err := contractabi.Pack(
+		"lock",
+		assetHash,
+		uint64(2),
+		toAddress,
+		big.NewInt(100000000000000000),
+		big.NewInt(10000000000000000),
+		big.NewInt(0),
+	)
+	assert.NoError(t, err)
+	t.Logf("TestInvokeContract - txdata:%s", hex.EncodeToString(txData))
+
+	wrapAddr := common.HexToAddress(cfg.WrapperContract)
 	fromAddr := crypto.PubkeyToAddress(privateKey.PublicKey)
-	fmt.Printf("user address: %s\n", fromAddr.String())
+	t.Logf("user address: %s", fromAddr.String())
+
 	nonce, err := ethSdk.NonceAt(fromAddr)
-	if err != nil {
-		panic(err)
-	}
+	assert.NoError(t, err)
 	gasPrice, err := ethSdk.SuggestGasPrice()
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("gas price: %s\n", gasPrice.String())
+	assert.NoError(t, err)
+	t.Logf("gas price: %s", gasPrice.String())
+
 	callMsg := ethereum.CallMsg{
-		From: fromAddr, To: &wrapperContractAddress, Gas: 0, GasPrice: gasPrice,
-		Value: big.NewInt(100000000000000000), Data: txData,
+		From:     fromAddr,
+		To:       &wrapAddr,
+		Gas:      0,
+		GasPrice: gasPrice,
+		Value:    big.NewInt(100000000000000000),
+		Data:     txData,
 	}
 
 	gasLimit, err := ethSdk.EstimateGas(callMsg)
-	if err != nil || gasLimit == 0 {
-		panic(err)
-	}
-	fmt.Printf("gas limit: %d\n", gasLimit)
-	tx := types.NewTransaction(nonce, wrapperContractAddress, big.NewInt(100000000000000000), gasLimit, gasPrice, txData)
+	assert.NoError(t, err)
+	t.Logf("gas limit: %d", gasLimit)
+
+	tx := types.NewTransaction(nonce, wrapAddr, big.NewInt(100000000000000000), gasLimit, gasPrice, txData)
 	signedTx, err := types.SignTx(tx, types.HomesteadSigner{}, privateKey)
-	if err != nil {
-		panic(err)
-	}
-	err = ethSdk.SendRawTransaction(signedTx)
-	if err != nil {
-		panic(err)
-	}
+	assert.NoError(t, err)
+
+	assert.NoError(t, ethSdk.SendRawTransaction(signedTx))
 	ethSdk.WaitTransactionConfirm(signedTx.Hash())
 }

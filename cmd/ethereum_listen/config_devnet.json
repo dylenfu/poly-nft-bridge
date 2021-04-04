@@ -1,0 +1,58 @@
+{
+  "Server":"polyswap",
+  "Backup": false,
+  "DBConfig":{
+    "URL":"localhost:3306",
+    "User":"root",
+    "Password":"",
+    "Scheme":"polyswap",
+    "Debug": true
+  },
+  "ChainListenConfig":[
+    {
+      "ChainName":"Poly",
+      "ChainId":0,
+      "ListenSlot":1,
+      "Defer": 1,
+      "Nodes": [
+        {
+          "Url": "http://127.0.0.1:40336"
+        }
+      ],
+      "ExtendNodes": [],
+      "WrapperContract":"",
+      "CCMContract":"0300000000000000000000000000000000000000",
+      "ProxyContract":""
+    },
+    {
+      "ChainName":"Ethereum",
+      "ChainId":2,
+      "ListenSlot":5,
+      "Defer": 4,
+      "Nodes": [
+        {
+          "Url": "http://localhost:8545"
+        }
+      ],
+      "ExtendNodes": [],
+      "WrapperContract":"0x06e3d8Eeb9DC4732e474c26674e08213c6e11921",
+      "CCMContract":"0x0C3C33dA088ABeeE376418d3E384528c5AaDBA11",
+      "ProxyContract":"0x3237b7BC8283B4E07bAC017EAe52eBC34B278cE9"
+    },
+    {
+      "ChainName":"BSC",
+      "ChainId":6,
+      "ListenSlot":1,
+      "Defer": 1,
+      "Nodes": [
+        {
+          "Url": "https://localhost:8546"
+        }
+      ],
+      "ExtendNodes": [],
+      "WrapperContract":"0xa99E887E5A3Ce6120F5F7922C64d7bf956822120",
+      "CCMContract":"0x2754e887FFafef8dC37efb6583ab5624d7aEdd89",
+      "ProxyContract":"0x63F8eaCfbF43F027cca37aB90c0ce08E76D93679"
+    }
+  ]
+}

@@ -35,7 +35,7 @@ func TestEthereumListen(t *testing.T) {
 		panic(err)
 	}
 	fmt.Printf("current directory: %s\n", dir)
-	config := conf.NewConfig("./../../../conf/config_testnet.json")
+	config := conf.NewConfig("./../../../conf/testnet.json")
 	if config == nil {
 		panic("read config failed!")
 	}
@@ -58,7 +58,7 @@ func TestEthereumListen_StartStop(t *testing.T) {
 		panic(err)
 	}
 	fmt.Printf("current directory: %s\n", dir)
-	config := conf.NewConfig("./../../../conf/config_testnet.json")
+	config := conf.NewConfig("./../../../conf/testnet.json")
 	if config == nil {
 		panic("read config failed!")
 	}

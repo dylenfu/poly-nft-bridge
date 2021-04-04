@@ -2,8 +2,9 @@ package wallet
 
 import (
 	"encoding/hex"
-	"github.com/ethereum/go-ethereum/crypto"
 	"testing"
+
+	"github.com/ethereum/go-ethereum/crypto"
 
 	"github.com/polynetwork/poly-nft-bridge/utils/leveldb"
 	"github.com/stretchr/testify/assert"

@@ -24,11 +24,11 @@ import (
 	"github.com/astaxie/beego/context"
 	"github.com/astaxie/beego/logs"
 	"github.com/astaxie/beego/plugins/cors"
-	_ "github.com/polynetwork/poly-nft-bridge/logic/bridge_http"
+	_ "github.com/polynetwork/poly-nft-bridge/rpc"
 )
 
 func main() {
-	logs.SetLogger(logs.AdapterFile, `{"filename":"logs/bridge_http.log"}`)
+	logs.SetLogger(logs.AdapterFile, `{"filename":"logs/rpc.log"}`)
 	mode := beego.AppConfig.String("runmode")
 	if mode == "dev" {
 		var FilterLog = func(ctx *context.Context) {

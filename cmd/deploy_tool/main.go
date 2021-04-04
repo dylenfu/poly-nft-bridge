@@ -21,10 +21,10 @@ import (
 	"crypto/ecdsa"
 	"encoding/json"
 	"fmt"
-	"github.com/polynetwork/poly/native/service/header_sync/bsc"
 	"math/big"
 	"os"
 	"runtime"
+
 	log "github.com/astaxie/beego/logs"
 	"github.com/ethereum/go-ethereum/common"
 	basedef "github.com/polynetwork/poly-nft-bridge/const"
@@ -35,6 +35,7 @@ import (
 	"github.com/polynetwork/poly-nft-bridge/utils/leveldb"
 	"github.com/polynetwork/poly-nft-bridge/utils/math"
 	"github.com/polynetwork/poly-nft-bridge/utils/wallet"
+	"github.com/polynetwork/poly/native/service/header_sync/bsc"
 	polyutils "github.com/polynetwork/poly/native/service/utils"
 	"github.com/urfave/cli"
 )
@@ -618,7 +619,7 @@ func handleCmdMintFee(ctx *cli.Context) error {
 func handleCmdTransferFee(ctx *cli.Context) error {
 	log.Info("start to transfer fee token...")
 
-	asset := common.HexToAddress(cc.FeeToken)//getFeeTokenOrERC20Asset(ctx)
+	asset := common.HexToAddress(cc.FeeToken) //getFeeTokenOrERC20Asset(ctx)
 	from := flag2address(ctx, SrcAccountFlag)
 	key, err := wallet.LoadEthAccount(storage, cc.Keystore, from.Hex(), defaultAccPwd)
 	if err != nil {
@@ -649,13 +650,13 @@ func handleGetFeeBalance(ctx *cli.Context) error {
 }
 
 func handleCmdApprove(ctx *cli.Context) error {
-	asset := common.HexToAddress(cc.FeeToken)//getFeeTokenOrERC20Asset(ctx)
+	asset := common.HexToAddress(cc.FeeToken) //getFeeTokenOrERC20Asset(ctx)
 	sender := flag2address(ctx, SrcAccountFlag)
 	key, err := wallet.LoadEthAccount(storage, cc.Keystore, sender.Hex(), defaultAccPwd)
 	if err != nil {
 		return err
 	}
-	spender := common.HexToAddress(cc.NFTWrap)//flag2address(ctx, DstAccountFlag)
+	spender := common.HexToAddress(cc.NFTWrap) //flag2address(ctx, DstAccountFlag)
 	amount := flag2big(ctx, AmountFlag)
 	if tx, err := sdk.ApproveERC20Token(key, asset, spender, amount); err != nil {
 		return err

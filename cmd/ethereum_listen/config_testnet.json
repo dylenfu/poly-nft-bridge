@@ -49,31 +49,6 @@
       "ProxyContract":"D8aE73e06552E270340b63A8bcAbf9277a1aac99"
     },
     {
-      "ChainName":"NEO",
-      "ChainId":5,
-      "ListenSlot":1,
-      "Defer": 1,
-      "Nodes": [
-        {
-          "Url": "http://seed8.ngd.network:20332"
-        },
-        {
-          "Url": "http://seed9.ngd.network:20332"
-        },
-        {
-          "Url": "http://seed1.ngd.network:20332"
-        }
-      ],
-      "ExtendNodes": [
-        {
-          "Url": "https://testnet-explorer.o3node.org/"
-        }
-      ],
-      "WrapperContract":"cd074cd290acc3d73c030784101afbcf40fd86a1",
-      "CCMContract":"e1695b1314a1331e3935481620417ed835669407",
-      "ProxyContract":"edd2862dceb90b945210372d229f453f2b705f4f"
-    },
-    {
       "ChainName":"BSC",
       "ChainId":79,
       "ListenSlot":1,
@@ -122,93 +97,6 @@
       "WrapperContract":"a5c101afa9e04e9dd2c912983795005a49e02efa",
       "CCMContract":"0900000000000000000000000000000000000000",
       "ProxyContract":"33c439c502cb4b6ac5a1e8057a65fe1fa7c300e2"
-    }
-  ],
-  "EventEffectConfig": {
-    "HowOld": 3600,
-    "ChainListening": 300,
-    "EffectSlot": 1
-  },
-  "CoinPriceUpdateSlot":720,
-  "CoinPriceListenConfig":[
-    {
-      "MarketName":"coinmarketcap",
-      "Nodes": [
-        {
-          "Url": "https://pro-api.coinmarketcap.com/v1/cryptocurrency/",
-          "Key": "8efe5156-8b37-4c77-8e1d-a140c97bf466"
-        }
-      ]
-    },
-    {
-      "MarketName":"binance",
-      "Nodes": [
-        {
-          "Url": "https://api1.binance.com/"
-        }
-      ]
-    }
-  ],
-  "FeeUpdateSlot":5,
-  "FeeListenConfig": [
-    {
-      "ChainId":2,
-      "ChainName":"Ethereum",
-      "Nodes": [
-        {
-          "Url": "https://ropsten.infura.io/v3/1ba5f3635395470e9a3f19ba7a852144"
-        },{
-          "Url": "http://18.140.187.37:10331"
-        }
-      ],
-      "GasLimit":120000,
-      "ProxyFee":120,
-      "MinFee": 20
-    },
-    {
-      "ChainId":3,
-      "ChainName":"Ontology",
-      "Nodes": [
-      ],
-      "GasLimit":2000000000,
-      "ProxyFee":120,
-      "MinFee": 20
-    },
-    {
-      "ChainId":5,
-      "ChainName":"NEO",
-      "Nodes": [
-      ],
-      "GasLimit":5000000,
-      "ProxyFee":120,
-      "MinFee": 20
-    },
-    {
-      "ChainId":79,
-      "ChainName":"BSC",
-      "Nodes": [
-        {
-          "Url": "https://data-seed-prebsc-2-s2.binance.org:8545"
-        },
-        {
-          "Url": "https://data-seed-prebsc-2-s3.binance.org:8545"
-        }
-      ],
-      "GasLimit":120000,
-      "ProxyFee":120,
-      "MinFee": 20
-    },
-    {
-      "ChainId":7,
-      "ChainName":"HECO",
-      "Nodes": [
-        {
-          "Url": "https://http-testnet.hecochain.com"
-        }
-      ],
-      "GasLimit":120000,
-      "ProxyFee":120,
-      "MinFee": 20
     }
   ]
 }
