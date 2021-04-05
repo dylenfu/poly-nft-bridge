@@ -5,10 +5,10 @@ import (
 	"strings"
 
 	basedef "github.com/polynetwork/poly-nft-bridge/const"
-	"github.com/polynetwork/poly-nft-bridge/dao/models"
 	"github.com/polynetwork/poly-nft-bridge/go_abi/eccm_abi"
 	nftlp "github.com/polynetwork/poly-nft-bridge/go_abi/nft_lock_proxy_abi"
 	nftwp "github.com/polynetwork/poly-nft-bridge/go_abi/nft_wrap_abi"
+	"github.com/polynetwork/poly-nft-bridge/models"
 )
 
 func assembleSrcTransaction(

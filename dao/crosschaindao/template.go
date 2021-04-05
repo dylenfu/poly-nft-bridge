@@ -23,7 +23,7 @@ import (
 	explorerdao2 "github.com/polynetwork/poly-nft-bridge/dao/crosschaindao/explorerdao"
 	stakedao2 "github.com/polynetwork/poly-nft-bridge/dao/crosschaindao/stakedao"
 	swapdao2 "github.com/polynetwork/poly-nft-bridge/dao/crosschaindao/swapdao"
-	"github.com/polynetwork/poly-nft-bridge/dao/models"
+	"github.com/polynetwork/poly-nft-bridge/models"
 )
 
 type CrossChainDao interface {

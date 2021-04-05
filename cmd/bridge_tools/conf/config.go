@@ -23,7 +23,7 @@ import (
 
 	"github.com/polynetwork/poly-nft-bridge/conf"
 	basedef "github.com/polynetwork/poly-nft-bridge/const"
-	"github.com/polynetwork/poly-nft-bridge/dao/models"
+	"github.com/polynetwork/poly-nft-bridge/models"
 )
 
 type DeployConfig struct {

@@ -22,7 +22,7 @@ import (
 
 	"github.com/polynetwork/poly-nft-bridge/cmd/bridge_tools/conf"
 	"github.com/polynetwork/poly-nft-bridge/dao/crosschaindao"
-	"github.com/polynetwork/poly-nft-bridge/dao/models"
+	"github.com/polynetwork/poly-nft-bridge/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"

@@ -18,7 +18,7 @@
 package wrap
 
 import (
-	"github.com/polynetwork/poly-nft-bridge/dao/models"
+	"github.com/polynetwork/poly-nft-bridge/models"
 )
 
 type ChainHandle interface {

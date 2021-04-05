@@ -21,7 +21,7 @@ import (
 	"fmt"
 
 	"github.com/polynetwork/poly-nft-bridge/conf"
-	"github.com/polynetwork/poly-nft-bridge/dao/models"
+	"github.com/polynetwork/poly-nft-bridge/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
