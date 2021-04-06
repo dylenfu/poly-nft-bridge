@@ -563,7 +563,12 @@ func handleCmdNFTOwner(ctx *cli.Context) error {
 		return err
 	}
 
-	log.Info("nft %d owner %s, approved to %s", tokenID.Uint64(), owner.Hex(), approvedTo.Hex())
+	uri, err := sdk.GetNFTTokenUri(asset, tokenID)
+	if err != nil {
+		return err
+	}
+
+	log.Info("nft %d owner %s, uri %s, approved to %s", tokenID.Uint64(), owner.Hex(), uri, approvedTo.Hex())
 	return nil
 }
 

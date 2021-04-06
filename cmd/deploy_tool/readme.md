@@ -198,4 +198,14 @@ user4 0xB9933ff0CB5C5B42b12972C9826703E10BFDd863
 
 # check owner
 ./deploy_tool --chain=6 owner --asset=0x03d84da9432F7Cb5364A8b99286f97c59f738001 --tokenId=1
+
+# cross back
+./deploy_tool --chain=6 lockNFT --dstChain=2 \
+--asset=0x03d84da9432F7Cb5364A8b99286f97c59f738001 \
+--from=0x5Fb03EB21303D39967a1a119B32DD744a0fA8986 \
+--to=0x5Fb03EB21303D39967a1a119B32DD744a0fA8986 \
+--amount=10000000000000000 \
+--tokenId=1 --lockId=1
+
+./deploy_tool --chain=2 owner --asset=0x03d84da9432F7Cb5364A8b99286f97c59f738001 --tokenId=1
 ```
