@@ -32,7 +32,7 @@ type StakeDao struct {
 func NewStakeDao() *StakeDao {
 	stakeDao := &StakeDao{}
 	fees := make([]*models.ChainFee, 0)
-	feesJson := []byte(`[{"ChainId":2,"TokenBasicName":"Ethereum","TokenBasic":null,"MaxFee":0,"MinFee":0,"ProxyFee":0,"Ind":0},{"ChainId":4,"TokenBasicName":"Neo","TokenBasic":null,"MaxFee":0,"MinFee":0,"ProxyFee":0,"Ind":0},{"ChainId":8,"TokenBasicName":"Ethereum","TokenBasic":null,"MaxFee":0,"MinFee":0,"ProxyFee":0,"Ind":0}]`)
+	feesJson := []byte(`[{"ChainId":2,"AssetBasicName":"Ethereum","AssetBasic":null,"MaxFee":0,"MinFee":0,"ProxyFee":0,"Ind":0},{"ChainId":4,"AssetBasicName":"Neo","AssetBasic":null,"MaxFee":0,"MinFee":0,"ProxyFee":0,"Ind":0},{"ChainId":8,"AssetBasicName":"Ethereum","AssetBasic":null,"MaxFee":0,"MinFee":0,"ProxyFee":0,"Ind":0}]`)
 	err := json.Unmarshal(feesJson, &fees)
 	if err != nil {
 		panic(err)

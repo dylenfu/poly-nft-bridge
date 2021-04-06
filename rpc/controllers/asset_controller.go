@@ -25,23 +25,28 @@ import (
 	"github.com/polynetwork/poly-nft-bridge/models"
 )
 
-type TokenController struct {
+type AssetController struct {
 	beego.Controller
 }
 
-func (c *TokenController) Tokens() {
-	var tokensReq models.TokensReq
-	if err := input(&c.Controller, &tokensReq); err != nil {
+func (c *AssetController) Assets() {
+	var req models.NFTAssetsReq
+	if err := input(&c.Controller, &req); err != nil {
 		return
 	}
 
-	tokens := make([]*models.Token, 0)
-	db.Where("chain_id = ?", tokensReq.ChainId).Preload("AssetBasic").Preload("AssetMaps").Preload("AssetMaps.DstToken").Find(&tokens)
-	data := models.MakeTokensRsp(tokens)
+	assets := make([]*models.NFTAsset, 0)
+	db.Where("chain_id = ?", req.ChainId).
+		Preload("AssetBasic").
+		Preload("AssetMaps").
+		Preload("AssetMaps.DstToken").
+		Find(&assets)
+	data := models.MakeNFTAssetsRsp(assets)
+
 	output(&c.Controller, data)
 }
 
-func (c *TokenController) Token() {
+func (c *AssetController) Asset() {
 	var tokenReq models.TokenReq
 	var err error
 	if err = json.Unmarshal(c.Ctx.Input.RequestBody, &tokenReq); err != nil {
@@ -61,7 +66,7 @@ func (c *TokenController) Token() {
 	c.ServeJSON()
 }
 
-func (c *TokenController) TokenBasics() {
+func (c *AssetController) AssetBasics() {
 	var tokenBasicReq models.TokenBasicReq
 	var err error
 	if err = json.Unmarshal(c.Ctx.Input.RequestBody, &tokenBasicReq); err != nil {

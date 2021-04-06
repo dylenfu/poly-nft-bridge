@@ -64,7 +64,7 @@ func getFlagName(flag cli.Flag) string {
 
 func setupApp() *cli.App {
 	app := cli.NewApp()
-	app.Usage = "github.com/polynetwork/poly-nft-bridge deploy Service"
+	app.Usage = "Poly NFT Bridge asset Service"
 	app.Action = startServer
 	app.Version = "1.0.0"
 	app.Copyright = "Copyright in 2019 The Ontology Authors"

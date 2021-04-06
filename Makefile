@@ -34,6 +34,9 @@ eth_listen:
 poly_listen:
 	@$(GOBUILD) -o $(BaseDir)/poly_listen/listener cmd/poly_listen/main.go
 
+asset_tool:
+	@$(GOBUILD) -o $(BaseDir)/asset_tool/asset_tool cmd/asset_tool/*.go
+
 deploy_tool:
 	@cp -R keystore/$(env)/ $(BaseDir)/deploy_tool/keystore/
 	@$(GOBUILD) -o $(BaseDir)/deploy_tool/deploy_tool cmd/deploy_tool/*.go

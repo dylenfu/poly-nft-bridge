@@ -49,6 +49,27 @@ func NewSwapDao(dbCfg *conf.DBConfig, backup bool) *SwapDao {
 	if err != nil {
 		panic(err)
 	}
+
+	//if err := db.AutoMigrate(
+	//	&models.Chain{},
+	//	&models.WrapperTransaction{},
+	//	&models.ChainFee{},
+	//	&models.AssetBasic{},
+	//	&models.Token{},
+	//	&models.PriceMarket{},
+	//	&models.TokenMap{},
+	//	&models.SrcTransaction{},
+	//	&models.SrcTransfer{},
+	//	&models.PolyTransaction{},
+	//	&models.DstTransaction{},
+	//	&models.DstTransfer{},
+	//	&models.NFTAssetBasic{},
+	//	&models.NFTAsset{},
+	//	&models.NFTAssetMap{},
+	//); err != nil {
+	//	panic(err)
+	//}
+
 	swapDao.db = db
 	return swapDao
 }
@@ -227,7 +248,7 @@ func (dao *SwapDao) RemoveTokens(tokens []string) error {
 
 func (dao *SwapDao) RemoveToken(token string) error {
 	tokenBasic := new(models.TokenBasic)
-	res := dao.db.Model(&models.TokenBasic{}).Where("name = ?", token).Preload("Tokens").Preload("PriceMarkets").First(tokenBasic)
+	res := dao.db.Model(&models.TokenBasic{}).Where("name = ?", token).Preload("Assets").Preload("PriceMarkets").First(tokenBasic)
 	if res.Error != nil {
 		return res.Error
 	}

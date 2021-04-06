@@ -36,6 +36,10 @@ type CrossChainDao interface {
 	RemoveTokens(tokens []string) error
 	RemoveTokenMaps(tokenMaps []*models.TokenMap) error
 	Name() string
+
+	AddAssets(assetBasics []*models.NFTAssetBasic) error
+	RemoveAssets(assets []string) error
+	RemoveAssetMaps(assetMaps []*models.NFTAssetMap) error
 }
 
 func NewCrossChainDao(server string, backup bool, dbCfg *conf.DBConfig) CrossChainDao {
@@ -46,6 +50,6 @@ func NewCrossChainDao(server string, backup bool, dbCfg *conf.DBConfig) CrossCha
 	} else if server == basedef.SERVER_STAKE {
 		return stkd.NewStakeDao()
 	} else {
-		return nil
+		panic("generate dao failed with invalid server name")
 	}
 }

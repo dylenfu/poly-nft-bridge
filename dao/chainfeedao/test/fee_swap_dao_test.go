@@ -46,7 +46,7 @@ func TestSaveFee_SwapDao(t *testing.T) {
 		panic("dao is invalid")
 	}
 	chainFees := make([]*models.ChainFee, 0)
-	chainFeesJson := []byte(`[{"ChainId":2,"TokenBasicName":"Ethereum","TokenBasic":null,"MaxFee":1814309666000000000000,"MinFee":1814309666000000000000,"ProxyFee":2177171599200000000000,"Ind":1},{"ChainId":4,"TokenBasicName":"Neo","TokenBasic":null,"MaxFee":1000000000,"MinFee":1000000000,"ProxyFee":1000000000,"Ind":1},{"ChainId":8,"TokenBasicName":"Ethereum","TokenBasic":null,"MaxFee":0,"MinFee":0,"ProxyFee":0,"Ind":0}]`)
+	chainFeesJson := []byte(`[{"ChainId":2,"AssetBasicName":"Ethereum","AssetBasic":null,"MaxFee":1814309666000000000000,"MinFee":1814309666000000000000,"ProxyFee":2177171599200000000000,"Ind":1},{"ChainId":4,"AssetBasicName":"Neo","AssetBasic":null,"MaxFee":1000000000,"MinFee":1000000000,"ProxyFee":1000000000,"Ind":1},{"ChainId":8,"AssetBasicName":"Ethereum","AssetBasic":null,"MaxFee":0,"MinFee":0,"ProxyFee":0,"Ind":0}]`)
 	err = json.Unmarshal(chainFeesJson, &chainFees)
 	if err != nil {
 		panic(err)

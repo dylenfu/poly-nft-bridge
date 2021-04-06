@@ -46,7 +46,7 @@ func TestSavePrice_SwapDao(t *testing.T) {
 		panic("dao is invalid")
 	}
 	tokenBasics := make([]*models.TokenBasic, 0)
-	tokenBasicsJson := []byte(`[{"Name":"Ethereum","Precision":0,"AvgPrice":73080095858,"AvgInd":1,"Time":0,"PriceMarkets":[{"TokenBasicName":"Ethereum","MarketName":"binance","Name":"ETHUSDT","Price":73080000000,"Ind":1,"Time":1609308634,"TokenBasic":null},{"TokenBasicName":"Ethereum","MarketName":"coinmarketcap","Name":"Ethereum","Price":73080191717,"Ind":1,"Time":1609308634,"TokenBasic":null}],"Tokens":[{"Hash":"0000000000000000000000000000000000000000","ChainId":2,"Name":"Ethereum","Precision":18,"TokenBasicName":"Ethereum","TokenBasic":null,"TokenMaps":null},{"Hash":"0000000000000000000000000000000000000005","ChainId":4,"Name":"Ethereum","Precision":18,"TokenBasicName":"Ethereum","TokenBasic":null,"TokenMaps":null}]},{"Name":"Neo","Precision":0,"AvgPrice":1485333999,"AvgInd":1,"Time":0,"PriceMarkets":[{"TokenBasicName":"Neo","MarketName":"binance","Name":"NEOUSDT","Price":1485000000,"Ind":1,"Time":1609308634,"TokenBasic":null},{"TokenBasicName":"Neo","MarketName":"coinmarketcap","Name":"Neo","Price":1485667998,"Ind":1,"Time":1609308634,"TokenBasic":null}],"Tokens":[{"Hash":"0000000000000000000000000000000000000001","ChainId":2,"Name":"Neo","Precision":9,"TokenBasicName":"Neo","TokenBasic":null,"TokenMaps":null},{"Hash":"0000000000000000000000000000000000000006","ChainId":4,"Name":"Neo","Precision":9,"TokenBasicName":"Neo","TokenBasic":null,"TokenMaps":null}]}]`)
+	tokenBasicsJson := []byte(`[{"Name":"Ethereum","Precision":0,"AvgPrice":73080095858,"AvgInd":1,"Time":0,"PriceMarkets":[{"AssetBasicName":"Ethereum","MarketName":"binance","Name":"ETHUSDT","Price":73080000000,"Ind":1,"Time":1609308634,"AssetBasic":null},{"AssetBasicName":"Ethereum","MarketName":"coinmarketcap","Name":"Ethereum","Price":73080191717,"Ind":1,"Time":1609308634,"AssetBasic":null}],"Assets":[{"Hash":"0000000000000000000000000000000000000000","ChainId":2,"Name":"Ethereum","Precision":18,"AssetBasicName":"Ethereum","AssetBasic":null,"AssetMaps":null},{"Hash":"0000000000000000000000000000000000000005","ChainId":4,"Name":"Ethereum","Precision":18,"AssetBasicName":"Ethereum","AssetBasic":null,"AssetMaps":null}]},{"Name":"Neo","Precision":0,"AvgPrice":1485333999,"AvgInd":1,"Time":0,"PriceMarkets":[{"AssetBasicName":"Neo","MarketName":"binance","Name":"NEOUSDT","Price":1485000000,"Ind":1,"Time":1609308634,"AssetBasic":null},{"AssetBasicName":"Neo","MarketName":"coinmarketcap","Name":"Neo","Price":1485667998,"Ind":1,"Time":1609308634,"AssetBasic":null}],"Assets":[{"Hash":"0000000000000000000000000000000000000001","ChainId":2,"Name":"Neo","Precision":9,"AssetBasicName":"Neo","AssetBasic":null,"AssetMaps":null},{"Hash":"0000000000000000000000000000000000000006","ChainId":4,"Name":"Neo","Precision":9,"AssetBasicName":"Neo","AssetBasic":null,"AssetMaps":null}]}]`)
 	err = json.Unmarshal(tokenBasicsJson, &tokenBasics)
 	if err != nil {
 		panic(err)
@@ -74,7 +74,7 @@ func TestQueryTokens_SwapDao(t *testing.T) {
 		panic(err)
 	}
 	tokenBasics := make([]*models.TokenBasic, 0)
-	db.Debug().Model(&models.TokenBasic{}).Preload("PriceMarkets").Preload("Tokens").Find(&tokenBasics)
+	db.Debug().Model(&models.TokenBasic{}).Preload("PriceMarkets").Preload("Assets").Find(&tokenBasics)
 	json, _ := json.Marshal(tokenBasics)
 	fmt.Printf("src Transaction: %s\n", json)
 }

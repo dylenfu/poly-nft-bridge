@@ -41,7 +41,7 @@ func (c *FeeController) GetFee() {
 		c.ServeJSON()
 	}
 	token := new(models.Token)
-	res := db.Where("hash = ? and chain_id = ?", getFeeReq.Hash, getFeeReq.SrcChainId).Preload("TokenBasic").First(token)
+	res := db.Where("hash = ? and chain_id = ?", getFeeReq.Hash, getFeeReq.SrcChainId).Preload("AssetBasic").First(token)
 	if res.RowsAffected == 0 {
 		c.Data["json"] = models.MakeErrorRsp(fmt.Sprintf("chain: %d does not have token: %s", getFeeReq.SrcChainId, getFeeReq.Hash))
 		c.Ctx.ResponseWriter.WriteHeader(400)
@@ -49,7 +49,7 @@ func (c *FeeController) GetFee() {
 		return
 	}
 	chainFee := new(models.ChainFee)
-	res = db.Where("chain_id = ?", getFeeReq.DstChainId).Preload("TokenBasic").First(chainFee)
+	res = db.Where("chain_id = ?", getFeeReq.DstChainId).Preload("AssetBasic").First(chainFee)
 	if res.RowsAffected == 0 {
 		c.Data["json"] = models.MakeErrorRsp(fmt.Sprintf("chain: %d does not have fee", getFeeReq.DstChainId))
 		c.Ctx.ResponseWriter.WriteHeader(400)
@@ -107,13 +107,13 @@ func (c *FeeController) CheckFee() {
 		}
 	}
 	wrapperTransactionWithTokens := make([]*models.WrapperTransactionWithToken, 0)
-	db.Table("wrapper_transactions").Where("hash in ?", checkHashes).Preload("FeeToken").Preload("FeeToken.TokenBasic").Find(&wrapperTransactionWithTokens)
+	db.Table("wrapper_transactions").Where("hash in ?", checkHashes).Preload("FeeToken").Preload("FeeToken.AssetBasic").Find(&wrapperTransactionWithTokens)
 	txHash2WrapperTransaction := make(map[string]*models.WrapperTransactionWithToken, 0)
 	for _, wrapperTransactionWithToken := range wrapperTransactionWithTokens {
 		txHash2WrapperTransaction[wrapperTransactionWithToken.Hash] = wrapperTransactionWithToken
 	}
 	chainFees := make([]*models.ChainFee, 0)
-	db.Preload("TokenBasic").Find(&chainFees)
+	db.Preload("AssetBasic").Find(&chainFees)
 	chain2Fees := make(map[uint64]*models.ChainFee, 0)
 	for _, chainFee := range chainFees {
 		chain2Fees[chainFee.ChainId] = chainFee

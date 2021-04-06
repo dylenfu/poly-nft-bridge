@@ -25,52 +25,46 @@ import (
 	"github.com/polynetwork/poly-nft-bridge/models"
 )
 
-type TokenController struct {
+type AssetMapController struct {
 	beego.Controller
 }
 
-func (c *TokenController) Tokens() {
-	var tokensReq models.TokensReq
-	if err := input(&c.Controller, &tokensReq); err != nil {
-		return
-	}
-
-	tokens := make([]*models.Token, 0)
-	db.Where("chain_id = ?", tokensReq.ChainId).Preload("AssetBasic").Preload("AssetMaps").Preload("AssetMaps.DstToken").Find(&tokens)
-	data := models.MakeTokensRsp(tokens)
-	output(&c.Controller, data)
-}
-
-func (c *TokenController) Token() {
-	var tokenReq models.TokenReq
+func (c *AssetMapController) AssetMap() {
+	var tokenMapReq models.TokenMapReq
 	var err error
-	if err = json.Unmarshal(c.Ctx.Input.RequestBody, &tokenReq); err != nil {
+	if err = json.Unmarshal(c.Ctx.Input.RequestBody, &tokenMapReq); err != nil {
 		c.Data["json"] = models.MakeErrorRsp(fmt.Sprintf("request parameter is invalid!"))
 		c.Ctx.ResponseWriter.WriteHeader(400)
 		c.ServeJSON()
 	}
-	token := new(models.Token)
-	res := db.Where("hash = ? and chain_id = ?", tokenReq.Hash, tokenReq.ChainId).Preload("AssetBasic").Preload("AssetMaps").Preload("AssetMaps.DstToken").First(token)
+	tokenMaps := make([]*models.TokenMap, 0)
+	res := db.Where("src_chain_id = ? and src_token_hash = ?", tokenMapReq.ChainId, tokenMapReq.Hash).Preload("SrcToken").Preload("DstToken").Find(&tokenMaps)
 	if res.RowsAffected == 0 {
-		c.Data["json"] = models.MakeErrorRsp(fmt.Sprintf("token: (%s,%d) does not exist", tokenReq.Hash, tokenReq.ChainId))
+		c.Data["json"] = models.MakeErrorRsp(fmt.Sprintf("token map: (%s,%d) does not exist", tokenMapReq.Hash, tokenMapReq.ChainId))
 		c.Ctx.ResponseWriter.WriteHeader(400)
 		c.ServeJSON()
 		return
 	}
-	c.Data["json"] = models.MakeTokenRsp(token)
+	c.Data["json"] = models.MakeTokenMapsRsp(tokenMaps)
 	c.ServeJSON()
 }
 
-func (c *TokenController) TokenBasics() {
-	var tokenBasicReq models.TokenBasicReq
+func (c *AssetMapController) AssetMapReverse() {
+	var tokenMapReq models.TokenMapReq
 	var err error
-	if err = json.Unmarshal(c.Ctx.Input.RequestBody, &tokenBasicReq); err != nil {
+	if err = json.Unmarshal(c.Ctx.Input.RequestBody, &tokenMapReq); err != nil {
 		c.Data["json"] = models.MakeErrorRsp(fmt.Sprintf("request parameter is invalid!"))
 		c.Ctx.ResponseWriter.WriteHeader(400)
 		c.ServeJSON()
 	}
-	tokenBasics := make([]*models.TokenBasic, 0)
-	db.Model(&models.TokenBasic{}).Preload("Assets").Find(&tokenBasics)
-	c.Data["json"] = models.MakeTokenBasicsRsp(tokenBasics)
+	tokenMaps := make([]*models.TokenMap, 0)
+	res := db.Where("dst_chain_id = ? and dst_token_hash = ?", tokenMapReq.ChainId, tokenMapReq.Hash).Preload("SrcToken").Preload("DstToken").Find(&tokenMaps)
+	if res.RowsAffected == 0 {
+		c.Data["json"] = models.MakeErrorRsp(fmt.Sprintf("token map: (%s,%d) does not exist", tokenMapReq.Hash, tokenMapReq.ChainId))
+		c.Ctx.ResponseWriter.WriteHeader(400)
+		c.ServeJSON()
+		return
+	}
+	c.Data["json"] = models.MakeTokenMapsRsp(tokenMaps)
 	c.ServeJSON()
 }

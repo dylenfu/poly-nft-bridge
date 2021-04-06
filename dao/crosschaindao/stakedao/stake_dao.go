@@ -131,3 +131,15 @@ func (dao *StakeDao) RemoveTokens(tokens []string) error {
 func (dao *StakeDao) Name() string {
 	return basedef.SERVER_STAKE
 }
+
+func (dao *StakeDao) AddAssets(assetBasics []*models.NFTAssetBasic) error {
+	return nil
+}
+
+func (dao *StakeDao) RemoveAssets(assets []string) error {
+	return nil
+}
+
+func (dao *StakeDao) RemoveAssetMaps(assetMaps []*models.NFTAssetMap) error {
+	return nil
+}

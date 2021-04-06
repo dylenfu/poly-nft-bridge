@@ -258,7 +258,7 @@ func TestQueryWrapperTransactionWithToken_SwapDao(t *testing.T) {
 		panic(err)
 	}
 	wrapperTransactionWithToken := new(models.WrapperTransactionWithToken)
-	db.Table("wrapper_transactions").Debug().Preload("FeeToken").Preload("FeeToken.TokenBasic").First(wrapperTransactionWithToken)
+	db.Table("wrapper_transactions").Debug().Preload("FeeToken").Preload("FeeToken.AssetBasic").First(wrapperTransactionWithToken)
 	json, _ := json.Marshal(wrapperTransactionWithToken)
 	fmt.Printf("src Transaction: %s\n", json)
 }

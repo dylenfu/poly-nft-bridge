@@ -418,3 +418,15 @@ func (dao *ExplorerDao) RemoveTokens(tokens []string) error {
 func (dao *ExplorerDao) Name() string {
 	return basedef.SERVER_EXPLORER
 }
+
+func (dao *ExplorerDao) AddAssets(assetBasics []*models.NFTAssetBasic) error {
+	return nil
+}
+
+func (dao *ExplorerDao) RemoveAssets(assets []string) error {
+	return nil
+}
+
+func (dao *ExplorerDao) RemoveAssetMaps(assetMaps []*models.NFTAssetMap) error {
+	return nil
+}
