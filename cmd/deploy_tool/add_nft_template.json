@@ -1,12 +1,12 @@
 {
   "Ethereum": {
-    "Name": "digitalCat2",
-    "Symbol": "cat2",
-    "Address": "0xCcfAAFcBC79c746E3D7d2d95330c0FAC2e11dc5D"
+    "Name": "digitalCat1",
+    "Symbol": "cat1",
+    "Address": "0x03d84da9432F7Cb5364A8b99286f97c59f738001"
   },
   "Bsc": {
-    "Name": "digitalCat2",
-    "Symbol": "cat2",
-    "Address": "0xABc538fe3695f7bE4DbececFd8d850A9EdB25332"
+    "Name": "digitalCat1",
+    "Symbol": "cat1",
+    "Address": "0x03d84da9432F7Cb5364A8b99286f97c59f738001"
   }
 }

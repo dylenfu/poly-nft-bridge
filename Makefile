@@ -16,7 +16,7 @@ prepare:
 	@cp -r cmd/bridge_http/app_$(env).conf $(BaseDir)/bridge_http/app.conf
 	@cp -r conf/config_$(env).json $(BaseDir)/ethereum_listen/config.json
 	@cp -r conf/config_$(env).json $(BaseDir)/poly_listen/config.json
-	@cp cmd/deploy_tool/config_$(env).json $(BaseDir)/deploy_tool/config.json
+	@cp -r cmd/deploy_tool/config_$(env).json $(BaseDir)/deploy_tool/config.json
 	@cp -R keystore/$(env)/ $(BaseDir)/deploy_tool/keystore/
 
 bridge_http:
