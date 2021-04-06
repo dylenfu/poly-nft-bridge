@@ -8,14 +8,15 @@ env=$(BRIDGE)
 BaseDir=build/$(env)
 
 prepare:
-	@mkdir -p $(BaseDir)/bridge_http
-	@mkdir -p $(BaseDir)/eth_listen/
-	@mkdir -p $(BaseDir)/bsc_listen/
-	@mkdir -p $(BaseDir)/heco_listen/
-	@mkdir -p $(BaseDir)/poly_listen/
+	@mkdir -p $(BaseDir)/bridge_http/conf
+	@mkdir -p $(BaseDir)/bridge_http/logs
+	@mkdir -p $(BaseDir)/eth_listen/logs
+	@mkdir -p $(BaseDir)/bsc_listen/logs
+	@mkdir -p $(BaseDir)/heco_listen/logs
+	@mkdir -p $(BaseDir)/poly_listen/logs
 	@mkdir -p $(BaseDir)/deploy_tool/keystore
 	@mkdir -p $(BaseDir)/deploy_tool/leveldb
-	@cp -r cmd/bridge_http/app_$(env).conf $(BaseDir)/bridge_http/app.conf
+	@cp -r cmd/bridge_http/app_$(env).conf $(BaseDir)/bridge_http/conf/app.conf
 	@cp -r conf/config_$(env).json $(BaseDir)/eth_listen/config.json
 	@cp -r conf/config_$(env).json $(BaseDir)/bsc_listen/config.json
 	@cp -r conf/config_$(env).json $(BaseDir)/heco_listen/config.json
@@ -38,7 +39,7 @@ deploy_tool:
 	@$(GOBUILD) -o $(BaseDir)/deploy_tool/deploy_tool cmd/deploy_tool/*.go
 
 all:
-	make bridge_http ethereum_listen poly_listen deploy_tool
+	make bridge_http eth_listen poly_listen deploy_tool
 
 #
 # compile-linux:

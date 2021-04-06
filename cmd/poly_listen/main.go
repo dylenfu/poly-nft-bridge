@@ -46,13 +46,13 @@ var (
 	configPathFlag = cli.StringFlag{
 		Name:  "cliconfig",
 		Usage: "Server config file `<path>`",
-		Value: "./config.json",
+		Value: "config.json",
 	}
 
 	logDirFlag = cli.StringFlag{
 		Name:  "logdir",
 		Usage: "log directory",
-		Value: "./Log/",
+		Value: "./logs/",
 	}
 )
 
@@ -98,16 +98,18 @@ func StartServer(ctx *cli.Context) {
 }
 
 func startServer(ctx *cli.Context) {
-	_ = logs.SetLogger(logs.AdapterFile, `{"filename":"logs/crosschain.log"}`)
+	// instance beego log
+	loglevel := ctx.GlobalUint64(getFlagName(logLevelFlag))
+	logFormat := fmt.Sprintf(`{"filename":"logs/info.log","level:":"%d"}`, loglevel)
+	if err := logs.SetLogger("console", logFormat); err != nil {
+		panic(fmt.Errorf("set logger failed, err: %v", err))
+	}
+
 	configFile := ctx.GlobalString(getFlagName(configPathFlag))
 	config := conf.NewConfig(configFile)
 	if config == nil {
 		logs.Error("startServer - read config failed!")
 		return
-	}
-	{
-		enc, _ := json.Marshal(config)
-		logs.Info("%s\n", string(enc))
 	}
 
 	db := crosschaindao.NewCrossChainDao(config.Server, config.Backup, config.DBConfig)
@@ -117,7 +119,11 @@ func startServer(ctx *cli.Context) {
 	chainListenConfig := config.GetChainListenConfig(basedef.POLY_CROSSCHAIN_ID)
 	if chainListenConfig == nil {
 		panic("chain is invalid")
+	} else {
+		enc, _ := json.Marshal(chainListenConfig)
+		logs.Info("%s\n", string(enc))
 	}
+
 	chainHandler := wp.NewChainHandle(chainListenConfig)
 	chainListen = wp.NewCrossChainListen(chainHandler, db)
 	chainListen.Start()
