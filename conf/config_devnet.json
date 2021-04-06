@@ -20,9 +20,9 @@
         }
       ],
       "ExtendNodes": [],
-      "WrapperContract":"",
-      "CCMContract":"0300000000000000000000000000000000000000",
-      "ProxyContract":""
+      "ECCMContract":"0300000000000000000000000000000000000000",
+      "ProxyContract":"",
+      "WrapperContract":""
     },
     {
       "ChainName":"Ethereum",
@@ -35,9 +35,9 @@
         }
       ],
       "ExtendNodes": [],
-      "WrapperContract":"0x06e3d8Eeb9DC4732e474c26674e08213c6e11921",
-      "CCMContract":"0x0C3C33dA088ABeeE376418d3E384528c5AaDBA11",
-      "ProxyContract":"0x3237b7BC8283B4E07bAC017EAe52eBC34B278cE9"
+      "ECCMContract":"0xB5e86d80287835115a81562073b1Cff3fCe564E9",
+      "ProxyContract":"0x40370A9d91096b8d1e8392D87Daee7c89EAA05C6",
+      "WrapperContract":"0x35EFCE8D79D6Cae30B38F6dAC3fc55C62c146b4c"
     },
     {
       "ChainName":"BSC",
@@ -50,9 +50,9 @@
         }
       ],
       "ExtendNodes": [],
-      "WrapperContract":"0xa99E887E5A3Ce6120F5F7922C64d7bf956822120",
-      "CCMContract":"0x2754e887FFafef8dC37efb6583ab5624d7aEdd89",
-      "ProxyContract":"0x63F8eaCfbF43F027cca37aB90c0ce08E76D93679"
+      "ECCMContract":"0xB5e86d80287835115a81562073b1Cff3fCe564E9",
+      "ProxyContract":"0x40370A9d91096b8d1e8392D87Daee7c89EAA05C6",
+      "WrapperContract":"0x35EFCE8D79D6Cae30B38F6dAC3fc55C62c146b4c"
     }
   ]
 }

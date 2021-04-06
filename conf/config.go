@@ -45,7 +45,7 @@ type ChainListenConfig struct {
 	Nodes           []*Restful
 	ExtendNodes     []*Restful
 	WrapperContract string
-	CCMContract     string
+	ECCMContract    string
 	ProxyContract   string
 }
 

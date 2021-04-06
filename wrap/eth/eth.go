@@ -65,7 +65,7 @@ func (e *EthereumChainListen) WrapperAddress() common.Address {
 }
 
 func (e *EthereumChainListen) ECCMAddress() common.Address {
-	return common.HexToAddress(e.ethCfg.CCMContract)
+	return common.HexToAddress(e.ethCfg.ECCMContract)
 }
 
 func (e *EthereumChainListen) ProxyAddress() common.Address {

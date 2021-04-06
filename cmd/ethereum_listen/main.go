@@ -42,22 +42,22 @@ var (
 		Value: 1,
 	}
 
-	configPathFlag = cli.StringFlag{
-		Name:  "cliconfig",
-		Usage: "Server config file `<path>`",
-		Value: "./conf/mainnet.json",
-	}
-
 	logDirFlag = cli.StringFlag{
 		Name:  "logdir",
 		Usage: "log directory",
-		Value: "./Log/",
+		Value: "logs",
+	}
+
+	configPathFlag = cli.StringFlag{
+		Name:  "config",
+		Usage: "Server config file `<path>`",
+		Value: "config.json",
 	}
 
 	chainFlag = cli.UintFlag{
 		Name:  "chain",
-		Usage: "Set chain. 2:Ethereum, 6:Bsc, 7:Heco",
-		Value: 100000,
+		Usage: "Set chain. 2:Eth, 6:Bsc, 7:Heco",
+		Value: 2,
 	}
 )
 
@@ -104,23 +104,33 @@ func StartServer(ctx *cli.Context) {
 }
 
 func startServer(ctx *cli.Context) {
-	logs.SetLogger(logs.AdapterFile, `{"filename":"logs/crosschain.log"}`)
+	// instance beego log
+	loglevel := ctx.GlobalUint64(getFlagName(logLevelFlag))
+	logFormat := fmt.Sprintf(`{"level:":"%d"}`, loglevel)
+	if err := logs.SetLogger("console", logFormat); err != nil {
+		panic(fmt.Errorf("set logger failed, err: %v", err))
+	}
+
+	// load configuration
 	configFile := ctx.GlobalString(getFlagName(configPathFlag))
 	config := conf.NewConfig(configFile)
 	if config == nil {
-		logs.Error("startServer - read config failed!")
-		return
+		panic("startServer - read config failed!")
+	} else {
+		enc, _ := json.Marshal(config)
+		logs.Info("%s\n", string(enc))
 	}
-	{
-		conf, _ := json.Marshal(config)
-		logs.Info("%s\n", string(conf))
-	}
+
+	// read chain
 	chain := ctx.GlobalUint64(getFlagName(chainFlag))
 
+	// generate dao
 	db := crosschaindao.NewCrossChainDao(config.Server, config.Backup, config.DBConfig)
 	if db == nil {
 		panic("server is invalid")
 	}
+
+	// generate and starting listen handler
 	chainListenConfig := config.GetChainListenConfig(chain)
 	if chainListenConfig == nil {
 		panic("chain is invalid")

@@ -94,7 +94,7 @@ func (p *PolyChainListen) HandleNewBlock(height uint64) (
 	polyTransactions := make([]*models.PolyTransaction, 0)
 	for _, event := range events {
 		for _, notify := range event.Notify {
-			if notify.ContractAddress == p.polyCfg.CCMContract {
+			if notify.ContractAddress == p.polyCfg.ECCMContract {
 				states := notify.States.([]interface{})
 				contractMethod, _ := states[0].(string)
 				logs.Info("chain: %s, tx hash: %s", p.GetChainName(), event.TxHash)
