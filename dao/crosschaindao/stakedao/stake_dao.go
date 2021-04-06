@@ -68,26 +68,33 @@ func NewStakeDao() *StakeDao {
 	return stakeDao
 }
 
-func (dao *StakeDao) UpdateEvents(chain *models.Chain, wrapperTransactions []*models.WrapperTransaction, srcTransactions []*models.SrcTransaction, polyTransactions []*models.PolyTransaction, dstTransactions []*models.DstTransaction) error {
+func (dao *StakeDao) UpdateEvents(
+	chain *models.Chain,
+	wrapperTransactions []*models.WrapperTransaction,
+	srcTransactions []*models.SrcTransaction,
+	polyTransactions []*models.PolyTransaction,
+	dstTransactions []*models.DstTransaction,
+	) error {
+
 	{
-		json, _ := json.Marshal(chain)
-		fmt.Printf("chain: %s\n", json)
+		enc, _ := json.Marshal(chain)
+		fmt.Printf("chain: %s\n", enc)
 	}
 	{
-		json, _ := json.Marshal(wrapperTransactions)
-		fmt.Printf("wrapperTransactions: %s\n", json)
+		enc, _ := json.Marshal(wrapperTransactions)
+		fmt.Printf("wrapperTransactions: %s\n", enc)
 	}
 	{
-		json, _ := json.Marshal(srcTransactions)
-		fmt.Printf("srcTransactions: %s\n", json)
+		enc, _ := json.Marshal(srcTransactions)
+		fmt.Printf("srcTransactions: %s\n", enc)
 	}
 	{
-		json, _ := json.Marshal(polyTransactions)
-		fmt.Printf("polyTransactions: %s\n", json)
+		enc, _ := json.Marshal(polyTransactions)
+		fmt.Printf("polyTransactions: %s\n", enc)
 	}
 	{
-		json, _ := json.Marshal(dstTransactions)
-		fmt.Printf("dstTransactions: %s\n", json)
+		enc, _ := json.Marshal(dstTransactions)
+		fmt.Printf("dstTransactions: %s\n", enc)
 	}
 	return nil
 }

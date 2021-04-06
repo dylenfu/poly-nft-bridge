@@ -99,7 +99,7 @@ func (s *EthereumSdk) DeployNFTLockProxy(key *ecdsa.PrivateKey) (common.Address,
 	if err != nil {
 		return EmptyAddress, err
 	}
-	contractAddr, tx, _, err := nftlp.DeployNFTLockProxy(auth, s.backend())
+	contractAddr, tx, _, err := nftlp.DeployPolyNFTLockProxy(auth, s.backend())
 	if err != nil {
 		return EmptyAddress, err
 	}
@@ -110,7 +110,7 @@ func (s *EthereumSdk) DeployNFTLockProxy(key *ecdsa.PrivateKey) (common.Address,
 }
 
 func (s *EthereumSdk) NFTLockProxySetCCMP(key *ecdsa.PrivateKey, proxyAddr, ccmpAddr common.Address) (common.Hash, error) {
-	proxy, err := nftlp.NewNFTLockProxy(proxyAddr, s.backend())
+	proxy, err := nftlp.NewPolyNFTLockProxy(proxyAddr, s.backend())
 	if err != nil {
 		return EmptyHash, err
 	}
@@ -129,7 +129,7 @@ func (s *EthereumSdk) NFTLockProxySetCCMP(key *ecdsa.PrivateKey, proxyAddr, ccmp
 }
 
 func (s *EthereumSdk) GetLockProxyNFTCCMP(proxyAddr common.Address) (common.Address, error) {
-	proxy, err := nftlp.NewNFTLockProxy(proxyAddr, s.backend())
+	proxy, err := nftlp.NewPolyNFTLockProxy(proxyAddr, s.backend())
 	if err != nil {
 		return EmptyAddress, err
 	}
@@ -172,7 +172,7 @@ func (s *EthereumSdk) BindNFTAsset(
 	targetSideChainId uint64,
 ) (common.Hash, error) {
 
-	proxy, err := nftlp.NewNFTLockProxy(lockProxyAddr, s.backend())
+	proxy, err := nftlp.NewPolyNFTLockProxy(lockProxyAddr, s.backend())
 	if err != nil {
 		return EmptyHash, err
 	}
@@ -197,7 +197,7 @@ func (s *EthereumSdk) GetBoundNFTAsset(
 	targetSideChainId uint64,
 ) (common.Address, error) {
 
-	proxy, err := nftlp.NewNFTLockProxy(lockProxyAddr, s.backend())
+	proxy, err := nftlp.NewPolyNFTLockProxy(lockProxyAddr, s.backend())
 	if err != nil {
 		return EmptyAddress, err
 	}
@@ -217,7 +217,7 @@ func (s *EthereumSdk) BindLockProxy(
 	targetSideChainID uint64,
 ) (common.Hash, error) {
 
-	proxy, err := nftlp.NewNFTLockProxy(localLockProxy, s.backend())
+	proxy, err := nftlp.NewPolyNFTLockProxy(localLockProxy, s.backend())
 	if err != nil {
 		return EmptyHash, err
 	}
@@ -241,7 +241,7 @@ func (s *EthereumSdk) GetBoundNFTProxy(
 	targetSideChainID uint64,
 ) (common.Address, error) {
 
-	proxy, err := nftlp.NewNFTLockProxy(localLockProxy, s.backend())
+	proxy, err := nftlp.NewPolyNFTLockProxy(localLockProxy, s.backend())
 	if err != nil {
 		return EmptyAddress, err
 	}
@@ -348,7 +348,7 @@ func (s *EthereumSdk) TransferNFTProxyOwnership(
 	proxyAddr, newOwner common.Address,
 ) (common.Hash, error) {
 
-	proxy, err := nftlp.NewNFTLockProxy(proxyAddr, s.backend())
+	proxy, err := nftlp.NewPolyNFTLockProxy(proxyAddr, s.backend())
 	if err != nil {
 		return EmptyHash, err
 	}
@@ -368,7 +368,7 @@ func (s *EthereumSdk) TransferNFTProxyOwnership(
 }
 
 func (s *EthereumSdk) NFTProxyOwnership(proxyAddr common.Address) (common.Address, error) {
-	proxy, err := nftlp.NewNFTLockProxy(proxyAddr, s.backend())
+	proxy, err := nftlp.NewPolyNFTLockProxy(proxyAddr, s.backend())
 	if err != nil {
 		return EmptyAddress, err
 	}

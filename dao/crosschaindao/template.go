@@ -20,9 +20,9 @@ package crosschaindao
 import (
 	"github.com/polynetwork/poly-nft-bridge/conf"
 	basedef "github.com/polynetwork/poly-nft-bridge/const"
-	explorerdao2 "github.com/polynetwork/poly-nft-bridge/dao/crosschaindao/explorerdao"
-	stakedao2 "github.com/polynetwork/poly-nft-bridge/dao/crosschaindao/stakedao"
-	swapdao2 "github.com/polynetwork/poly-nft-bridge/dao/crosschaindao/swapdao"
+	expd "github.com/polynetwork/poly-nft-bridge/dao/crosschaindao/explorerdao"
+	stkd "github.com/polynetwork/poly-nft-bridge/dao/crosschaindao/stakedao"
+	swpd "github.com/polynetwork/poly-nft-bridge/dao/crosschaindao/swapdao"
 	"github.com/polynetwork/poly-nft-bridge/models"
 )
 
@@ -40,11 +40,11 @@ type CrossChainDao interface {
 
 func NewCrossChainDao(server string, backup bool, dbCfg *conf.DBConfig) CrossChainDao {
 	if server == basedef.SERVER_POLY_SWAP {
-		return swapdao2.NewSwapDao(dbCfg, backup)
+		return swpd.NewSwapDao(dbCfg, backup)
 	} else if server == basedef.SERVER_EXPLORER {
-		return explorerdao2.NewExplorerDao(dbCfg)
+		return expd.NewExplorerDao(dbCfg)
 	} else if server == basedef.SERVER_STAKE {
-		return stakedao2.NewStakeDao()
+		return stkd.NewStakeDao()
 	} else {
 		return nil
 	}

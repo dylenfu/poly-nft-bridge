@@ -133,7 +133,7 @@ func crossChainEvent2ProxyLockEvent(
 	}
 }
 
-func convertLockProxyEvent(evt *nftlp.NFTLockProxyLockEvent) *models.ProxyLockEvent {
+func convertLockProxyEvent(evt *nftlp.PolyNFTLockProxyLockEvent) *models.ProxyLockEvent {
 	return &models.ProxyLockEvent{
 		Method:        _eth_lock,
 		TxHash:        evt.Raw.TxHash.String()[2:],
@@ -162,7 +162,7 @@ func verifyAndExecuteEvent2ProxyUnlockEvent(
 	}
 }
 
-func convertUnlockProxyEvent(evt *nftlp.NFTLockProxyUnlockEvent) *models.ProxyUnlockEvent {
+func convertUnlockProxyEvent(evt *nftlp.PolyNFTLockProxyUnlockEvent) *models.ProxyUnlockEvent {
 	return &models.ProxyUnlockEvent{
 		Method:      _eth_unlock,
 		TxHash:      evt.Raw.TxHash.String()[2:],

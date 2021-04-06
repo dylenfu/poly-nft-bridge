@@ -302,7 +302,7 @@ func (e *EthereumChainListen) getProxyEventByBlockNumber(
 	error,
 ) {
 
-	proxyContract, err := nftlp.NewNFTLockProxy(proxyAddr, e.ethSdk.GetClient())
+	proxyContract, err := nftlp.NewPolyNFTLockProxy(proxyAddr, e.ethSdk.GetClient())
 	if err != nil {
 		return nil, nil, fmt.Errorf("GetSmartContractEventByBlock, error: %s", err.Error())
 	}

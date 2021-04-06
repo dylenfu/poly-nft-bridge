@@ -7,35 +7,33 @@ GOTEST=$(GOCMD) test
 env=$(BRIDGE)
 BaseDir=build/$(env)
 
-bridge_http:
-	mkdir -p $(BaseDir)/bridge_http
-	@cp -i cmd/bridge_http/app_$(env).conf $(BaseDir)/bridge_http/app.conf
-	@$(GOBUILD) -o $(BaseDir)/bridge_http/bridge_http cmd/bridge_http/main.go
-
-ethereum_listen:
-	mkdir -p $(BaseDir)/ethereum_listen/
-	@cp -i conf/config_$(env).json $(BaseDir)/ethereum_listen/config.json
-	@$(GOBUILD) -o $(BaseDir)/ethereum_listen/ethereum_listen cmd/ethereum_listen/*.go
-
-poly_listen:
-	mkdir -p $(BaseDir)/poly_listen
-	@cp -i conf/config_$(env).json $(BaseDir)/poly_listen/config.json
-	@$(GOBUILD) -o $(BaseDir)/poly_listen/poly_listen cmd/poly_listen/main.go
-
-server:
-	make bridge_http bridge_tools bridge_server
-
-prepare-deploy-tool:
+prepare:
+	@mkdir -p $(BaseDir)/bridge_http
+	@mkdir -p $(BaseDir)/ethereum_listen/
+	@mkdir -p $(BaseDir)/poly_listen
 	@mkdir -p $(BaseDir)/deploy_tool/keystore
 	@mkdir -p $(BaseDir)/deploy_tool/leveldb
+	@cp -r cmd/bridge_http/app_$(env).conf $(BaseDir)/bridge_http/app.conf
+	@cp -r conf/config_$(env).json $(BaseDir)/ethereum_listen/config.json
+	@cp -r conf/config_$(env).json $(BaseDir)/poly_listen/config.json
 	@cp cmd/deploy_tool/config_$(env).json $(BaseDir)/deploy_tool/config.json
 	@cp -R keystore/$(env)/ $(BaseDir)/deploy_tool/keystore/
 
-deploy-tool:
+bridge_http:
+	@$(GOBUILD) -o $(BaseDir)/bridge_http/bridge_http cmd/bridge_http/main.go
+
+ethereum_listen:
+	@$(GOBUILD) -o $(BaseDir)/ethereum_listen/ethereum_listen cmd/ethereum_listen/*.go
+
+poly_listen:
+	@$(GOBUILD) -o $(BaseDir)/poly_listen/poly_listen cmd/poly_listen/main.go
+
+deploy_tool:
 	@$(GOBUILD) -o $(BaseDir)/deploy_tool/deploy_tool cmd/deploy_tool/*.go
 
 all:
-	make bridge_http bridge_tools bridge_server ethereum_listen poly_listen
+	make bridge_http ethereum_listen poly_listen deploy_tool
+
 #
 # compile-linux:
 # 	GOOS=linux GOARCH=amd64 $(GOBUILD) -o build/$(ENV)/robot-linux cmd/main.go
