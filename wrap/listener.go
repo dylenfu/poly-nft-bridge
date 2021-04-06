@@ -19,6 +19,7 @@ package wrap
 
 import (
 	"fmt"
+	"github.com/polynetwork/poly-nft-bridge/wrap/poly"
 	"math"
 	"runtime/debug"
 	"time"
@@ -56,25 +57,21 @@ func StopCrossChainListen() {
 	}
 }
 
-func NewChainHandle(chainListenConfig *conf.ChainListenConfig) ChainHandle {
-	if chainListenConfig.ChainId == basedef.ETHEREUM_CROSSCHAIN_ID {
-		return eth.NewEthereumChainListen(chainListenConfig)
-	} else {
-		return nil
+func NewChainHandle(c *conf.ChainListenConfig) (handler ChainHandle) {
+	switch c.ChainId {
+	case basedef.ETHEREUM_CROSSCHAIN_ID, basedef.BSC_CROSSCHAIN_ID, basedef.HECO_CROSSCHAIN_ID:
+		handler = eth.NewEthereumChainListen(c)
+	case basedef.POLY_CROSSCHAIN_ID:
+		handler = poly.NewPolyChainListen(c)
+	default:
+		panic("generate chain handler with invalid chainID")
 	}
 
-	//else if chainListenConfig.ChainId == basedef.POLY_CROSSCHAIN_ID {
-	//	return poly.NewPolyChainListen(chainListenConfig)
-	//} else if chainListenConfig.ChainId == basedef.NEO_CROSSCHAIN_ID {
+	return
+	//else if chainListenConfig.ChainId == basedef.NEO_CROSSCHAIN_ID {
 	//	return neo.NewNeoChainListen(chainListenConfig)
-	//} else if chainListenConfig.ChainId == basedef.BSC_CROSSCHAIN_ID {
-	//	return eth.NewEthereumChainListen(chainListenConfig)
-	//} else if chainListenConfig.ChainId == basedef.HECO_CROSSCHAIN_ID {
-	//	return eth.NewEthereumChainListen(chainListenConfig)
 	//} else if chainListenConfig.ChainId == basedef.ONT_CROSSCHAIN_ID {
 	//	return ontology.NewOntologyChainListen(chainListenConfig)
-	//} else {
-	//	return nil
 	//}
 }
 

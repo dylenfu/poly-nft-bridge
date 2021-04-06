@@ -119,9 +119,6 @@ func startServer(ctx *cli.Context) {
 		panic("chain is invalid")
 	}
 	chainHandler := wp.NewChainHandle(chainListenConfig)
-	if chainHandler == nil {
-		panic("chain handler is invalid")
-	}
 	chainListen = wp.NewCrossChainListen(chainHandler, db)
 	chainListen.Start()
 }

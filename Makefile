@@ -9,26 +9,32 @@ BaseDir=build/$(env)
 
 prepare:
 	@mkdir -p $(BaseDir)/bridge_http
-	@mkdir -p $(BaseDir)/ethereum_listen/
-	@mkdir -p $(BaseDir)/poly_listen
+	@mkdir -p $(BaseDir)/eth_listen/
+	@mkdir -p $(BaseDir)/bsc_listen/
+	@mkdir -p $(BaseDir)/heco_listen/
+	@mkdir -p $(BaseDir)/poly_listen/
 	@mkdir -p $(BaseDir)/deploy_tool/keystore
 	@mkdir -p $(BaseDir)/deploy_tool/leveldb
 	@cp -r cmd/bridge_http/app_$(env).conf $(BaseDir)/bridge_http/app.conf
-	@cp -r conf/config_$(env).json $(BaseDir)/ethereum_listen/config.json
+	@cp -r conf/config_$(env).json $(BaseDir)/eth_listen/config.json
+	@cp -r conf/config_$(env).json $(BaseDir)/bsc_listen/config.json
+	@cp -r conf/config_$(env).json $(BaseDir)/heco_listen/config.json
 	@cp -r conf/config_$(env).json $(BaseDir)/poly_listen/config.json
 	@cp -r cmd/deploy_tool/config_$(env).json $(BaseDir)/deploy_tool/config.json
-	@cp -R keystore/$(env)/ $(BaseDir)/deploy_tool/keystore/
 
 bridge_http:
 	@$(GOBUILD) -o $(BaseDir)/bridge_http/bridge_http cmd/bridge_http/main.go
 
-ethereum_listen:
-	@$(GOBUILD) -o $(BaseDir)/ethereum_listen/ethereum_listen cmd/ethereum_listen/*.go
+eth_listen:
+	@$(GOBUILD) -o $(BaseDir)/eth_listen/listener cmd/eth_listen/*.go
+	@cp $(BaseDir)/eth_listen/listener $(BaseDir)/bsc_listen/listener
+	@cp $(BaseDir)/eth_listen/listener $(BaseDir)/heco_listen/listener
 
 poly_listen:
-	@$(GOBUILD) -o $(BaseDir)/poly_listen/poly_listen cmd/poly_listen/main.go
+	@$(GOBUILD) -o $(BaseDir)/poly_listen/listener cmd/poly_listen/main.go
 
 deploy_tool:
+	@cp -R keystore/$(env)/ $(BaseDir)/deploy_tool/keystore/
 	@$(GOBUILD) -o $(BaseDir)/deploy_tool/deploy_tool cmd/deploy_tool/*.go
 
 all:

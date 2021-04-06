@@ -116,9 +116,6 @@ func startServer(ctx *cli.Context) {
 	config := conf.NewConfig(configFile)
 	if config == nil {
 		panic("startServer - read config failed!")
-	} else {
-		enc, _ := json.Marshal(config)
-		logs.Info("%s\n", string(enc))
 	}
 
 	// read chain
@@ -134,11 +131,12 @@ func startServer(ctx *cli.Context) {
 	chainListenConfig := config.GetChainListenConfig(chain)
 	if chainListenConfig == nil {
 		panic("chain is invalid")
+	}else {
+		enc, _ := json.Marshal(chainListenConfig)
+		logs.Info("%s\n", string(enc))
 	}
+
 	chainHandler := wp.NewChainHandle(chainListenConfig)
-	if chainHandler == nil {
-		panic("chain handler is invalid")
-	}
 	chainListen = wp.NewCrossChainListen(chainHandler, db)
 	chainListen.Start()
 }

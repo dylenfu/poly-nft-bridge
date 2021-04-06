@@ -4,7 +4,7 @@
   "DBConfig":{
     "URL":"localhost:3306",
     "User":"root",
-    "Password":"",
+    "Password":"111111",
     "Scheme":"polyswap",
     "Debug": true
   },
@@ -46,7 +46,7 @@
       "Defer": 1,
       "Nodes": [
         {
-          "Url": "https://localhost:8546"
+          "Url": "http://localhost:8546"
         }
       ],
       "ExtendNodes": [],
