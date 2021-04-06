@@ -30,7 +30,7 @@ import (
 )
 
 const (
-	_makeProof = "makeProof"
+	_makeProof    = "makeProof"
 	_btcTxToRelay = "btcTxToRelay"
 )
 
@@ -74,7 +74,7 @@ func (p *PolyChainListen) HandleNewBlock(height uint64) (
 	[]*models.PolyTransaction,
 	[]*models.DstTransaction,
 	error,
-	) {
+) {
 
 	block, err := p.polySdk.GetBlockByHeight(height)
 	if err != nil {
@@ -125,7 +125,7 @@ func assemblePolyTransaction(
 	event *pcm.SmartContactEvent,
 	states []interface{},
 	chainID, height, timestamp uint64,
-	) *models.PolyTransaction {
+) *models.PolyTransaction {
 
 	fchainid := uint32(states[1].(float64))
 	tchainid := uint32(states[2].(float64))

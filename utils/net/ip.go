@@ -15,24 +15,23 @@
  * along with The poly network .  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package test
+package net
 
-import (
-	"testing"
+import "net"
 
-	basedef "github.com/polynetwork/poly-nft-bridge/const"
-	"github.com/polynetwork/poly-nft-bridge/dao/crosschaindao"
-	wp "github.com/polynetwork/poly-nft-bridge/wrap"
-	"github.com/stretchr/testify/assert"
-)
+func GetLocalIPv4s() ([]string, error) {
+	var ips []string
+	addrs, err := net.InterfaceAddrs()
+	if err != nil {
+		return ips, err
+	}
 
-func Test_PolyListen(t *testing.T) {
-	dao := crosschaindao.NewCrossChainDao(basedef.SERVER_STAKE, true, config.DBConfig)
-	assert.NotNil(t, dao)
+	for _, a := range addrs {
+		// 检查ip地址判断是否回环地址
+		if ipNet, ok := a.(*net.IPNet); ok && !ipNet.IP.IsLoopback() && ipNet.IP.To4() != nil {
+			ips = append(ips, ipNet.IP.String())
+		}
+	}
 
-	cfg := config.GetChainListenConfig(basedef.POLY_CROSSCHAIN_ID)
-	assert.NotNil(t, cfg)
-	chainHandle := wp.NewChainHandle(cfg)
-	chainListen := wp.NewCrossChainListen(chainHandle, dao)
-	chainListen.ListenChain()
+	return ips, nil
 }

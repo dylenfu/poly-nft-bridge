@@ -59,7 +59,7 @@ func (dao *SwapDao) UpdateEvents(
 	srcTransactions []*models.SrcTransaction,
 	polyTransactions []*models.PolyTransaction,
 	dstTransactions []*models.DstTransaction,
-	) error {
+) error {
 
 	if wrapperTransactions != nil && len(wrapperTransactions) > 0 {
 		res := dao.db.Save(wrapperTransactions)

@@ -131,7 +131,7 @@ func startServer(ctx *cli.Context) {
 	chainListenConfig := config.GetChainListenConfig(chain)
 	if chainListenConfig == nil {
 		panic("chain is invalid")
-	}else {
+	} else {
 		enc, _ := json.Marshal(chainListenConfig)
 		logs.Info("%s\n", string(enc))
 	}

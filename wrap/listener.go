@@ -19,10 +19,11 @@ package wrap
 
 import (
 	"fmt"
-	"github.com/polynetwork/poly-nft-bridge/wrap/poly"
 	"math"
 	"runtime/debug"
 	"time"
+
+	"github.com/polynetwork/poly-nft-bridge/wrap/poly"
 
 	"github.com/astaxie/beego/logs"
 	"github.com/polynetwork/poly-nft-bridge/conf"

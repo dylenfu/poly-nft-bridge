@@ -19,30 +19,28 @@ package main
 
 import (
 	"encoding/json"
+
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
 	"github.com/astaxie/beego/logs"
 	"github.com/astaxie/beego/plugins/cors"
 	_ "github.com/polynetwork/poly-nft-bridge/rpc"
+	"github.com/polynetwork/poly-nft-bridge/rpc/controllers"
 )
 
 func main() {
 	logs.SetLogger(logs.AdapterFile, `{"filename":"logs/rpc.log"}`)
 	mode := beego.AppConfig.String("runmode")
-	if mode == "dev" {
-		var FilterLog = func(ctx *context.Context) {
-			url, _ := json.Marshal(ctx.Input.Data()["RouterPattern"])
-			params := string(ctx.Input.RequestBody)
-			outputBytes, _ := json.Marshal(ctx.Input.Data()["json"])
-			divider := " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-			topDivider := "┌" + divider
-			middleDivider := "├" + divider
-			bottomDivider := "└" + divider
-			outputStr := "\n" + topDivider + "\n│ url:" + string(url) + "\n" + middleDivider + "\n│ request:" + string(params) + "\n│ response:" + string(outputBytes) + "\n" + bottomDivider
-			logs.Info(outputStr)
-		}
-		beego.InsertFilter("/*", beego.FinishRouter, FilterLog, false)
+	switch mode {
+	case "dev", "test":
+		setFilterLog()
+	default:
 	}
+	port, err := beego.AppConfig.Int("httpport")
+	if err != nil {
+		panic("get http port failed")
+	}
+	controllers.SetBaseInfo(mode, port)
 	beego.InsertFilter("*", beego.BeforeRouter, cors.Allow(&cors.Options{
 		AllowAllOrigins:  true,
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
@@ -50,4 +48,19 @@ func main() {
 		ExposeHeaders:    []string{"Content-Length", "Access-Control-Allow-Origin", "Access-Control-Allow-Headers", "Content-Type"},
 		AllowCredentials: true}))
 	beego.Run()
+}
+
+func setFilterLog() {
+	var FilterLog = func(ctx *context.Context) {
+		url, _ := json.Marshal(ctx.Input.Data()["RouterPattern"])
+		params := string(ctx.Input.RequestBody)
+		outputBytes, _ := json.Marshal(ctx.Input.Data()["json"])
+		divider := " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+		topDivider := "┌" + divider
+		middleDivider := "├" + divider
+		bottomDivider := "└" + divider
+		outputStr := "\n" + topDivider + "\n│ url:" + string(url) + "\n" + middleDivider + "\n│ request:" + string(params) + "\n│ response:" + string(outputBytes) + "\n" + bottomDivider
+		logs.Info(outputStr)
+	}
+	beego.InsertFilter("/*", beego.FinishRouter, FilterLog, false)
 }

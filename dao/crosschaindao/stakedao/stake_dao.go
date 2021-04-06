@@ -74,7 +74,7 @@ func (dao *StakeDao) UpdateEvents(
 	srcTransactions []*models.SrcTransaction,
 	polyTransactions []*models.PolyTransaction,
 	dstTransactions []*models.DstTransaction,
-	) error {
+) error {
 
 	{
 		enc, _ := json.Marshal(chain)

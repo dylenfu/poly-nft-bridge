@@ -23,7 +23,7 @@ import (
 )
 
 func init() {
-	ns := beego.NewNamespace("/v1",
+	ns := beego.NewNamespace("/nft/v1",
 		beego.NSRouter("/", &controllers.InfoController{}, "*:Get"),
 		beego.NSRouter("/token/", &controllers.TokenController{}, "post:Token"),
 		beego.NSRouter("/tokens/", &controllers.TokenController{}, "post:Tokens"),

@@ -18,8 +18,16 @@
 package controllers
 
 import (
+	"fmt"
+
 	"github.com/astaxie/beego"
 	"github.com/polynetwork/poly-nft-bridge/models"
+	"github.com/polynetwork/poly-nft-bridge/utils/net"
+)
+
+var (
+	mode string
+	port int
 )
 
 type InfoController struct {
@@ -27,10 +35,39 @@ type InfoController struct {
 }
 
 func (c *InfoController) Get() {
+	url, err := captureUrl()
+	if err != nil {
+		c.Data["json"] = models.MakeErrorRsp(err.Error())
+		c.Ctx.ResponseWriter.WriteHeader(400)
+		c.ServeJSON()
+		return
+	}
 	explorer := &models.PolyBridgeResp{
 		Version: "v1",
-		URL:     "http://localhost:8080/v1",
+		URL:     url,
 	}
 	c.Data["json"] = explorer
 	c.ServeJSON()
+}
+
+func SetBaseInfo(_mode string, _port int) {
+	mode = _mode
+	port = _port
+}
+
+func captureUrl() (string, error) {
+	switch mode {
+	case "dev", "test":
+		ips, err := net.GetLocalIPv4s()
+		if err != nil {
+			return "", err
+		}
+		if len(ips) == 0 {
+			return "", fmt.Errorf("local IPv4s reading error")
+		}
+		return fmt.Sprintf("http://%s:%d/nft", ips[0], port), nil
+	case "prod":
+		return "http://bridge.poly.network/nft", nil
+	}
+	return "", fmt.Errorf("beego running mode invalid")
 }
