@@ -20,10 +20,13 @@
 package eth_sdk
 
 import (
+	"context"
 	"crypto/ecdsa"
 	"math/big"
+	"strings"
 
 	"github.com/ethereum/go-ethereum"
+	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	erc20 "github.com/polynetwork/poly-nft-bridge/go_abi/mintable_erc20_abi"
@@ -32,6 +35,8 @@ import (
 	xecdsa "github.com/polynetwork/poly-nft-bridge/utils/ecdsa"
 	polycm "github.com/polynetwork/poly/common"
 )
+
+var NativeFeeToken = common.HexToAddress("0x0000000000000000000000000000000000000000")
 
 func (s *EthereumSdk) TransferNative(
 	key *ecdsa.PrivateKey,
@@ -281,7 +286,7 @@ func (s *EthereumSdk) GetNFTOwner(asset common.Address, tokenID *big.Int) (commo
 	return cm.OwnerOf(nil, tokenID)
 }
 
-func (s *EthereumSdk) WrapLock(
+func (s *EthereumSdk) WrapLockWithErc20FeeToken(
 	key *ecdsa.PrivateKey,
 	wrapAddr,
 	fromAsset,
@@ -312,6 +317,50 @@ func (s *EthereumSdk) WrapLock(
 	}
 
 	return tx.Hash(), nil
+}
+
+func (s *EthereumSdk) WrapLockWithNativeFeeToken(
+	key *ecdsa.PrivateKey,
+	wrapAddr,
+	fromAsset,
+	toAddr common.Address,
+	toChainId uint64,
+	tokenID *big.Int,
+	feeAmount *big.Int,
+	id *big.Int,
+) (common.Hash, error) {
+
+	auth, err := s.makeAuth(key)
+	if err != nil {
+		return EmptyHash, err
+	}
+
+	contractABI, err := abi.JSON(strings.NewReader(nftwrap.PolyNFTWrapperABI))
+	if err != nil {
+		return EmptyHash, err
+	}
+
+	raw, err := contractABI.Pack("lock", fromAsset, toChainId, toAddr, tokenID, NativeFeeToken, feeAmount, id)
+	if err != nil {
+		return EmptyHash, err
+	}
+
+	unsignedTx := types.NewTransaction(auth.Nonce.Uint64(), wrapAddr, feeAmount, auth.GasLimit, auth.GasPrice, raw)
+	signedTx, err := types.SignTx(unsignedTx, types.HomesteadSigner{}, key)
+	if err != nil {
+		return EmptyHash, err
+	}
+
+	if err := s.rawClient.SendTransaction(context.Background(), signedTx); err != nil {
+		return EmptyHash, err
+	}
+
+	hash := signedTx.Hash()
+	if err := s.waitTxConfirm(hash); err != nil {
+		return EmptyHash, err
+	}
+
+	return hash, nil
 }
 
 func assembleSafeTransferCallData(toAddress common.Address, chainID uint64) []byte {

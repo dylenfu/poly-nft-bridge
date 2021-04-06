@@ -185,15 +185,15 @@ heco user1 0x95598C69B02925De711D4015F85b49527381aF6d user2 0xE4Ecc16675d1e0A587
 ```shell script
 
 # mint nft token
-./deploy_tool --chain=2 mintNFT --asset=0xF4d6E5560605d750D4e1506F7622d9185d3Db206 --to=0x5Fb03EB21303D39967a1a119B32DD744a0fA8986 --tokenId=1
+./deploy_tool --chain=2 mintNFT --asset=0xF4d6E5560605d750D4e1506F7622d9185d3Db206 --to=0x5Fb03EB21303D39967a1a119B32DD744a0fA8986 --tokenId=11
 
 # wrapper lock nft
 ./deploy_tool --chain=2 lockNFT --dstChain=6 \
 --asset=0xF4d6E5560605d750D4e1506F7622d9185d3Db206 \
 --from=0x5Fb03EB21303D39967a1a119B32DD744a0fA8986 \
 --to=0x8cbE1493A2894e32985E45e7e3394f3FEA15Afb2 \
---amount=1000000000000000000 \
---tokenId=1 --lockId=1
+--amount=10000000000000000 \
+--tokenId=11 --lockId=11
 
 ./deploy_tool --chain=6 mintNFT --asset=0xa99E887E5A3Ce6120F5F7922C64d7bf956822120 --to=0x8cbE1493A2894e32985E45e7e3394f3FEA15Afb2 --tokenId=3
 

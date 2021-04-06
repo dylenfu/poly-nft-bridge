@@ -47,8 +47,6 @@ var (
 	storage *leveldb.LevelDBImpl
 	sdk     *eth_sdk.EthereumSdk
 	adm     *ecdsa.PrivateKey
-
-	nativeToken = common.HexToAddress("0x0000000000000000000000000000000000000000")
 )
 
 const defaultAccPwd = "111111"
@@ -582,19 +580,55 @@ func handleCmdNFTWrapLock(ctx *cli.Context) error {
 	to := flag2address(ctx, DstAccountFlag)
 	dstChainID := flag2Uint64(ctx, DstChainFlag)
 	tokenID := flag2big(ctx, TokenIdFlag)
-	feeToken := common.HexToAddress(cc.FeeToken)
 	fee := flag2big(ctx, AmountFlag)
 	id := new(big.Int).SetUint64(flag2Uint64(ctx, LockIdFlag))
 	wrapper := common.HexToAddress(cc.NFTWrap)
 
 	log.Info("wrap lock nft, [assset:%s, to:%s, dstChainID:%d, tokenID:%s, feeToken:%s, fee:%s, id: %s]",
-		asset.Hex(), to.Hex(), dstChainID, tokenID.String(), feeToken.Hex(), fee.String(), id.String())
+		asset.Hex(), to.Hex(), dstChainID, tokenID.String(), cc.FeeToken, fee.String(), id.String())
 
-	tx, err := sdk.WrapLock(key, wrapper, asset, to, dstChainID, tokenID, feeToken, fee, id)
-	if err != nil {
-		return err
+	{
+		log.Info("approve nft token")
+		if _, err := sdk.NFTApprove(key, asset, wrapper, tokenID); err != nil {
+			return err
+		}
+		approved, err := sdk.GetNFTApproved(asset, tokenID)
+		if err != nil {
+			return err
+		}
+		if approved != wrapper {
+			return fmt.Errorf("approved %s != sender %s", approved.Hex(), wrapper.Hex())
+		}
 	}
-	log.Info("wrap lock success, tx %s", tx.Hex())
+
+	// wrapper lock with native fee token
+	if cc.FeeToken == "" {
+		if tx, err := sdk.WrapLockWithNativeFeeToken(key, wrapper, asset, to, dstChainID, tokenID, fee, id); err != nil {
+			return err
+		} else {
+			log.Info("wrap lock with native fee token success, tx %s", tx.Hex())
+			return nil
+		}
+	}
+
+	{
+		feeToken := common.HexToAddress(cc.FeeToken)
+		if _, err := sdk.ApproveERC20Token(key, feeToken, wrapper, fee); err != nil {
+			return err
+		}
+		allowance, err := sdk.GetERC20Allowance(feeToken, from, wrapper)
+		if err != nil {
+			return err
+		}
+		if allowance.Cmp(fee) < 0 {
+			return fmt.Errorf("approve fee token to wrapper contract failed")
+		}
+		tx, err := sdk.WrapLockWithErc20FeeToken(key, wrapper, asset, to, dstChainID, tokenID, feeToken, fee, id)
+		if err != nil {
+			return err
+		}
+		log.Info("wrap lock with erc20 feeToken success, feeToken %s, tx %s", feeToken.Hex(), tx.Hex())
+	}
 
 	return nil
 }

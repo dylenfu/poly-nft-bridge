@@ -21,14 +21,13 @@ import (
 	"crypto/ecdsa"
 	"encoding/json"
 	"fmt"
-	"math/big"
-
 	"github.com/ethereum/go-ethereum/common"
 	polysdk "github.com/polynetwork/poly-go-sdk"
 	"github.com/polynetwork/poly-nft-bridge/sdk/eth_sdk"
 	xpolysdk "github.com/polynetwork/poly-nft-bridge/sdk/poly_sdk"
 	"github.com/polynetwork/poly/native/service/header_sync/bsc"
 	"github.com/polynetwork/poly/native/service/header_sync/heco"
+	"math/big"
 )
 
 func SyncEthGenesisHeader2Poly(
