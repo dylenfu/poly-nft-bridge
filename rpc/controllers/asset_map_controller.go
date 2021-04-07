@@ -18,9 +18,6 @@
 package controllers
 
 import (
-	"encoding/json"
-	"fmt"
-
 	"github.com/astaxie/beego"
 	"github.com/polynetwork/poly-nft-bridge/models"
 )
@@ -50,21 +47,21 @@ func (c *AssetMapController) AssetMap() {
 }
 
 func (c *AssetMapController) AssetMapReverse() {
-	var tokenMapReq models.TokenMapReq
-	var err error
-	if err = json.Unmarshal(c.Ctx.Input.RequestBody, &tokenMapReq); err != nil {
-		c.Data["json"] = models.MakeErrorRsp(fmt.Sprintf("request parameter is invalid!"))
-		c.Ctx.ResponseWriter.WriteHeader(400)
-		c.ServeJSON()
-	}
-	tokenMaps := make([]*models.TokenMap, 0)
-	res := db.Where("dst_chain_id = ? and dst_token_hash = ?", tokenMapReq.ChainId, tokenMapReq.Hash).Preload("SrcToken").Preload("DstToken").Find(&tokenMaps)
-	if res.RowsAffected == 0 {
-		c.Data["json"] = models.MakeErrorRsp(fmt.Sprintf("token map: (%s,%d) does not exist", tokenMapReq.Hash, tokenMapReq.ChainId))
-		c.Ctx.ResponseWriter.WriteHeader(400)
-		c.ServeJSON()
+	var req models.NFTAssetMapReq
+	if !input(&c.Controller, &req) {
 		return
 	}
-	c.Data["json"] = models.MakeTokenMapsRsp(tokenMaps)
-	c.ServeJSON()
+
+	assetMaps := make([]*models.NFTAssetMap, 0)
+	res := db.Where("dst_chain_id = ? and dst_asset_hash = ?", req.ChainId, req.Hash).
+		Preload("SrcAsset").
+		Preload("DstAsset").
+		Find(&assetMaps)
+	if res.RowsAffected == 0 {
+		notExist(&c.Controller)
+		return
+	}
+
+	data := models.MakeNFTAssetMapsRsp(assetMaps)
+	output(&c.Controller, data)
 }
