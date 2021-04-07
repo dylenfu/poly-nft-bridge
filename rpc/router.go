@@ -30,7 +30,7 @@ func init() {
 		beego.NSRouter("/assetbasics/", &controllers.AssetController{}, "post:AssetBasics"),
 		beego.NSRouter("/assetmap/", &controllers.AssetMapController{}, "post:AssetMap"),
 		beego.NSRouter("/assetmapreverse/", &controllers.AssetMapController{}, "post:AssetMapReverse"),
-		//beego.NSRouter("/getfee/", &controllers.FeeController{}, "post:GetFee"),
+		beego.NSRouter("/getfee/", &controllers.FeeController{}, "post:GetFee"),
 		//beego.NSRouter("/checkfee/", &controllers.FeeController{}, "post:CheckFee"),
 		beego.NSRouter("/transactions/", &controllers.TransactionController{}, "post:Transactions"),
 		beego.NSRouter("/transactionsofaddress/", &controllers.TransactionController{}, "post:TransactionsOfAddress"),

@@ -18,9 +18,10 @@
 package models
 
 import (
+	"math/big"
+
 	basedef "github.com/polynetwork/poly-nft-bridge/const"
 	"github.com/polynetwork/poly-nft-bridge/utils/decimal"
-	"math/big"
 )
 
 type PolyBridgeInfoResp struct {
@@ -355,51 +356,52 @@ func MakeTokenMapsRsp(tokenMaps []*TokenMap) *TokenMapsRsp {
 	return tokenMapsRsp
 }
 
-//type GetFeeReq struct {
-//	SrcChainId uint64
-//	Hash       string
-//	DstChainId uint64
-//}
-//
-//type GetFeeRsp struct {
-//	SrcChainId               uint64
-//	Hash                     string
-//	DstChainId               uint64
-//	UsdtAmount               string
-//	TokenAmount              string
-//	TokenAmountWithPrecision string
-//}
-//
-//func MakeGetFeeRsp(srcChainId uint64, hash string, dstChainId uint64, usdtAmount *big.Float, tokenAmount *big.Float, tokenAmountWithPrecision *big.Float) *GetFeeRsp {
-//	getFeeRsp := &GetFeeRsp{
-//		SrcChainId:               srcChainId,
-//		Hash:                     hash,
-//		DstChainId:               dstChainId,
-//		UsdtAmount:               usdtAmount.String(),
-//		TokenAmount:              tokenAmount.String(),
-//		TokenAmountWithPrecision: tokenAmountWithPrecision.String(),
-//	}
-//	{
-//		aaa, _ := usdtAmount.Float64()
-//		usdtAmount := decimal.NewFromFloat(aaa)
-//		getFeeRsp.UsdtAmount = usdtAmount.String()
-//	}
-//	{
-//		precision := decimal.NewFromInt(basedef.PRICE_PRECISION)
-//		aaa := new(big.Float).Mul(tokenAmount, new(big.Float).SetInt64(basedef.PRICE_PRECISION))
-//		bbb, _ := aaa.Int64()
-//		ccc := decimal.NewFromInt(bbb + 1)
-//		tokenAmount := ccc.Div(precision)
-//		getFeeRsp.TokenAmount = tokenAmount.String()
-//	}
-//	{
-//		aaa, _ := tokenAmountWithPrecision.Float64()
-//		tokenAmountWithPrecision := decimal.NewFromFloat(aaa)
-//		getFeeRsp.TokenAmountWithPrecision = tokenAmountWithPrecision.String()
-//	}
-//	return getFeeRsp
-//}
-//
+// only support native token
+type GetFeeReq struct {
+	SrcChainId uint64
+	Hash       string
+	DstChainId uint64
+}
+
+type GetFeeRsp struct {
+	SrcChainId               uint64
+	Hash                     string
+	DstChainId               uint64
+	UsdtAmount               string
+	TokenAmount              string
+	TokenAmountWithPrecision string
+}
+
+func MakeGetFeeRsp(srcChainId uint64, hash string, dstChainId uint64, usdtAmount *big.Float, tokenAmount *big.Float, tokenAmountWithPrecision *big.Float) *GetFeeRsp {
+	getFeeRsp := &GetFeeRsp{
+		SrcChainId:               srcChainId,
+		Hash:                     hash,
+		DstChainId:               dstChainId,
+		UsdtAmount:               usdtAmount.String(),
+		TokenAmount:              tokenAmount.String(),
+		TokenAmountWithPrecision: tokenAmountWithPrecision.String(),
+	}
+	{
+		aaa, _ := usdtAmount.Float64()
+		usdtAmount := decimal.NewFromFloat(aaa)
+		getFeeRsp.UsdtAmount = usdtAmount.String()
+	}
+	{
+		precision := decimal.NewFromInt(basedef.PRICE_PRECISION)
+		aaa := new(big.Float).Mul(tokenAmount, new(big.Float).SetInt64(basedef.PRICE_PRECISION))
+		bbb, _ := aaa.Int64()
+		ccc := decimal.NewFromInt(bbb + 1)
+		tokenAmount := ccc.Div(precision)
+		getFeeRsp.TokenAmount = tokenAmount.String()
+	}
+	{
+		aaa, _ := tokenAmountWithPrecision.Float64()
+		tokenAmountWithPrecision := decimal.NewFromFloat(aaa)
+		getFeeRsp.TokenAmountWithPrecision = tokenAmountWithPrecision.String()
+	}
+	return getFeeRsp
+}
+
 //type CheckFeeReq struct {
 //	Hash    string
 //	ChainId uint64

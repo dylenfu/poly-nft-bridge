@@ -18,52 +18,50 @@
 package controllers
 
 import (
+	"math/big"
+
 	"github.com/astaxie/beego"
-	//"github.com/astaxie/beego/logs"
-	//basedef "github.com/polynetwork/poly-nft-bridge/const"
-	//"github.com/polynetwork/poly-nft-bridge/models"
+	basedef "github.com/polynetwork/poly-nft-bridge/const"
+	"github.com/polynetwork/poly-nft-bridge/models"
 )
 
 type FeeController struct {
 	beego.Controller
 }
 
-//func (c *FeeController) GetFee() {
-//	var getFeeReq models.GetFeeReq
-//	var err error
-//	if err = json.Unmarshal(c.Ctx.Input.RequestBody, &getFeeReq); err != nil {
-//		c.Data["json"] = models.MakeErrorRsp(fmt.Sprintf("request parameter is invalid!"))
-//		c.Ctx.ResponseWriter.WriteHeader(400)
-//		c.ServeJSON()
-//	}
-//	token := new(models.Asset)
-//	res := db.Where("hash = ? and chain_id = ?", getFeeReq.Hash, getFeeReq.SrcChainId).Preload("AssetBasic").First(token)
-//	if res.RowsAffected == 0 {
-//		c.Data["json"] = models.MakeErrorRsp(fmt.Sprintf("chain: %d does not have token: %s", getFeeReq.SrcChainId, getFeeReq.Hash))
-//		c.Ctx.ResponseWriter.WriteHeader(400)
-//		c.ServeJSON()
-//		return
-//	}
-//	chainFee := new(models.ChainFee)
-//	res = db.Where("chain_id = ?", getFeeReq.DstChainId).Preload("AssetBasic").First(chainFee)
-//	if res.RowsAffected == 0 {
-//		c.Data["json"] = models.MakeErrorRsp(fmt.Sprintf("chain: %d does not have fee", getFeeReq.DstChainId))
-//		c.Ctx.ResponseWriter.WriteHeader(400)
-//		c.ServeJSON()
-//		return
-//	}
-//	proxyFee := new(big.Float).SetInt(&chainFee.ProxyFee.Int)
-//	proxyFee = new(big.Float).Quo(proxyFee, new(big.Float).SetInt64(basedef.FEE_PRECISION))
-//	proxyFee = new(big.Float).Quo(proxyFee, new(big.Float).SetInt64(basedef.Int64FromFigure(int(chainFee.TokenBasic.Precision))))
-//	usdtFee := new(big.Float).Mul(proxyFee, new(big.Float).SetInt64(chainFee.TokenBasic.Price))
-//	usdtFee = new(big.Float).Quo(usdtFee, new(big.Float).SetInt64(basedef.PRICE_PRECISION))
-//	tokenFee := new(big.Float).Mul(usdtFee, new(big.Float).SetInt64(basedef.PRICE_PRECISION))
-//	tokenFee = new(big.Float).Quo(tokenFee, new(big.Float).SetInt64(token.TokenBasic.Price))
-//	tokenFeeWithPrecision := new(big.Float).Mul(tokenFee, new(big.Float).SetInt64(basedef.Int64FromFigure(int(token.Precision))))
-//	c.Data["json"] = models.MakeGetFeeRsp(getFeeReq.SrcChainId, getFeeReq.Hash, getFeeReq.DstChainId, usdtFee, tokenFee, tokenFeeWithPrecision)
-//	c.ServeJSON()
-//}
-//
+// todo: use bridge sdk to get fee
+func (c *FeeController) GetFee() {
+	var req models.GetFeeReq
+	if !input(&c.Controller, &req) {
+		return
+	}
+
+	token := new(models.Token)
+	res := db.Where("hash = ? and chain_id = ?", req.Hash, req.SrcChainId).Preload("TokenBasic").First(token)
+	if res.RowsAffected == 0 {
+		notExist(&c.Controller)
+		return
+	}
+
+	chainFee := new(models.ChainFee)
+	res = db.Where("chain_id = ?", req.DstChainId).Preload("TokenBasic").First(chainFee)
+	if res.RowsAffected == 0 {
+		notExist(&c.Controller)
+		return
+	}
+
+	proxyFee := new(big.Float).SetInt(&chainFee.ProxyFee.Int)
+	proxyFee = new(big.Float).Quo(proxyFee, new(big.Float).SetInt64(basedef.FEE_PRECISION))
+	proxyFee = new(big.Float).Quo(proxyFee, new(big.Float).SetInt64(basedef.Int64FromFigure(int(chainFee.TokenBasic.Precision))))
+	usdtFee := new(big.Float).Mul(proxyFee, new(big.Float).SetInt64(chainFee.TokenBasic.Price))
+	usdtFee = new(big.Float).Quo(usdtFee, new(big.Float).SetInt64(basedef.PRICE_PRECISION))
+	tokenFee := new(big.Float).Mul(usdtFee, new(big.Float).SetInt64(basedef.PRICE_PRECISION))
+	tokenFee = new(big.Float).Quo(tokenFee, new(big.Float).SetInt64(token.TokenBasic.Price))
+	tokenFeeWithPrecision := new(big.Float).Mul(tokenFee, new(big.Float).SetInt64(basedef.Int64FromFigure(int(token.Precision))))
+	c.Data["json"] = models.MakeGetFeeRsp(req.SrcChainId, req.Hash, req.DstChainId, usdtFee, tokenFee, tokenFeeWithPrecision)
+	c.ServeJSON()
+}
+
 //func (c *FeeController) CheckFee() {
 //	logs.Debug("check fee request: %s", string(c.Ctx.Input.RequestBody))
 //	var checkFeesReq models.CheckFeesReq

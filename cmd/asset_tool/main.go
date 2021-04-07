@@ -19,14 +19,15 @@ package main
 
 import (
 	"fmt"
-	log "github.com/astaxie/beego/logs"
-	"github.com/polynetwork/poly-nft-bridge/dao/crosschaindao"
-	"github.com/polynetwork/poly-nft-bridge/utils/files"
-	"github.com/urfave/cli"
 	"os"
 	"runtime"
 	"strings"
 	"time"
+
+	log "github.com/astaxie/beego/logs"
+	"github.com/polynetwork/poly-nft-bridge/dao/crosschaindao"
+	"github.com/polynetwork/poly-nft-bridge/utils/files"
+	"github.com/urfave/cli"
 )
 
 var (
