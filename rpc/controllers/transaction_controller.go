@@ -152,19 +152,26 @@ func (c *TransactionController) TransactionOfHash() {
 	output(&c.Controller, data)
 }
 
-//func (c *TransactionController) TransactionsOfState() {
-//	var transactionsOfStateReq models.TransactionsOfStateReq
-//	var err error
-//	if err = json.Unmarshal(c.Ctx.Input.RequestBody, &transactionsOfStateReq); err != nil {
-//		c.Data["json"] = models.MakeErrorRsp(fmt.Sprintf("request parameter is invalid!"))
-//		c.Ctx.ResponseWriter.WriteHeader(400)
-//		c.ServeJSON()
-//	}
-//	transactions := make([]*models.WrapperTransaction, 0)
-//	db.Where("status = ?", transactionsOfStateReq.State).Limit(transactionsOfStateReq.PageSize).Offset(transactionsOfStateReq.PageSize * transactionsOfStateReq.PageNo).Order("time asc").Find(&transactions)
-//	var transactionNum int64
-//	db.Model(&models.WrapperTransaction{}).Where("status = ?", transactionsOfStateReq.State).Count(&transactionNum)
-//	c.Data["json"] = models.MakeTransactionsOfStateRsp(transactionsOfStateReq.PageSize, transactionsOfStateReq.PageNo,
-//		(int(transactionNum)+transactionsOfStateReq.PageSize-1)/transactionsOfStateReq.PageSize, int(transactionNum), transactions)
-//	c.ServeJSON()
-//}
+func (c *TransactionController) TransactionsOfState() {
+	var req models.TransactionsOfStateReq
+	if !input(&c.Controller, &req) {
+		return
+	}
+
+	transactions := make([]*models.WrapperTransaction, 0)
+	db.Where("status = ?", req.State).
+		Limit(req.PageSize).
+		Offset(req.PageSize * req.PageNo).
+		Order("time asc").
+		Find(&transactions)
+
+	var transactionNum int64
+	db.Model(&models.WrapperTransaction{}).
+		Where("status = ?", req.State).
+		Count(&transactionNum)
+
+	totalPage := (int(transactionNum) + req.PageSize - 1) / req.PageSize
+	totalCount := int(transactionNum)
+	data := models.MakeTransactionsOfStateRsp(req.PageSize, req.PageNo, totalPage, totalCount, transactions)
+	output(&c.Controller, data)
+}
