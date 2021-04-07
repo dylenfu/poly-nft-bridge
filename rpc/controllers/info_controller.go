@@ -42,7 +42,7 @@ func (c *InfoController) Get() {
 		c.ServeJSON()
 		return
 	}
-	explorer := &models.PolyBridgeResp{
+	explorer := &models.PolyBridgeInfoResp{
 		Version: "v1",
 		URL:     url,
 	}
