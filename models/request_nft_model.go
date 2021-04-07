@@ -17,19 +17,23 @@
 
 package models
 
+type NFTAssetBasicReq struct {
+	Name string
+}
+
 type NFTAssetBasicRsp struct {
-	Name         string
-	Time         int64
-	Disable      int64
-	Assets       []*NFTAssetRsp
+	Name    string
+	Time    int64
+	Disable int64
+	Assets  []*NFTAssetRsp
 }
 
 func MakeAssetBasicRsp(assetBasic *NFTAssetBasic) *NFTAssetBasicRsp {
 	rsp := &NFTAssetBasicRsp{
-		Name:      assetBasic.Name,
-		Time:      assetBasic.Time,
-		Disable:  assetBasic.Disable,
-		Assets:    nil,
+		Name:    assetBasic.Name,
+		Time:    assetBasic.Time,
+		Disable: assetBasic.Disable,
+		Assets:  nil,
 	}
 	if assetBasic.Assets != nil {
 		for _, asset := range assetBasic.Assets {
@@ -69,6 +73,7 @@ type NFTAssetRsp struct {
 	ChainId        uint64
 	Name           string
 	Disable        int64
+	BaseUri        string
 	AssetBasicName string
 	AssetBasic     *NFTAssetBasicRsp
 	AssetMaps      []*NFTAssetMapRsp
@@ -79,6 +84,7 @@ func MakeNFTAssetRsp(asset *NFTAsset) *NFTAssetRsp {
 		Hash:           asset.Hash,
 		ChainId:        asset.ChainId,
 		Name:           asset.Name,
+		BaseUri:        asset.BaseUri,
 		AssetBasicName: asset.AssetBasicName,
 		Disable:        asset.Disable,
 	}
@@ -122,7 +128,7 @@ type NFTAssetMapRsp struct {
 	SrcToken     *NFTAssetRsp
 	DstTokenHash string
 	DstToken     *NFTAssetRsp
-	Disable     int64
+	Disable      int64
 }
 
 func MakeNFTAssetMapRsp(assetMap *NFTAssetMap) *NFTAssetMapRsp {

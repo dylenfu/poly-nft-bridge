@@ -31,7 +31,7 @@ type TokenController struct {
 
 func (c *TokenController) Tokens() {
 	var tokensReq models.TokensReq
-	if err := input(&c.Controller, &tokensReq); err != nil {
+	if !input(&c.Controller, &tokensReq){
 		return
 	}
 

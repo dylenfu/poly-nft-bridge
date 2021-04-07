@@ -16,15 +16,15 @@ var errMap = map[int]string{
 	ErrCodeNotExist: "result not exist",
 }
 
-func input(c *beego.Controller, req interface{}) error {
+func input(c *beego.Controller, req interface{}) bool {
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &req); err != nil {
 		code := ErrCodeRequest
 		c.Data["json"] = models.MakeErrorRsp(errMap[code])
 		c.Ctx.ResponseWriter.WriteHeader(code)
 		c.ServeJSON()
-		return err
+		return false
 	}
-	return nil
+	return true
 }
 
 func notExist(c *beego.Controller) {

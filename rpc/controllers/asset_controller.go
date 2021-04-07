@@ -18,9 +18,6 @@
 package controllers
 
 import (
-	"encoding/json"
-	"fmt"
-
 	"github.com/astaxie/beego"
 	"github.com/polynetwork/poly-nft-bridge/models"
 )
@@ -31,7 +28,7 @@ type AssetController struct {
 
 func (c *AssetController) Assets() {
 	var req models.NFTAssetsReq
-	if err := input(&c.Controller, &req); err != nil {
+	if !input(&c.Controller, &req) {
 		return
 	}
 
@@ -48,7 +45,7 @@ func (c *AssetController) Assets() {
 
 func (c *AssetController) Asset() {
 	var req models.NFTAssetReq
-	if err := input(&c.Controller, &req); err != nil {
+	if !input(&c.Controller, &req) {
 		return
 	}
 
@@ -66,15 +63,8 @@ func (c *AssetController) Asset() {
 }
 
 func (c *AssetController) AssetBasics() {
-	var tokenBasicReq models.TokenBasicReq
-	var err error
-	if err = json.Unmarshal(c.Ctx.Input.RequestBody, &tokenBasicReq); err != nil {
-		c.Data["json"] = models.MakeErrorRsp(fmt.Sprintf("request parameter is invalid!"))
-		c.Ctx.ResponseWriter.WriteHeader(400)
-		c.ServeJSON()
-	}
-	tokenBasics := make([]*models.TokenBasic, 0)
-	db.Model(&models.TokenBasic{}).Preload("Assets").Find(&tokenBasics)
-	c.Data["json"] = models.MakeTokenBasicsRsp(tokenBasics)
-	c.ServeJSON()
+	assetBasics := make([]*models.NFTAssetBasic, 0)
+	db.Model(&models.NFTAssetBasic{}).Preload("Assets").Find(&assetBasics)
+	data := models.MakeNFTAssetBasicsRsp(assetBasics)
+	output(&c.Controller, data)
 }
