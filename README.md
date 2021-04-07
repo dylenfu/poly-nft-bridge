@@ -4,7 +4,7 @@ PolyNFTBridge的API。
 
 ## API
 
-* [GET /](#get-/)
+* [GET /](#get)
 * [POST assets](#post-assets)
 * [POST asset](#post-asset)
 * [POST assetbasics](#post-assetbasics)
@@ -50,7 +50,7 @@ hasPay = 收取的BNB * (BNB的USDT价格) > (eth.gas_limit * eth.gas_price) * (
 
 ## API Info
 
-### GET /
+### GET
 
 Request 
 ```
