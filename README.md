@@ -10,6 +10,7 @@ PolyNFTBridge的API。
 * [POST assetbasics](#post-assetbasics)
 * [POST assetmap](#post-assetmap)
 * [POST assetmapreverse](#post-assetmapreverse)
+* [POST items](#post-items)
 * [POST getfee](#post-getfee)
 * [POST transactions](#post-transactions)
 * [POST transactionsofaddress](#post-transactionsofaddress)
@@ -363,6 +364,54 @@ Example Response
                 "AssetMaps": null
             },
             "Disable": 0
+        }
+    ]
+}
+```
+
+### POST items
+
+Request 
+```
+http://localhost:8080/nft/v1/items/
+```
+
+BODY raw
+```
+{
+    "ChainId": 2,
+    "Asset": "03d84da9432f7cb5364a8b99286f97c59f738001",
+    "Address": "5fb03eb21303d39967a1a119b32dd744a0fa8986",
+    "PageNo":0,
+    "PageSize":10
+}
+```
+
+Example Request
+```
+curl --location --request POST 'http://localhost:8080/nft/v1/items/' \
+--data-raw '{
+    "ChainId": 2,
+    "Asset": "03d84da9432f7cb5364a8b99286f97c59f738001",
+    "Address": "5fb03eb21303d39967a1a119b32dd744a0fa8986",
+    "PageNo":0,
+    "PageSize":10
+}'
+```
+
+Example Response
+```
+{
+    "PageSize": 10,
+    "PageNo": 0,
+    "Items": [
+        {
+            "TokenId": 1,
+            "Url": "http://106.75.250.160:10060/minio/1"
+        },
+        {
+            "TokenId": 2,
+            "Url": "http://106.75.250.160:10060/minio/2"
         }
     ]
 }

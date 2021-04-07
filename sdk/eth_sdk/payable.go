@@ -286,6 +286,38 @@ func (s *EthereumSdk) GetNFTOwner(asset common.Address, tokenID *big.Int) (commo
 	return cm.OwnerOf(nil, tokenID)
 }
 
+func (s *EthereumSdk) GetOwnerNFTs(asset common.Address, owner common.Address, indexStart, indexEnd int) []*big.Int {
+	list := make([]*big.Int, 0)
+	cm, err := nftmapping.NewCrossChainNFTMapping(asset, s.backend())
+	if err != nil {
+		return nil
+	}
+	for i := indexStart; i < indexEnd; i++ {
+		if tokenId, err := cm.TokenOfOwnerByIndex(nil, owner, new(big.Int).SetInt64(int64(i))); err != nil {
+			break
+		} else {
+			list = append(list, tokenId)
+		}
+	}
+	return list
+}
+
+func (s *EthereumSdk) GetOwnerNFTUrls(asset common.Address, tokenIds []*big.Int) map[uint64]string {
+	cm, err := nftmapping.NewCrossChainNFTMapping(asset, s.backend())
+	if err != nil {
+		return nil
+	}
+
+	res := make(map[uint64]string)
+	for _, tokenId := range tokenIds {
+		url, err := cm.TokenURI(nil, tokenId)
+		if err == nil {
+			res[tokenId.Uint64()] = url
+		}
+	}
+	return res
+}
+
 func (s *EthereumSdk) WrapLockWithErc20FeeToken(
 	key *ecdsa.PrivateKey,
 	wrapAddr,

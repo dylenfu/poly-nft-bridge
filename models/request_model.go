@@ -774,3 +774,34 @@ func MakeTransactionsOfStateRsp(pageSize int, pageNo int, totalPage int, totalCo
 //	}
 //	return transactionsRsp
 //}
+
+type Item struct {
+	TokenId uint64
+	Url     string
+}
+
+type ItemsOfAddressReq struct {
+	ChainId  uint64
+	Asset    string
+	Address  string
+	PageSize int
+	PageNo   int
+}
+
+type ItemsOfAddressRsp struct {
+	PageSize int
+	PageNo   int
+	Items    []*Item
+}
+
+func MakeItemsOfAddressRsp(pageSize int, pageNo int, items []*Item) *ItemsOfAddressRsp {
+	rsp := &ItemsOfAddressRsp{
+		PageSize: pageSize,
+		PageNo:   pageNo,
+		Items:    make([]*Item, 0),
+	}
+	for _, v := range items {
+		rsp.Items = append(rsp.Items, v)
+	}
+	return rsp
+}
