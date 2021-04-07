@@ -562,6 +562,9 @@ func MakeTransactionRsp(transaction *SrcPolyDstRelation, chainsMap map[uint64]*C
 		DstUser:     transaction.SrcTransaction.SrcTransfer.DstUser,
 		State:       transaction.WrapperTransaction.Status,
 	}
+	if transaction.Asset != nil {
+		transactionRsp.Asset = MakeNFTAssetRsp(transaction.Asset)
+	}
 	if transaction.FeeToken != nil {
 		transactionRsp.FeeToken = MakeTokenRsp(transaction.FeeToken)
 		precision := decimal.NewFromInt(basedef.Int64FromFigure(int(transaction.FeeToken.TokenBasic.Precision)))
