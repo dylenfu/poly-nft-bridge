@@ -102,7 +102,7 @@ Example Response
             "ChainId": 2,
             "Name": "cat1",
             "Disable": 0,
-            "BaseUri": "http://106.75.250.160:10060/minio/",
+            "BaseUri": "http://localhost:10060/minio/",
             "AssetBasicName": "cat1",
             "AssetBasic": {
                 "Name": "cat1",
@@ -120,7 +120,7 @@ Example Response
                         "ChainId": 6,
                         "Name": "cat1",
                         "Disable": 0,
-                        "BaseUri": "http://106.75.250.160:10060/minio/",
+                        "BaseUri": "http://localhost:10060/minio/",
                         "AssetBasicName": "cat1",
                         "AssetBasic": null,
                         "AssetMaps": null
@@ -163,7 +163,7 @@ Example Response
     "Hash": "03d84da9432f7cb5364a8b99286f97c59f738001",
     "ChainId": 2,
     "Name": "cat1",
-    "BaseUri": "http://106.75.250.160:10060/minio/",
+    "BaseUri": "http://localhost:10060/minio/",
     "AssetBasicName": "cat1",
     "Disable": 0,
     "AssetBasic": {
@@ -183,7 +183,7 @@ Example Response
                 "Hash": "03d84da9432f7cb5364a8b99286f97c59f738001",
                 "ChainId": 6,
                 "Name": "cat1",
-                "BaseUri": "http://106.75.250.160:10060/minio/",
+                "BaseUri": "http://localhost:10060/minio/",
                 "AssetBasicName": "cat1",
                 "Disable": 0,
                 "AssetBasic": null,
@@ -231,7 +231,7 @@ Example Response
                     "ChainId": 2,
                     "Name": "cat1",
                     "Disable": 0,
-                    "BaseUri": "http://106.75.250.160:10060/minio/",
+                    "BaseUri": "http://localhost:10060/minio/",
                     "AssetBasicName": "cat1",
                     "AssetBasic": null,
                     "AssetMaps": null
@@ -241,7 +241,7 @@ Example Response
                     "ChainId": 6,
                     "Name": "cat1",
                     "Disable": 0,
-                    "BaseUri": "http://106.75.250.160:10060/minio/",
+                    "BaseUri": "http://localhost:10060/minio/",
                     "AssetBasicName": "cat1",
                     "AssetBasic": null,
                     "AssetMaps": null
@@ -288,7 +288,7 @@ Example Response
                 "ChainId": 2,
                 "Name": "cat1",
                 "Disable": 0,
-                "BaseUri": "http://106.75.250.160:10060/minio/",
+                "BaseUri": "http://localhost:10060/minio/",
                 "AssetBasicName": "cat1",
                 "AssetBasic": null,
                 "AssetMaps": null
@@ -299,7 +299,7 @@ Example Response
                 "ChainId": 6,
                 "Name": "cat1",
                 "Disable": 0,
-                "BaseUri": "http://106.75.250.160:10060/minio/",
+                "BaseUri": "http://localhost:10060/minio/",
                 "AssetBasicName": "cat1",
                 "AssetBasic": null,
                 "AssetMaps": null
@@ -346,7 +346,7 @@ Example Response
                 "ChainId": 6,
                 "Name": "cat1",
                 "Disable": 0,
-                "BaseUri": "http://106.75.250.160:10060/minio/",
+                "BaseUri": "http://localhost:10060/minio/",
                 "AssetBasicName": "cat1",
                 "AssetBasic": null,
                 "AssetMaps": null
@@ -357,7 +357,7 @@ Example Response
                 "ChainId": 2,
                 "Name": "cat1",
                 "Disable": 0,
-                "BaseUri": "http://106.75.250.160:10060/minio/",
+                "BaseUri": "http://localhost:10060/minio/",
                 "AssetBasicName": "cat1",
                 "AssetBasic": null,
                 "AssetMaps": null
@@ -537,7 +537,7 @@ Example Response
                 "ChainId": 6,
                 "Name": "cat1",
                 "Disable": 0,
-                "BaseUri": "http://106.75.250.160:10060/minio/",
+                "BaseUri": "http://localhost:10060/minio/",
                 "AssetBasicName": "cat1",
                 "AssetBasic": {
                     "Name": "cat1",
@@ -606,7 +606,7 @@ Example Response
                 "ChainId": 2,
                 "Name": "cat1",
                 "Disable": 0,
-                "BaseUri": "http://106.75.250.160:10060/minio/",
+                "BaseUri": "http://localhost:10060/minio/",
                 "AssetBasicName": "cat1",
                 "AssetBasic": {
                     "Name": "cat1",
@@ -703,7 +703,7 @@ Example Response
         "ChainId": 6,
         "Name": "cat1",
         "Disable": 0,
-        "BaseUri": "http://106.75.250.160:10060/minio/",
+        "BaseUri": "http://localhost:10060/minio/",
         "AssetBasicName": "cat1",
         "AssetBasic": {
             "Name": "cat1",
