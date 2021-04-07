@@ -8,10 +8,12 @@ import (
 
 const (
 	ErrCodeRequest int = 400
+	ErrCodeNotExist int = 401
 )
 
 var errMap = map[int]string{
 	ErrCodeRequest: "request parameter is invalid!",
+	ErrCodeNotExist: "result not exist",
 }
 
 func input(c *beego.Controller, req interface{}) error {
@@ -23,6 +25,13 @@ func input(c *beego.Controller, req interface{}) error {
 		return err
 	}
 	return nil
+}
+
+func notExist(c *beego.Controller) {
+	code := ErrCodeNotExist
+	c.Data["json"] = models.MakeErrorRsp(errMap[code])
+	c.Ctx.ResponseWriter.WriteHeader(code)
+	c.ServeJSON()
 }
 
 func output(c *beego.Controller, data interface{}) {

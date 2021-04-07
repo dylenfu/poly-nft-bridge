@@ -39,7 +39,7 @@ func (c *AssetController) Assets() {
 	db.Where("chain_id = ?", req.ChainId).
 		Preload("AssetBasic").
 		Preload("AssetMaps").
-		Preload("AssetMaps.DstToken").
+		Preload("AssetMaps.DstAsset").
 		Find(&assets)
 	data := models.MakeNFTAssetsRsp(assets)
 
@@ -47,23 +47,22 @@ func (c *AssetController) Assets() {
 }
 
 func (c *AssetController) Asset() {
-	var tokenReq models.TokenReq
-	var err error
-	if err = json.Unmarshal(c.Ctx.Input.RequestBody, &tokenReq); err != nil {
-		c.Data["json"] = models.MakeErrorRsp(fmt.Sprintf("request parameter is invalid!"))
-		c.Ctx.ResponseWriter.WriteHeader(400)
-		c.ServeJSON()
-	}
-	token := new(models.Token)
-	res := db.Where("hash = ? and chain_id = ?", tokenReq.Hash, tokenReq.ChainId).Preload("AssetBasic").Preload("AssetMaps").Preload("AssetMaps.DstToken").First(token)
-	if res.RowsAffected == 0 {
-		c.Data["json"] = models.MakeErrorRsp(fmt.Sprintf("token: (%s,%d) does not exist", tokenReq.Hash, tokenReq.ChainId))
-		c.Ctx.ResponseWriter.WriteHeader(400)
-		c.ServeJSON()
+	var req models.NFTAssetReq
+	if err := input(&c.Controller, &req); err != nil {
 		return
 	}
-	c.Data["json"] = models.MakeTokenRsp(token)
-	c.ServeJSON()
+
+	asset := new(models.NFTAsset)
+	res := db.Where("hash = ? and chain_id = ?", req.Hash, req.ChainId).
+		Preload("AssetBasic").
+		Preload("AssetMaps").
+		Preload("AssetMaps.DstAsset").
+		First(asset)
+	if res.RowsAffected == 0 {
+		notExist(&c.Controller)
+		return
+	}
+	output(&c.Controller, asset)
 }
 
 func (c *AssetController) AssetBasics() {
