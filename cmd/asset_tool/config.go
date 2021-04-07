@@ -23,12 +23,12 @@ import (
 )
 
 type AddAssetConfig struct {
-	Server          string
-	Backup          bool
-	DBConfig        *conf.DBConfig
+	Server   string
+	Backup   bool
+	DBConfig *conf.DBConfig
 	//Chains          []*models.Chain
 	//ChainFees       []*models.ChainFee
-	AssetBasics     []*models.NFTAssetBasic
+	AssetBasics []*models.NFTAssetBasic
 	//AssetMaps       []*models.NFTAssetMap
 	RemoveAssetMaps []*models.NFTAssetMap
 	RemoveAssets    []string

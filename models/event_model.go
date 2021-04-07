@@ -47,12 +47,12 @@ type ProxyLockEvent struct {
 	ToChainId     uint32
 	ToAssetHash   string
 	ToAddress     string
-	Amount        *big.Int
+	TokenId       *big.Int
 }
 type ProxyUnlockEvent struct {
 	Method      string
 	TxHash      string
 	ToAssetHash string
 	ToAddress   string
-	Amount      *big.Int
+	TokenId     *big.Int
 }

@@ -36,7 +36,7 @@ type FeeController struct {
 //		c.Ctx.ResponseWriter.WriteHeader(400)
 //		c.ServeJSON()
 //	}
-//	token := new(models.Token)
+//	token := new(models.Asset)
 //	res := db.Where("hash = ? and chain_id = ?", getFeeReq.Hash, getFeeReq.SrcChainId).Preload("AssetBasic").First(token)
 //	if res.RowsAffected == 0 {
 //		c.Data["json"] = models.MakeErrorRsp(fmt.Sprintf("chain: %d does not have token: %s", getFeeReq.SrcChainId, getFeeReq.Hash))

@@ -43,7 +43,7 @@ func assembleSrcTransaction(
 			srcTransfer.From = eccmLockEvent.User
 			srcTransfer.To = eccmLockEvent.Contract
 			srcTransfer.Asset = v.FromAssetHash
-			srcTransfer.Amount = models.NewBigInt(v.Amount)
+			srcTransfer.Amount = models.NewBigInt(v.TokenId)
 			srcTransfer.DstChainId = uint64(v.ToChainId)
 			srcTransfer.DstAsset = toAssetHash
 			srcTransfer.DstUser = v.ToAddress
@@ -84,7 +84,7 @@ func assembleDstTransaction(
 			dstTransfer.From = eccmUnlockEvent.Contract
 			dstTransfer.To = v.ToAddress
 			dstTransfer.Asset = v.ToAssetHash
-			dstTransfer.Amount = models.NewBigInt(v.Amount)
+			dstTransfer.Amount = models.NewBigInt(v.TokenId)
 			dstTransaction.DstTransfer = dstTransfer
 			break
 		}
@@ -98,7 +98,7 @@ func wrapLockEvent2WrapTx(evt *nftwp.PolyNFTWrapperPolyWrapperLock) *models.Wrap
 		Hash:         evt.Raw.TxHash.String()[2:],
 		User:         strings.ToLower(evt.Sender.String()[2:]),
 		DstChainId:   evt.ToChainId,
-		DstUser:      evt.ToAddress.String(), //todo check hex.EncodeToString(evt.ToAddress),
+		DstUser:      evt.ToAddress.String(),
 		FeeTokenHash: strings.ToLower(evt.FeeToken.String()[2:]),
 		FeeAmount:    models.NewBigInt(evt.Fee),
 		ServerId:     evt.Id.Uint64(),
@@ -110,7 +110,7 @@ func wrapSpeedUpEvent2WrapTx(evt *nftwp.PolyNFTWrapperPolyWrapperSpeedUp) *model
 	return &models.WrapperTransaction{
 		Hash:         evt.TxHash.String(),
 		User:         evt.Sender.String(),
-		FeeTokenHash: evt.FeeToken.String(), //todo check evt.FromAsset.String(),
+		FeeTokenHash: evt.FeeToken.String(),
 		FeeAmount:    models.NewBigInt(evt.Efee),
 	}
 }
@@ -142,7 +142,7 @@ func convertLockProxyEvent(evt *nftlp.PolyNFTLockProxyLockEvent) *models.ProxyLo
 		ToChainId:     uint32(evt.ToChainId),
 		ToAssetHash:   hex.EncodeToString(evt.ToAssetHash),
 		ToAddress:     hex.EncodeToString(evt.ToAddress),
-		Amount:        evt.TokenId,
+		TokenId:       evt.TokenId,
 	}
 }
 
@@ -168,6 +168,6 @@ func convertUnlockProxyEvent(evt *nftlp.PolyNFTLockProxyUnlockEvent) *models.Pro
 		TxHash:      evt.Raw.TxHash.String()[2:],
 		ToAssetHash: strings.ToLower(evt.ToAssetHash.String()[2:]),
 		ToAddress:   strings.ToLower(evt.ToAddress.String()[2:]),
-		Amount:      evt.TokenId,
+		TokenId:     evt.TokenId,
 	}
 }

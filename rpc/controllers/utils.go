@@ -7,12 +7,12 @@ import (
 )
 
 const (
-	ErrCodeRequest int = 400
+	ErrCodeRequest  int = 400
 	ErrCodeNotExist int = 401
 )
 
 var errMap = map[int]string{
-	ErrCodeRequest: "request parameter is invalid!",
+	ErrCodeRequest:  "request parameter is invalid!",
 	ErrCodeNotExist: "result not exist",
 }
 

@@ -197,7 +197,7 @@ func TestQuerySrcPolyDstRelation_SwapDao(t *testing.T) {
 		Preload("PolyTransaction").
 		Preload("DstTransaction").
 		Preload("DstTransaction.DstTransfer").
-		Preload("Token").
+		Preload("Asset").
 		Order("src_transactions.time desc").
 		Find(&srcPolyDstRelations)
 	json, _ := json.Marshal(srcPolyDstRelations)
@@ -234,7 +234,7 @@ func TestQuerySrcPolyDstRelation2_SwapDao(t *testing.T) {
 		Preload("PolyTransaction").
 		Preload("DstTransaction").
 		Preload("DstTransaction.DstTransfer").
-		Preload("Token").
+		Preload("Asset").
 		Order("src_transactions.time desc").
 		Find(srcPolyDstRelation)
 	json, _ := json.Marshal(srcPolyDstRelation)

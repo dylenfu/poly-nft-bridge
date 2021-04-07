@@ -33,7 +33,7 @@ func init() {
 		//beego.NSRouter("/getfee/", &controllers.FeeController{}, "post:GetFee"),
 		//beego.NSRouter("/checkfee/", &controllers.FeeController{}, "post:CheckFee"),
 		beego.NSRouter("/transactions/", &controllers.TransactionController{}, "post:Transactions"),
-		//beego.NSRouter("/transactionsofaddress/", &controllers.TransactionController{}, "post:TransactionsOfAddress"),
+		beego.NSRouter("/transactionsofaddress/", &controllers.TransactionController{}, "post:TransactionsOfAddress"),
 		//beego.NSRouter("/transactionofhash/", &controllers.TransactionController{}, "post:TransactionOfHash"),
 		//beego.NSRouter("/transactionsofstate/", &controllers.TransactionController{}, "post:TransactionsOfState"),
 	)

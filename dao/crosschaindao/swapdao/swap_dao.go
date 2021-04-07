@@ -50,25 +50,25 @@ func NewSwapDao(dbCfg *conf.DBConfig, backup bool) *SwapDao {
 		panic(err)
 	}
 
-	//if err := db.AutoMigrate(
-	//	&models.Chain{},
-	//	&models.WrapperTransaction{},
-	//	&models.ChainFee{},
-	//	&models.AssetBasic{},
-	//	&models.Token{},
-	//	&models.PriceMarket{},
-	//	&models.TokenMap{},
-	//	&models.SrcTransaction{},
-	//	&models.SrcTransfer{},
-	//	&models.PolyTransaction{},
-	//	&models.DstTransaction{},
-	//	&models.DstTransfer{},
-	//	&models.NFTAssetBasic{},
-	//	&models.NFTAsset{},
-	//	&models.NFTAssetMap{},
-	//); err != nil {
-	//	panic(err)
-	//}
+	if err := db.AutoMigrate(
+		&models.Chain{},
+		&models.ChainFee{},
+		&models.PriceMarket{},
+		&models.TokenMap{},
+		&models.TokenBasic{},
+		&models.TokenMap{},
+		&models.WrapperTransaction{},
+		&models.SrcTransaction{},
+		&models.SrcTransfer{},
+		&models.PolyTransaction{},
+		&models.DstTransaction{},
+		&models.DstTransfer{},
+		&models.NFTAssetBasic{},
+		&models.NFTAsset{},
+		&models.NFTAssetMap{},
+	); err != nil {
+			panic(err)
+	}
 
 	swapDao.db = db
 	return swapDao

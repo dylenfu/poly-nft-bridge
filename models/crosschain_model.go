@@ -117,6 +117,8 @@ type SrcPolyDstRelation struct {
 	DstHash            string
 	DstTransaction     *DstTransaction `gorm:"foreignKey:DstHash;references:Hash"`
 	ChainId            uint64          `gorm:"type:bigint(20);not null"`
-	TokenHash          string          `gorm:"type:varchar(66);not null"`
-	Token              *Token          `gorm:"foreignKey:TokenHash,ChainId;references:Hash,ChainId"`
+	AssetHash          string          `gorm:"type:varchar(66);not null"`
+	Asset              *NFTAsset       `gorm:"foreignKey:AssetHash,ChainId;references:Hash,ChainId"`
+	FeeTokenHash       string  `gorm:"size:66;not null"`
+	FeeToken 			*Token 			`gorm:"foreignKey:FeeTokenHash,ChainId;references:Hash,ChainId"`
 }

@@ -26,8 +26,8 @@ type TokenBasic struct {
 	Ind          uint64         `gorm:"type:bigint(20);not null"`
 	Time         int64          `gorm:"type:bigint(20);not null"`
 	Property     int64          `gorm:"type:bigint(20);not null"`
-	PriceMarkets []*PriceMarket `gorm:"foreignKey:AssetBasicName;references:Name"`
-	Tokens       []*Token       `gorm:"foreignKey:AssetBasicName;references:Name"`
+	PriceMarkets []*PriceMarket `gorm:"foreignKey:TokenBasicName;references:Name"`
+	Tokens       []*Token       `gorm:"foreignKey:TokenBasicName;references:Name"`
 }
 
 type PriceMarket struct {
@@ -37,13 +37,13 @@ type PriceMarket struct {
 	Price          int64       `gorm:"type:bigint(20);not null"`
 	Ind            uint64      `gorm:"type:bigint(20);not null"`
 	Time           int64       `gorm:"type:bigint(20);not null"`
-	TokenBasic     *TokenBasic `gorm:"foreignKey:AssetBasicName;references:Name"`
+	TokenBasic     *TokenBasic `gorm:"foreignKey:TokenBasicName;references:Name"`
 }
 
 type ChainFee struct {
 	ChainId        uint64      `gorm:"primaryKey;type:bigint(20);not null"`
 	TokenBasicName string      `gorm:"size:64;not null"`
-	TokenBasic     *TokenBasic `gorm:"foreignKey:AssetBasicName;references:Name"`
+	TokenBasic     *TokenBasic `gorm:"foreignKey:TokenBasicName;references:Name"`
 	MaxFee         *BigInt     `gorm:"type:varchar(64);not null"`
 	MinFee         *BigInt     `gorm:"type:varchar(64);not null"`
 	ProxyFee       *BigInt     `gorm:"type:varchar(64);not null"`
@@ -58,7 +58,7 @@ type Token struct {
 	Precision      uint64      `gorm:"type:bigint(20);not null"`
 	TokenBasicName string      `gorm:"size:64;not null"`
 	Property       int64       `gorm:"type:bigint(20);not null"`
-	TokenBasic     *TokenBasic `gorm:"foreignKey:AssetBasicName;references:Name"`
+	TokenBasic     *TokenBasic `gorm:"foreignKey:TokenBasicName;references:Name"`
 	TokenMaps      []*TokenMap `gorm:"foreignKey:SrcTokenHash,SrcChainId;references:Hash,ChainId"`
 }
 
