@@ -307,7 +307,6 @@ func MakeTokenRsp(token *Token) *TokenRsp {
 	return tokenRsp
 }
 
-
 type TokenMapReq struct {
 	ChainId uint64
 	Hash    string
@@ -505,7 +504,7 @@ type WrapperTransactionsRsp struct {
 func MakeWrapperTransactionsRsp(
 	pageSize, pageNo, totalPage, totalCount int,
 	transactions []*WrapperTransaction,
-	) *WrapperTransactionsRsp {
+) *WrapperTransactionsRsp {
 
 	rsp := &WrapperTransactionsRsp{
 		PageSize:   pageSize,
@@ -540,9 +539,9 @@ type TransactionRsp struct {
 	Time             uint64
 	DstChainId       uint64
 	DstUser          string
-	TokenId string
+	TokenId          string
 	ServerId         uint64
-	FeeToken *TokenRsp
+	FeeToken         *TokenRsp
 	FeeAmount        string
 	State            uint64
 	Asset            *NFTAssetRsp
@@ -551,17 +550,17 @@ type TransactionRsp struct {
 
 func MakeTransactionRsp(transaction *SrcPolyDstRelation, chainsMap map[uint64]*Chain) *TransactionRsp {
 	transactionRsp := &TransactionRsp{
-		Hash:           transaction.WrapperTransaction.Hash,
-		User:           transaction.WrapperTransaction.User,
-		SrcChainId:     transaction.WrapperTransaction.SrcChainId,
-		BlockHeight:    transaction.WrapperTransaction.BlockHeight,
-		Time:           transaction.WrapperTransaction.Time,
-		DstChainId:     transaction.WrapperTransaction.DstChainId,
-		ServerId:       transaction.WrapperTransaction.ServerId,
-		FeeAmount:      transaction.WrapperTransaction.FeeAmount.String(),
-		TokenId: 		transaction.SrcTransaction.SrcTransfer.Amount.String(),
-		DstUser:        transaction.SrcTransaction.SrcTransfer.DstUser,
-		State:          transaction.WrapperTransaction.Status,
+		Hash:        transaction.WrapperTransaction.Hash,
+		User:        transaction.WrapperTransaction.User,
+		SrcChainId:  transaction.WrapperTransaction.SrcChainId,
+		BlockHeight: transaction.WrapperTransaction.BlockHeight,
+		Time:        transaction.WrapperTransaction.Time,
+		DstChainId:  transaction.WrapperTransaction.DstChainId,
+		ServerId:    transaction.WrapperTransaction.ServerId,
+		FeeAmount:   transaction.WrapperTransaction.FeeAmount.String(),
+		TokenId:     transaction.SrcTransaction.SrcTransfer.Amount.String(),
+		DstUser:     transaction.SrcTransaction.SrcTransfer.DstUser,
+		State:       transaction.WrapperTransaction.Status,
 	}
 	if transaction.FeeToken != nil {
 		transactionRsp.FeeToken = MakeTokenRsp(transaction.FeeToken)

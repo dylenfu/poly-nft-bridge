@@ -98,7 +98,7 @@ func wrapLockEvent2WrapTx(evt *nftwp.PolyNFTWrapperPolyWrapperLock) *models.Wrap
 		Hash:         evt.Raw.TxHash.String()[2:],
 		User:         strings.ToLower(evt.Sender.String()[2:]),
 		DstChainId:   evt.ToChainId,
-		DstUser:      evt.ToAddress.String(),
+		DstUser:      strings.ToLower(evt.ToAddress.String()[2:]),
 		FeeTokenHash: strings.ToLower(evt.FeeToken.String()[2:]),
 		FeeAmount:    models.NewBigInt(evt.Fee),
 		ServerId:     evt.Id.Uint64(),

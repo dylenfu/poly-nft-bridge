@@ -18,9 +18,9 @@
 package models
 
 type Chain struct {
-	ChainId             *uint64 `gorm:"primaryKey;type:bigint(20);not null"`
-	Height              uint64  `gorm:"type:bigint(20);not null"`
-	BackwardBlockNumber uint64  `gorm:"type:bigint(20);not null"`
+	ChainId             uint64 `gorm:"primaryKey;type:bigint(20);not null"`
+	Height              uint64 `gorm:"type:bigint(20);not null"`
+	BackwardBlockNumber uint64 `gorm:"type:bigint(20);not null"`
 }
 
 type SrcTransaction struct {
@@ -119,6 +119,6 @@ type SrcPolyDstRelation struct {
 	ChainId            uint64          `gorm:"type:bigint(20);not null"`
 	AssetHash          string          `gorm:"type:varchar(66);not null"`
 	Asset              *NFTAsset       `gorm:"foreignKey:AssetHash,ChainId;references:Hash,ChainId"`
-	FeeTokenHash       string  `gorm:"size:66;not null"`
-	FeeToken 			*Token 			`gorm:"foreignKey:FeeTokenHash,ChainId;references:Hash,ChainId"`
+	FeeTokenHash       string          `gorm:"size:66;not null"`
+	FeeToken           *Token          `gorm:"foreignKey:FeeTokenHash,ChainId;references:Hash,ChainId"`
 }

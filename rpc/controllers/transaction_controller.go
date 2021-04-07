@@ -57,23 +57,27 @@ func (c *TransactionController) TransactionsOfAddress() {
 	// load relations
 	srcPolyDstRelations := make([]*models.SrcPolyDstRelation, 0)
 	db.Table("(?) as u", db.Model(&models.SrcTransfer{}).
-		Select("tx_hash as hash, asset as asset").
+		Select("src_transfers.tx_hash as hash, src_transfers.asset as asset, wrapper_transactions.fee_token_hash as fee_token_hash").
 		Joins("inner join wrapper_transactions on src_transfers.tx_hash = wrapper_transactions.hash").
-		Joins("left join tokens on tokens.hash = wrapper_transactions.fee_token_hash and tokens.chain_id=wrapper_transactions.src_chain_id").
 		Where("`from` in ? or src_transfers.dst_user in ?", req.Addresses, req.Addresses)).
-		Select("src_transactions.hash as src_hash, poly_transactions.hash as poly_hash, dst_transactions.hash as dst_hash, src_transactions.chain_id as chain_id, u.asset as token_hash").
+		Select("src_transactions.hash as src_hash, " +
+			"poly_transactions.hash as poly_hash, " +
+			"dst_transactions.hash as dst_hash, " +
+			"src_transactions.chain_id as chain_id," +
+			"u.asset as asset_hash, u.fee_token_hash as fee_token_hash").
 		Joins("left join src_transactions on u.hash = src_transactions.hash").
 		Joins("left join poly_transactions on src_transactions.hash = poly_transactions.src_hash").
 		Joins("left join dst_transactions on poly_transactions.hash = dst_transactions.poly_hash").
 		Preload("WrapperTransaction").
-		Preload("Token").
+		Preload("Asset").
+		Preload("Asset.AssetBasic").
+		Preload("FeeToken").
+		Preload("FeeToken.TokenBasic").
 		Preload("SrcTransaction").
 		Preload("SrcTransaction.SrcTransfer").
 		Preload("PolyTransaction").
 		Preload("DstTransaction").
 		Preload("DstTransaction.DstTransfer").
-		Preload("Asset").
-		Preload("Asset.AssetBasic").
 		Limit(req.PageSize).Offset(req.PageSize * req.PageNo).
 		Order("src_transactions.time desc").
 		Find(&srcPolyDstRelations)
@@ -90,7 +94,7 @@ func (c *TransactionController) TransactionsOfAddress() {
 	db.Model(&models.Chain{}).Find(&chains)
 	chainsMap := make(map[uint64]*models.Chain)
 	for _, chain := range chains {
-		chainsMap[*chain.ChainId] = chain
+		chainsMap[chain.ChainId] = chain
 	}
 
 	totalPage := (int(transactionNum) + req.PageSize - 1) / req.PageSize
