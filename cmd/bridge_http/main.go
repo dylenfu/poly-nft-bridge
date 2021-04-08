@@ -19,11 +19,11 @@ package main
 
 import (
 	"encoding/json"
-
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
 	"github.com/astaxie/beego/logs"
 	"github.com/astaxie/beego/plugins/cors"
+	"github.com/polynetwork/poly-nft-bridge/conf"
 	_ "github.com/polynetwork/poly-nft-bridge/rpc"
 	"github.com/polynetwork/poly-nft-bridge/rpc/controllers"
 )
@@ -31,16 +31,21 @@ import (
 func main() {
 	logs.SetLogger(logs.AdapterFile, `{"filename":"logs/rpc.log"}`)
 	mode := beego.AppConfig.String("runmode")
-	switch mode {
-	case "dev", "test":
+	if mode != "prod" {
 		setFilterLog()
-	default:
 	}
-	port, err := beego.AppConfig.Int("httpport")
+	httpPort, err := beego.AppConfig.Int("httpport")
 	if err != nil {
-		panic("get http port failed")
+		panic(err)
 	}
-	controllers.SetBaseInfo(mode, port)
+	controllers.SetBaseInfo(mode, httpPort)
+
+	config := conf.NewConfig("./conf/config.json")
+	if config == nil {
+		panic("startServer - read config failed!")
+	}
+	controllers.Initialize(config)
+
 	beego.InsertFilter("*", beego.BeforeRouter, cors.Allow(&cors.Options{
 		AllowAllOrigins:  true,
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},

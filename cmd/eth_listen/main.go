@@ -106,10 +106,8 @@ func StartServer(ctx *cli.Context) {
 func startServer(ctx *cli.Context) {
 	// instance beego log
 	loglevel := ctx.GlobalUint64(getFlagName(logLevelFlag))
-	logFormat := fmt.Sprintf(`{"level:":"%d"}`, loglevel)
-	if err := logs.SetLogger("console", logFormat); err != nil {
-		panic(fmt.Errorf("set logger failed, err: %v", err))
-	}
+	logFormat := fmt.Sprintf(`{"filename":"logs/rpc.log", "level:":"%d"}`, loglevel)
+	logs.SetLogger(logs.AdapterFile, logFormat)
 
 	// load configuration
 	configFile := ctx.GlobalString(getFlagName(configPathFlag))

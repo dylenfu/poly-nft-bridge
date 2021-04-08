@@ -312,6 +312,60 @@ func (pro *EthereumSdkPro) Erc20Info(hash string) (string, string, int64, string
 	return "", "", 0, "", fmt.Errorf("all node is not working")
 }
 
+func (pro *EthereumSdkPro) NFTBalance(asset, owner common.Address) (int, error) {
+	info := pro.GetLatest()
+	if info == nil {
+		return 0, fmt.Errorf("all node is not working")
+	}
+
+	for info != nil {
+		balance, err := info.sdk.GetNFTBalance(asset, owner)
+		if err != nil {
+			info.latestHeight = 0
+			info = pro.GetLatest()
+		} else {
+			return int(balance.Int64()), nil
+		}
+	}
+	return 0, fmt.Errorf("all node is not working")
+}
+
+func (pro *EthereumSdkPro) GetNFTs(asset, owner common.Address, start, end int) ([]*big.Int, error) {
+	info := pro.GetLatest()
+	if info == nil {
+		return nil, fmt.Errorf("all node is not working")
+	}
+
+	for info != nil {
+		list, err := info.sdk.GetOwnerNFTs(asset, owner, start, end)
+		if err != nil {
+			info.latestHeight = 0
+			info = pro.GetLatest()
+		} else {
+			return list, nil
+		}
+	}
+	return nil, fmt.Errorf("all node is not working")
+}
+
+func (pro *EthereumSdkPro) GetNFTURLs(asset common.Address, tokenIds []*big.Int) (map[uint64]string, error) {
+	info := pro.GetLatest()
+	if info == nil {
+		return nil, fmt.Errorf("all node is not working")
+	}
+
+	for info != nil {
+		list, err := info.sdk.GetOwnerNFTUrls(asset, tokenIds)
+		if err != nil {
+			info.latestHeight = 0
+			info = pro.GetLatest()
+		} else {
+			return list, nil
+		}
+	}
+	return nil, fmt.Errorf("all node is not working")
+}
+
 func (pro *EthereumSdkPro) WaitTransactionConfirm(hash common.Hash) bool {
 	num := 0
 	for num < 300 {

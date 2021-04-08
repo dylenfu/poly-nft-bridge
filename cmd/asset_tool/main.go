@@ -94,7 +94,6 @@ func handleAddAsset(ctx *cli.Context) error {
 	}
 
 	dao := crosschaindao.NewCrossChainDao(cfg.Server, cfg.Backup, cfg.DBConfig)
-
 	if err := dao.RemoveAssets(cfg.RemoveAssets); err != nil {
 		return err
 	}

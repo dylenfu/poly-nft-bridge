@@ -286,26 +286,27 @@ func (s *EthereumSdk) GetNFTOwner(asset common.Address, tokenID *big.Int) (commo
 	return cm.OwnerOf(nil, tokenID)
 }
 
-func (s *EthereumSdk) GetOwnerNFTs(asset common.Address, owner common.Address, indexStart, indexEnd int) []*big.Int {
+func (s *EthereumSdk) GetOwnerNFTs(asset common.Address, owner common.Address, indexStart, indexEnd int) ([]*big.Int, error) {
 	list := make([]*big.Int, 0)
 	cm, err := nftmapping.NewCrossChainNFTMapping(asset, s.backend())
 	if err != nil {
-		return nil
+		return nil, err
 	}
 	for i := indexStart; i < indexEnd; i++ {
-		if tokenId, err := cm.TokenOfOwnerByIndex(nil, owner, new(big.Int).SetInt64(int64(i))); err != nil {
+		idx := new(big.Int).SetInt64(int64(i))
+		tokenId, err := cm.TokenOfOwnerByIndex(nil, owner, idx)
+		if err != nil {
 			break
-		} else {
-			list = append(list, tokenId)
 		}
+		list = append(list, tokenId)
 	}
-	return list
+	return list, nil
 }
 
-func (s *EthereumSdk) GetOwnerNFTUrls(asset common.Address, tokenIds []*big.Int) map[uint64]string {
+func (s *EthereumSdk) GetOwnerNFTUrls(asset common.Address, tokenIds []*big.Int) (map[uint64]string, error) {
 	cm, err := nftmapping.NewCrossChainNFTMapping(asset, s.backend())
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
 	res := make(map[uint64]string)
@@ -315,7 +316,7 @@ func (s *EthereumSdk) GetOwnerNFTUrls(asset common.Address, tokenIds []*big.Int)
 			res[tokenId.Uint64()] = url
 		}
 	}
-	return res
+	return res, nil
 }
 
 func (s *EthereumSdk) WrapLockWithErc20FeeToken(

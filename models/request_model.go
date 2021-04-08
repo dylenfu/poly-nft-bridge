@@ -789,16 +789,20 @@ type ItemsOfAddressReq struct {
 }
 
 type ItemsOfAddressRsp struct {
-	PageSize int
-	PageNo   int
-	Items    []*Item
+	PageSize   int
+	PageNo     int
+	TotalPage  int
+	TotalCount int
+	Items      []*Item
 }
 
-func MakeItemsOfAddressRsp(pageSize int, pageNo int, items []*Item) *ItemsOfAddressRsp {
+func MakeItemsOfAddressRsp(pageSize, pageNo, totalPage, totalCnt int, items []*Item) *ItemsOfAddressRsp {
 	rsp := &ItemsOfAddressRsp{
-		PageSize: pageSize,
-		PageNo:   pageNo,
-		Items:    make([]*Item, 0),
+		PageSize:   pageSize,
+		PageNo:     pageNo,
+		TotalPage:  totalPage,
+		TotalCount: totalCnt,
+		Items:      make([]*Item, 0),
 	}
 	for _, v := range items {
 		rsp.Items = append(rsp.Items, v)
