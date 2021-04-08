@@ -5,7 +5,7 @@ PolyNFTBridge的API。
 ## API
 
 * [GET /](#get)
-* [POST home](#post-assetshow)
+* [POST assetshow](#post-assetshow)
 * [POST assets](#post-assets)
 * [POST asset](#post-asset)
 * [POST assetbasics](#post-assetbasics)
