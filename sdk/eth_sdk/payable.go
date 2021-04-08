@@ -303,6 +303,23 @@ func (s *EthereumSdk) GetOwnerNFTs(asset common.Address, owner common.Address, i
 	return list, nil
 }
 
+func (s *EthereumSdk) GetAssetNFTs(asset common.Address, indexStart, indexEnd int) ([]*big.Int, error) {
+	list := make([]*big.Int, 0)
+	cm, err := nftmapping.NewCrossChainNFTMapping(asset, s.backend())
+	if err != nil {
+		return nil, err
+	}
+	for i := indexStart; i < indexEnd; i++ {
+		idx := new(big.Int).SetInt64(int64(i))
+		tokenId, err := cm.TokenByIndex(nil, idx)
+		if err != nil {
+			break
+		}
+		list = append(list, tokenId)
+	}
+	return list, nil
+}
+
 func (s *EthereumSdk) GetOwnerNFTUrls(asset common.Address, tokenIds []*big.Int) (map[uint64]string, error) {
 	cm, err := nftmapping.NewCrossChainNFTMapping(asset, s.backend())
 	if err != nil {

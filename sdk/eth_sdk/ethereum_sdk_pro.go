@@ -348,6 +348,24 @@ func (pro *EthereumSdkPro) GetNFTs(asset, owner common.Address, start, end int) 
 	return nil, fmt.Errorf("all node is not working")
 }
 
+func (pro *EthereumSdkPro) GetAssetNFTs(asset common.Address, start, end int) ([]*big.Int, error) {
+	info := pro.GetLatest()
+	if info == nil {
+		return nil, fmt.Errorf("all node is not working")
+	}
+
+	for info != nil {
+		list, err := info.sdk.GetAssetNFTs(asset, start, end)
+		if err != nil {
+			info.latestHeight = 0
+			info = pro.GetLatest()
+		} else {
+			return list, nil
+		}
+	}
+	return nil, fmt.Errorf("all node is not working")
+}
+
 func (pro *EthereumSdkPro) GetNFTURLs(asset common.Address, tokenIds []*big.Int) (map[uint64]string, error) {
 	info := pro.GetLatest()
 	if info == nil {

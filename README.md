@@ -5,6 +5,7 @@ PolyNFTBridge的API。
 ## API
 
 * [GET /](#get)
+* [POST home](#post-assetshow)
 * [POST assets](#post-assets)
 * [POST asset](#post-asset)
 * [POST assetbasics](#post-assetbasics)
@@ -68,6 +69,59 @@ Example Response
 {
     "Version": "v1",
     "URL": "http://192.**.**.36:8081/nft"
+}
+```
+
+### POST assetshow
+
+Request 
+```
+http://localhost:8080/nft/v1/assetshow
+```
+
+BODY raw
+```
+{
+    "ChainId": 2
+}
+```
+
+Example Request
+```
+curl --location --request POST 'http://localhost:8080/nft/v1/assetshow' \
+--data-raw '{
+    "ChainId": 2
+}'
+```
+
+Example Response
+```
+{
+    "TotalCount": 1,
+    "Assets": [
+        {
+            "Asset": {
+                "Hash": "03d84da9432f7cb5364a8b99286f97c59f738001",
+                "ChainId": 6,
+                "Name": "cat1",
+                "BaseUri": "http://106.75.250.160:10060/minio/",
+                "AssetBasicName": "cat1",
+                "Disable": 0,
+                "AssetBasic": null,
+                "AssetMaps": null
+            },
+            "Items": [
+                {
+                    "TokenId": 2,
+                    "Url": "http://106.75.250.160:10060/minio/2"
+                },
+                {
+                    "TokenId": 1,
+                    "Url": "http://106.75.250.160:10060/minio/1"
+                }
+            ]
+        }
+    ]
 }
 ```
 

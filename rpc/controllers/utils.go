@@ -19,6 +19,7 @@ package controllers
 
 import (
 	"encoding/json"
+
 	"github.com/astaxie/beego"
 	"github.com/polynetwork/poly-nft-bridge/conf"
 	"github.com/polynetwork/poly-nft-bridge/models"

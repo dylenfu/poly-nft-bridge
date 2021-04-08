@@ -25,6 +25,7 @@ import (
 func init() {
 	ns := beego.NewNamespace("/nft/v1",
 		beego.NSRouter("/", &controllers.InfoController{}, "*:Get"),
+		beego.NSRouter("/assetshow/", &controllers.InfoController{}, "post:Home"),
 		beego.NSRouter("/asset/", &controllers.AssetController{}, "post:Asset"),
 		beego.NSRouter("/assets/", &controllers.AssetController{}, "post:Assets"),
 		beego.NSRouter("/assetbasics/", &controllers.AssetController{}, "post:AssetBasics"),
@@ -32,7 +33,6 @@ func init() {
 		beego.NSRouter("/assetmapreverse/", &controllers.AssetMapController{}, "post:AssetMapReverse"),
 		beego.NSRouter("/items/", &controllers.ItemController{}, "post:Items"),
 		beego.NSRouter("/getfee/", &controllers.FeeController{}, "post:GetFee"),
-		//beego.NSRouter("/checkfee/", &controllers.FeeController{}, "post:CheckFee"),
 		beego.NSRouter("/transactions/", &controllers.TransactionController{}, "post:Transactions"),
 		beego.NSRouter("/transactionsofaddress/", &controllers.TransactionController{}, "post:TransactionsOfAddress"),
 		beego.NSRouter("/transactionofhash/", &controllers.TransactionController{}, "post:TransactionOfHash"),

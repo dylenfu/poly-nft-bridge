@@ -40,6 +40,28 @@ func MakeErrorRsp(messgae string) *ErrorRsp {
 	return errorRsp
 }
 
+type HomeReq struct {
+	ChainId uint64
+	Size    int
+}
+
+type HomeRsp struct {
+	TotalCount uint64
+	Assets     []*AssetItems
+}
+
+type AssetItems struct {
+	Asset *NFTAsset
+	Items []*Item
+}
+
+func MakeHomeRsp(totalCount int, list []*AssetItems) *HomeRsp {
+	return &HomeRsp{
+		TotalCount: uint64(totalCount),
+		Assets:     list,
+	}
+}
+
 type NFTAssetBasicReq struct {
 	Name string
 }

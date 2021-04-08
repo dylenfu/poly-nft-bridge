@@ -1,10 +1,11 @@
 package eth_sdk
 
 import (
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/stretchr/testify/assert"
 	"math/big"
 	"testing"
+
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestEthereumSdkPro_GetNFTs(t *testing.T) {
