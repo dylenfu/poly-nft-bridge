@@ -102,6 +102,7 @@ func setupApp() *cli.App {
 		CmdMintFee,
 		CmdTransferFee,
 		CmdGetFeeBalance,
+		CmdNativeBalance,
 		CmdApproveFee,
 		CmdWrapAllowance,
 		CmdNativeTransfer,
@@ -685,6 +686,16 @@ func handleGetFeeBalance(ctx *cli.Context) error {
 		return fmt.Errorf("get balance failed, err: %v", err)
 	}
 	log.Info("%s balance of asset %s is %s", owner.Hex(), asset.Hex(), balance.String())
+	return nil
+}
+
+func handleGetNativeBalance(ctx *cli.Context) error {
+	owner := flag2address(ctx, SrcAccountFlag)
+	balance, err := sdk.GetNativeBalance(owner)
+	if err != nil {
+		return fmt.Errorf("get native balance faild, err: %v", err)
+	}
+	log.Info("%s native balance is %s", owner.Hex(), balance.String())
 	return nil
 }
 

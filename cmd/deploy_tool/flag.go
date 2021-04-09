@@ -392,6 +392,15 @@ var (
 			AmountFlag,
 		},
 	}
+
+	CmdNativeBalance = cli.Command{
+		Name:   "nativeBalance",
+		Usage:  "get native balance.",
+		Action: handleGetNativeBalance,
+		Flags: []cli.Flag{
+			SrcAccountFlag,
+		},
+	}
 )
 
 //getFlagName deal with short flag, and return the flag name whether flag name have short name

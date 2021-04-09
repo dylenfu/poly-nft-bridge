@@ -43,13 +43,3 @@ deploy_tool:
 
 all:
 	make bridge_http eth_listen poly_listen deploy_tool
-
-#
-# compile-linux:
-# 	GOOS=linux GOARCH=amd64 $(GOBUILD) -o build/$(ENV)/robot-linux cmd/main.go
-#
-# robot:
-# 	@echo test case $(t)
-# 	./build/$(ENV)/robot -config=build/$(ENV)/config.json -t=$(t)
-#
-# clean:

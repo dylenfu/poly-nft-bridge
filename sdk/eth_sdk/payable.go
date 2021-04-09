@@ -78,6 +78,10 @@ func (s *EthereumSdk) TransferNative(
 	return signedTx.Hash(), nil
 }
 
+func (s *EthereumSdk) GetNativeBalance(owner common.Address) (*big.Int, error) {
+	return s.rawClient.BalanceAt(context.Background(), owner, nil)
+}
+
 func (s *EthereumSdk) MintERC20Token(
 	key *ecdsa.PrivateKey,
 	asset, to common.Address,
