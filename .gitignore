@@ -1,6 +1,7 @@
 .idea
 build
 keystore
-cmd/bridge_http/*.conf
+cmd/bridge_http/*net.conf
+cmd/bridge_http/*net.json
 cmd/deploy_tool/*net.json
 cmd/asset_tool/*net.json
