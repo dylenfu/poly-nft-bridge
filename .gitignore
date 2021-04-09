@@ -2,3 +2,5 @@
 build
 keystore
 cmd/bridge_http/*.conf
+cmd/deploy_tool/config_devnet.json
+cmd/deploy_tool/config_testnet.json
