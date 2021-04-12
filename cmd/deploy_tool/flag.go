@@ -116,6 +116,16 @@ var (
 		Name:  "lockId",
 		Usage: "wrap lock nft item id",
 	}
+
+	StartFlag = cli.Uint64Flag{
+		Name: "start",
+		Usage: "batch get user tokens info with index start",
+	}
+
+	LengthFlag = cli.Uint64Flag{
+		Name: "length",
+		Usage: "batch get user tokens info with length",
+	}
 )
 
 var (
@@ -398,6 +408,28 @@ var (
 		Usage:  "get native balance.",
 		Action: handleGetNativeBalance,
 		Flags: []cli.Flag{
+			SrcAccountFlag,
+		},
+	}
+
+	CmdTokenUrls = cli.Command{
+		Name: "urls",
+		Usage: "batch get users token url",
+		Action: handleBatchGetTokenUrls,
+		Flags: []cli.Flag{
+			AssetFlag,
+			SrcAccountFlag,
+			StartFlag,
+			LengthFlag,
+		},
+	}
+
+	CmdNFTBalance = cli.Command{
+		Name: "nftBalance",
+		Usage: "get NFT balance",
+		Action: handleNFTBalance,
+		Flags: []cli.Flag{
+			AssetFlag,
 			SrcAccountFlag,
 		},
 	}

@@ -22,6 +22,7 @@ package eth_sdk
 import (
 	"context"
 	"crypto/ecdsa"
+	"fmt"
 	"math/big"
 	"strings"
 
@@ -417,9 +418,69 @@ func (s *EthereumSdk) WrapLockWithNativeFeeToken(
 	return hash, nil
 }
 
+func (s *EthereumSdk) BatchGetTokenUrls(
+	wrapAddr,
+	asset,
+	owner common.Address,
+	start,
+	length uint64,
+) (map[*big.Int]string, error) {
+
+	wrapper, err := nftwrap.NewPolyNFTWrapper(wrapAddr, s.backend())
+	if err != nil {
+		return nil, err
+	}
+
+	enc, err := wrapper.GetTokensByIndex(nil, asset, owner, new(big.Int).SetUint64(start), new(big.Int).SetUint64(length))
+	if err != nil {
+		return nil, err
+	}
+
+	//source, err := eccm_abi.NewZeroCopySource(wrapAddr, s.backend())
+	//if err != nil {
+	//	return nil, err
+	//}
+	//source.ZeroCopySourceTransactor.
+	source := polycm.NewZeroCopySource(enc)
+	var (
+		num     polycm.Uint256
+		url     string
+		tokenId *big.Int
+		eof     bool
+		res     = make(map[*big.Int]string)
+	)
+	for {
+		if num, eof = source.NextHash(); !eof {
+			tokenId = new(big.Int).SetBytes(ReverseRune(num[:]))
+			fmt.Printf("------------token id %s\r\n", tokenId.String())
+		} else {
+			break
+		}
+		if url, eof = source.NextString(); !eof {
+			fmt.Printf("------------token url %s\r\n", url)
+			res[tokenId] = url
+		} else {
+			break
+		}
+	}
+	return nil, nil
+}
+
 func assembleSafeTransferCallData(toAddress common.Address, chainID uint64) []byte {
 	sink := polycm.NewZeroCopySink(nil)
 	sink.WriteVarBytes(toAddress.Bytes())
 	sink.WriteUint64(chainID)
 	return sink.Bytes()
+}
+
+func ReverseRune(s []byte) []byte {
+	res := make([]byte, len(s))
+	prevPos, resPos := 0, len(s)
+	for pos := range s {
+		resPos -= pos - prevPos
+		copy(res[resPos:], s[prevPos:pos])
+		prevPos = pos
+	}
+	copy(res[0:], s[prevPos:])
+	return res
 }

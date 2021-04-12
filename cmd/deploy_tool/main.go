@@ -106,6 +106,8 @@ func setupApp() *cli.App {
 		CmdApproveFee,
 		CmdWrapAllowance,
 		CmdNativeTransfer,
+		CmdTokenUrls,
+		CmdNFTBalance,
 	}
 
 	app.Before = beforeCommands
@@ -746,6 +748,42 @@ func handleCmdNativeTransfer(ctx *cli.Context) error {
 		return err
 	}
 	log.Info("%s transfer %s to %s success, txhash %s", from.Hex(), amount.String(), to.Hex(), tx.Hex())
+	return nil
+}
+
+func handleBatchGetTokenUrls(ctx *cli.Context) error {
+	log.Info("start to get user's NFT token urls...")
+
+	asset := flag2address(ctx, AssetFlag)
+	owner := flag2address(ctx, SrcAccountFlag)
+	start := flag2Uint64(ctx, StartFlag)
+	length := flag2Uint64(ctx, LengthFlag)
+	wrapper := common.HexToAddress(cc.NFTWrap)
+
+	data, err := sdk.BatchGetTokenUrls(wrapper, asset, owner, start, length)
+	if err != nil {
+		return err
+	}
+
+	for tokenId, url := range data {
+		log.Info("user NFT token %d url is %s", tokenId.Uint64(), url)
+	}
+
+	return nil
+}
+
+func handleNFTBalance(ctx *cli.Context) error {
+	log.Info("start to get user's NFT balance")
+
+	asset := flag2address(ctx, AssetFlag)
+	owner := flag2address(ctx, SrcAccountFlag)
+
+	data, err := sdk.GetNFTBalance(asset, owner)
+	if err != nil {
+		return err
+	}
+
+	log.Info("user %s balance on NFT Asset %s is %d", owner.Hex(), asset.Hex(), data.Uint64())
 	return nil
 }
 

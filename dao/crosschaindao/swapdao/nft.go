@@ -24,25 +24,25 @@ import (
 	"github.com/polynetwork/poly-nft-bridge/models"
 )
 
-func (dao *SwapDao) AddAssets(assetBasics []*models.NFTAssetBasic) error {
-	if assetBasics != nil && len(assetBasics) > 0 {
-		res := dao.db.Save(assetBasics)
+func (dao *SwapDao) AddAssets(basics []*models.TokenBasic) error {
+	if basics != nil && len(basics) > 0 {
+		res := dao.db.Save(basics)
 		if res.Error != nil {
 			return res.Error
 		}
 		if res.RowsAffected == 0 {
-			return fmt.Errorf("add assetBasics failed!")
+			return fmt.Errorf("add basics failed!")
 		}
 	}
 
-	addAssetMaps := getAssetMapsFromAsset(assetBasics)
-	if addAssetMaps != nil && len(addAssetMaps) > 0 {
-		res := dao.db.Save(addAssetMaps)
+	maps := getAssetMapsFromAsset(basics)
+	if maps != nil && len(maps) > 0 {
+		res := dao.db.Save(maps)
 		if res.Error != nil {
 			return res.Error
 		}
 		if res.RowsAffected == 0 {
-			return fmt.Errorf("add assetBasics map failed!")
+			return fmt.Errorf("add basics map failed!")
 		}
 	}
 	return nil
@@ -57,59 +57,59 @@ func (dao *SwapDao) RemoveAssets(assets []string) error {
 	return nil
 }
 
-func (dao *SwapDao) RemoveAsset(asset string) error {
-	assetBasic := new(models.NFTAssetBasic)
-	res := dao.db.Model(&models.NFTAssetBasic{}).Where("name = ?", asset).Preload("Assets").First(assetBasic)
+func (dao *SwapDao) RemoveAsset(name string) error {
+	basic := new(models.TokenBasic)
+	res := dao.db.Model(&models.TokenBasic{}).Where("name = ?", name).Preload("Tokens").First(basic)
 	if res.Error != nil {
 		return res.Error
 	}
 
-	assetBasics := []*models.NFTAssetBasic{assetBasic}
-	assetMaps := getAssetMapsFromAsset(assetBasics)
-	for _, assetMap := range assetMaps {
-		dao.db.Where("src_chain_id = ? and src_asset_hash = ? and dst_chain_id = ? and dst_asset_hash = ?",
-			assetMap.SrcChainId,
-			strings.ToLower(assetMap.SrcAssetHash),
-			assetMap.DstChainId,
-			strings.ToLower(assetMap.DstAssetHash),
-		).Delete(&models.NFTAssetMap{})
+	basics := []*models.TokenBasic{basic}
+	maps := getAssetMapsFromAsset(basics)
+	for _, mp := range maps {
+		dao.db.Where("src_chain_id = ? and src_token_hash = ? and dst_chain_id = ? and dst_token_hash = ?",
+			mp.SrcChainId,
+			strings.ToLower(mp.SrcTokenHash),
+			mp.DstChainId,
+			strings.ToLower(mp.DstTokenHash),
+		).Delete(&models.TokenMap{})
 	}
-	for _, asset := range assetBasic.Assets {
-		dao.db.Where("hash = ? and chain_id = ?", asset.Hash, asset.ChainId).Delete(&models.NFTAsset{})
+	for _, asset := range basic.Tokens {
+		dao.db.Where("hash = ? and chain_id = ?", asset.Hash, asset.ChainId).Delete(&models.Token{})
 	}
-	dao.db.Where("name = ?", assetBasic.Name).Delete(&models.NFTAssetBasic{})
+	dao.db.Where("name = ?", basic.Name).Delete(&models.NFTToken{})
 	return nil
 }
 
-func (dao *SwapDao) RemoveAssetMaps(assetMaps []*models.NFTAssetMap) error {
-	for _, assetMap := range assetMaps {
-		dao.db.Model(&models.NFTAssetMap{}).
-			Where("src_chain_id = ? and src_asset_hash = ? and dst_chain_id = ? and dst_asset_hash = ?",
-				assetMap.SrcChainId,
-				strings.ToLower(assetMap.SrcAssetHash),
-				assetMap.DstChainId,
-				strings.ToLower(assetMap.DstAssetHash),
-			).Update("disable", 1)
+func (dao *SwapDao) RemoveAssetMaps(maps []*models.TokenMap) error {
+	for _, mp := range maps {
+		dao.db.Model(&models.TokenMap{}).
+			Where("src_chain_id = ? and src_token_hash = ? and dst_chain_id = ? and dst_token_hash = ?",
+				mp.SrcChainId,
+				strings.ToLower(mp.SrcTokenHash),
+				mp.DstChainId,
+				strings.ToLower(mp.DstTokenHash),
+			).Update("property", 0)
 	}
 	return nil
 }
 
-func getAssetMapsFromAsset(assetBasics []*models.NFTAssetBasic) []*models.NFTAssetMap {
-	assetMaps := make([]*models.NFTAssetMap, 0)
-	for _, assetBasic := range assetBasics {
-		for _, src := range assetBasic.Assets {
-			for _, dst := range assetBasic.Assets {
+func getAssetMapsFromAsset(basics []*models.TokenBasic) []*models.TokenMap {
+	maps := make([]*models.TokenMap, 0)
+	for _, basic := range basics {
+		for _, src := range basic.Tokens {
+			for _, dst := range basic.Tokens {
 				if dst.ChainId != src.ChainId {
-					assetMaps = append(assetMaps, &models.NFTAssetMap{
+					maps = append(maps, &models.TokenMap{
 						SrcChainId:   src.ChainId,
-						SrcAssetHash: src.Hash,
+						SrcTokenHash: src.Hash,
 						DstChainId:   dst.ChainId,
-						DstAssetHash: dst.Hash,
-						Disable:      0,
+						DstTokenHash: dst.Hash,
+						Property:     1,
 					})
 				}
 			}
 		}
 	}
-	return assetMaps
+	return maps
 }
