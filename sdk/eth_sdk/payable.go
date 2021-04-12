@@ -22,7 +22,6 @@ package eth_sdk
 import (
 	"context"
 	"crypto/ecdsa"
-	"fmt"
 	"math/big"
 	"strings"
 
@@ -452,12 +451,10 @@ func (s *EthereumSdk) BatchGetTokenUrls(
 	for {
 		if num, eof = source.NextHash(); !eof {
 			tokenId = new(big.Int).SetBytes(ReverseRune(num[:]))
-			fmt.Printf("------------token id %s\r\n", tokenId.String())
 		} else {
 			break
 		}
 		if url, eof = source.NextString(); !eof {
-			fmt.Printf("------------token url %s\r\n", url)
 			res[tokenId] = url
 		} else {
 			break
